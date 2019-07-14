@@ -4,9 +4,10 @@ import { BackgroundLink } from "../components/backgroundLink";
 import Layout from "../components/layout";
 import Image from "../components/image";
 import SEO from "../components/seo";
+import { groupBy } from "lodash";
+import { slug } from "../util/slug";
 
 interface BasicLevelData {
-    levelId: number;
     levelName: string;
     gameNameUsa: string;
 }
@@ -22,18 +23,28 @@ interface IndexPageProps {
     };
 }
 
-const IndexPage: React.FunctionComponent<IndexPageProps> = ({ data }) => (
-    <Layout>
-        <SEO title="Fighting Game Backgrounds" />
-        <ul>
-            {data.allGoogleSheetLeveldataRow.edges.map(edge => (
-                <li key={edge.node.levelId}>
-                    <BackgroundLink {...edge.node} />
-                </li>
+const IndexPage: React.FunctionComponent<IndexPageProps> = ({ data }) => {
+    const nodes = data.allGoogleSheetLeveldataRow.edges.map(e => e.node);
+    const bySystem = groupBy(nodes, "system");
+
+    return (
+        <Layout>
+            <SEO title="Fighting Game Backgrounds" />
+            {Object.keys(bySystem).map(system => (
+                <Link to={slug(system)}>
+                    <h2>{system}</h2>
+                    <ul>
+                        {bySystem[system].map(l => (
+                            <li>
+                                <BackgroundLink {...l} />
+                            </li>
+                        ))}
+                    </ul>
+                </Link>
             ))}
-        </ul>
-    </Layout>
-);
+        </Layout>
+    );
+};
 
 export default IndexPage;
 
@@ -43,7 +54,6 @@ export const query = graphql`
             totalCount
             edges {
                 node {
-                    levelId
                     levelName
                     gameNameUsa
                     system

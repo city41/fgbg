@@ -16,7 +16,6 @@ export const createGamePages: GatsbyCreatePages = async ({
                 totalCount
                 edges {
                     node {
-                        levelId
                         levelName
                         gameNameUsa
                         imageFileName

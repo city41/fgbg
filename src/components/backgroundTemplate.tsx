@@ -1,9 +1,9 @@
-import React from "react"
-import { graphql } from "gatsby"
+import React from "react";
+import { graphql } from "gatsby";
 
 const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
-    const levelData = data.allGoogleSheetLeveldataRow.edges[0].node
-    const imgUrl = data.allFile.edges[0].node.publicURL
+    const levelData = data.allGoogleSheetLeveldataRow.edges[0].node;
+    const imgUrl = data.allFile.edges[0].node.publicURL;
 
     return (
         <div>
@@ -14,8 +14,8 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
                 <img src={imgUrl} />
             </div>
         </div>
-    )
-}
+    );
+};
 
 export const query = graphql`
     query($levelId: Int!, $imageFileName: String!) {
@@ -35,6 +35,6 @@ export const query = graphql`
             }
         }
     }
-`
+`;
 
-export default BackgroundTemplate
+export default BackgroundTemplate;
