@@ -21,7 +21,7 @@ export const BackgroundMetaData: React.FunctionComponent<BackgroundMetaDataProps
                 </tr>
                 <tr>
                     <td>released</td>
-                    <td>{year}</td>
+                    <td>{year || "?"}</td>
                 </tr>
             </tbody>
         </table>

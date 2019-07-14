@@ -5,13 +5,30 @@ import { BackgroundMetaData } from "./backgroundMetaData";
 
 import styles from "./backgroundTemplate.module.css";
 
+function getImageUrl(edges) {
+    const edge = edges.find(e => e.node.relativePath.indexOf("_static.jpg") < 0);
+
+    return edge.node.publicURL;
+}
+
+function getStaticImageUrl(edges) {
+    const edge = edges.find(e => e.node.relativePath.indexOf("_static.jpg") > -1);
+
+    if (!edge) {
+        return getImageUrl(edges);
+    }
+
+    return edge.node.publicURL;
+}
+
 const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
     const levelData = data.allGoogleSheetLeveldataRow.edges[0].node;
-    const imgUrl = data.allFile.edges[0].node.publicURL;
+    const imgUrl = getImageUrl(data.allFile.edges);
+    const staticImgUrl = getStaticImageUrl(data.allFile.edges);
 
     return (
         <>
-            <div className={styles.blur} style={{ backgroundImage: `url(${imgUrl})` }} />
+            <div className={styles.blur} style={{ backgroundImage: `url(${staticImgUrl})` }} />
             <div className={styles.root}>
                 <BackgroundHeader className={styles.header} {...levelData} />
                 <div className={styles.imageContainer}>
@@ -26,7 +43,7 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
 };
 
 export const query = graphql`
-    query($levelId: Int!, $imageFileName: String!) {
+    query($levelId: Int!, $imageFileNameRegex: String!) {
         allGoogleSheetLeveldataRow(filter: { levelId: { eq: $levelId } }) {
             edges {
                 node {
@@ -37,10 +54,11 @@ export const query = graphql`
                 }
             }
         }
-        allFile(filter: { relativePath: { eq: $imageFileName } }) {
+        allFile(filter: { relativePath: { regex: $imageFileNameRegex } }) {
             edges {
                 node {
                     publicURL
+                    relativePath
                 }
             }
         }
