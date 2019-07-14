@@ -1,5 +1,8 @@
 import React from "react";
+import { Link } from "gatsby";
 import classnames from "classnames";
+import { systemPath } from "../util/systemPath";
+import { yearPath } from "../util/yearPath";
 
 import styles from "./backgroundMetaData.module.css";
 
@@ -17,11 +20,15 @@ export const BackgroundMetaData: React.FunctionComponent<BackgroundMetaDataProps
             <tbody>
                 <tr>
                     <td>system</td>
-                    <td>{system}</td>
+                    <td>
+                        <Link to={systemPath(system)}>{system}</Link>
+                    </td>
                 </tr>
                 <tr>
                     <td>released</td>
-                    <td>{year || "?"}</td>
+                    <td>
+                        <Link to={yearPath(year)}>{year || "?"}</Link>
+                    </td>
                 </tr>
             </tbody>
         </table>

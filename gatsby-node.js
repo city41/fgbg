@@ -1,6 +1,3 @@
-// const path = require("path");
-// const { bgpath } = require("./src/util/bgpath");
-
 "use strict";
 
 /**

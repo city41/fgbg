@@ -1,6 +1,6 @@
 import * as path from "path";
 import { GatsbyCreatePages } from "./types";
-import { bgpath } from "../util/bgpath";
+import { backgroundPath } from "../util/backgroundPath";
 
 export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundActionCreators }) => {
     const { createPage } = boundActionCreators;
@@ -29,7 +29,7 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
     }
 
     result.data.allGoogleSheetLeveldataRow.edges.forEach(({ node }) => {
-        const webPath = bgpath(node);
+        const webPath = backgroundPath(node);
         const imageFileRoot = node.imageFileName.split(".")[0];
 
         createPage({

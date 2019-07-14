@@ -1,18 +1,14 @@
 import React from "react";
 import { Link } from "gatsby";
-import { bgpath } from "../util/bgpath";
+import { backgroundPath } from "../util/backgroundPath";
 
 interface BackgroundLinkProps {
     levelName: string;
     gameNameUsa: string;
 }
 
-export const BackgroundLink: React.FunctionComponent<BackgroundLinkProps> = ({
-    levelName,
-    gameNameUsa,
-    children,
-}) => {
-    const entryPath = bgpath({ gameNameUsa, levelName });
+export const BackgroundLink: React.FunctionComponent<BackgroundLinkProps> = ({ levelName, gameNameUsa, children }) => {
+    const entryPath = backgroundPath({ gameNameUsa, levelName });
 
     children = children || `${gameNameUsa} - ${levelName}`;
 

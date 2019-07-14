@@ -15,3 +15,13 @@
 .gameName {
     text-align: right;
 }
+
+.gameName a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.gameName a:hover {
+    text-decoration: underline;
+}

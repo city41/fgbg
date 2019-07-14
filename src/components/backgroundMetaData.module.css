@@ -14,3 +14,13 @@
     text-align: left;
     color: white;
 }
+
+.root a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.root a:hover {
+    text-decoration: underline;
+}
