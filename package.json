@@ -40,8 +40,9 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "yarn gen-static && gatsby build",
-    "develop": "yarn gen-static && gatsby develop",
+    "clean": "rm -rf .cache",
+    "build": "yarn clean && yarn gen-static && gatsby build",
+    "develop": "yarn clean && yarn gen-static && gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",

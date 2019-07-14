@@ -30,7 +30,7 @@ const IndexPage: React.FunctionComponent<IndexPageProps> = ({ data }) => {
     return (
         <Layout>
             <SEO title="Fighting Game Backgrounds" />
-            <pre>FGBG</pre>
+            <pre>FGBG ({data.allGoogleSheetLeveldataRow.totalCount} backgrounds)</pre>
             {Object.keys(bySystem).map(systemName => {
                 const byGame = groupBy(bySystem[systemName], "gameNameUsa");
 

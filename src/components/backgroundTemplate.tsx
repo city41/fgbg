@@ -10,7 +10,7 @@ import styles from "./backgroundTemplate.module.css";
 function getImageUrl(edges) {
     const edge = edges.find(e => e.node.relativePath.indexOf("_static.jpg") < 0);
 
-    return edge.node.publicURL;
+    return edge && edge.node.publicURL;
 }
 
 function getStaticImageUrl(edges) {
