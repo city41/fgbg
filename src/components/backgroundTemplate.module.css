@@ -5,7 +5,7 @@
     bottom: 0;
     left: 0;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 .header {
@@ -64,4 +64,10 @@
 
 .metaData {
     grid-column: 2;
+}
+
+.nextBackground {
+    position: fixed;
+    bottom: 0;
+    right: 24px;
 }

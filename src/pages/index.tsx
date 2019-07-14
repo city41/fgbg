@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
 import { BackgroundLink } from "../components/backgroundLink";
-import Layout from "../components/layout";
+import { Layout } from "../components/layout";
 import Image from "../components/image";
 import SEO from "../components/seo";
 import { groupBy } from "lodash";
@@ -28,7 +28,7 @@ const IndexPage: React.FunctionComponent<IndexPageProps> = ({ data }) => {
     const bySystem = groupBy(nodes, "system");
 
     return (
-        <>
+        <Layout>
             <SEO title="Fighting Game Backgrounds" />
             <pre>FGBG</pre>
             {Object.keys(bySystem).map(systemName => {
@@ -46,9 +46,7 @@ const IndexPage: React.FunctionComponent<IndexPageProps> = ({ data }) => {
                                     <ul>
                                         {byGame[gameName].map(l => (
                                             <li>
-                                                <BackgroundLink {...l}>
-                                                    {l.levelName}
-                                                </BackgroundLink>
+                                                <BackgroundLink {...l}>{l.levelName}</BackgroundLink>
                                             </li>
                                         ))}
                                     </ul>
@@ -58,7 +56,7 @@ const IndexPage: React.FunctionComponent<IndexPageProps> = ({ data }) => {
                     </>
                 );
             })}
-        </>
+        </Layout>
     );
 };
 

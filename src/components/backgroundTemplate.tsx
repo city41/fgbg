@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import { Layout } from "./layout";
 import { BackgroundHeader } from "./backgroundHeader";
 import { BackgroundMetaData } from "./backgroundMetaData";
+import { NextBackground } from "./nextBackground";
 
 import styles from "./backgroundTemplate.module.css";
 
@@ -23,7 +24,8 @@ function getStaticImageUrl(edges) {
 }
 
 const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
-    const levelData = data.allGoogleSheetLeveldataRow.edges[0].node;
+    const levelData = data.currentLevel;
+    const nextLevel = data.nextLevel;
     const imgUrl = getImageUrl(data.allFile.edges);
     const staticImgUrl = getStaticImageUrl(data.allFile.edges);
 
@@ -38,22 +40,23 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
                         <BackgroundMetaData className={styles.metaData} {...levelData} />
                     </div>
                 </div>
+                {nextLevel && <NextBackground className={styles.nextBackground} {...nextLevel} />}
             </div>
         </Layout>
     );
 };
 
 export const query = graphql`
-    query($levelId: Int!, $imageFileNameRegex: String!) {
-        allGoogleSheetLeveldataRow(filter: { levelId: { eq: $levelId } }) {
-            edges {
-                node {
-                    levelName
-                    gameNameUsa
-                    system
-                    year
-                }
-            }
+    query($levelId: Int!, $nextLevelId: Int, $imageFileNameRegex: String!) {
+        currentLevel: googleSheetLeveldataRow(levelId: { eq: $levelId }) {
+            levelName
+            gameNameUsa
+            system
+            year
+        }
+        nextLevel: googleSheetLeveldataRow(levelId: { eq: $nextLevelId }) {
+            levelName
+            gameNameUsa
         }
         allFile(filter: { relativePath: { regex: $imageFileNameRegex } }) {
             edges {
