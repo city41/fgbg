@@ -1,5 +1,6 @@
 import React from "react";
 import { graphql } from "gatsby";
+import { Layout } from "./layout";
 import { BackgroundHeader } from "./backgroundHeader";
 import { BackgroundMetaData } from "./backgroundMetaData";
 
@@ -27,7 +28,7 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
     const staticImgUrl = getStaticImageUrl(data.allFile.edges);
 
     return (
-        <>
+        <Layout>
             <div className={styles.blur} style={{ backgroundImage: `url(${staticImgUrl})` }} />
             <div className={styles.root}>
                 <BackgroundHeader className={styles.header} {...levelData} />
@@ -38,7 +39,7 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
                     </div>
                 </div>
             </div>
-        </>
+        </Layout>
     );
 };
 

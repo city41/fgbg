@@ -1,41 +1,18 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from "react";
-import { useStaticQuery, graphql } from "gatsby";
+import { Link } from "gatsby";
+import logoSvg from "../images/logo.svg";
 
-import Header from "./header";
+import styles from "./layout.module.css";
 
-const Layout: React.FunctionComponent = ({ children }) => {
-    const data = useStaticQuery(graphql`
-        query SiteTitleQuery {
-            site {
-                siteMetadata {
-                    title
-                }
-            }
-        }
-    `);
-
+export const Layout: React.FunctionComponent = ({ children }) => {
     return (
         <>
-            <Header siteTitle={data.site.siteMetadata.title} />
-            <div
-                style={{
-                    margin: `0 auto`,
-                    maxWidth: 960,
-                    padding: `0px 1.0875rem 1.45rem`,
-                    paddingTop: 0,
-                }}
-            >
-                <main>{children}</main>
+            {children}
+            <div className={styles.logo}>
+                <Link to="/">
+                    <img src={logoSvg} />
+                </Link>
             </div>
         </>
     );
 };
-
-export default Layout;
