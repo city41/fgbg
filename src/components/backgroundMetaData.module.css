@@ -1,0 +1,16 @@
+.root {
+    border-collapse: collapse;
+    border: 0;
+    font-size: 0.8rem;
+}
+
+.root tr td:nth-child(1) {
+    padding-right: 10px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.root tr td:nth-child(2) {
+    font-weight: bold;
+    text-align: left;
+    color: white;
+}
