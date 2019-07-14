@@ -28,21 +28,37 @@ const IndexPage: React.FunctionComponent<IndexPageProps> = ({ data }) => {
     const bySystem = groupBy(nodes, "system");
 
     return (
-        <Layout>
+        <>
             <SEO title="Fighting Game Backgrounds" />
-            {Object.keys(bySystem).map(system => (
-                <Link to={slug(system)}>
-                    <h2>{system}</h2>
-                    <ul>
-                        {bySystem[system].map(l => (
-                            <li>
-                                <BackgroundLink {...l} />
-                            </li>
-                        ))}
-                    </ul>
-                </Link>
-            ))}
-        </Layout>
+            <pre>FGBG</pre>
+            {Object.keys(bySystem).map(systemName => {
+                const byGame = groupBy(bySystem[systemName], "gameNameUsa");
+
+                return (
+                    <>
+                        <Link to={slug(systemName)}>
+                            <h2>{systemName}</h2>
+                        </Link>
+                        <ul>
+                            {Object.keys(byGame).map(gameName => (
+                                <li>
+                                    <Link to={slug(gameName)}>{gameName}</Link>
+                                    <ul>
+                                        {byGame[gameName].map(l => (
+                                            <li>
+                                                <BackgroundLink {...l}>
+                                                    {l.levelName}
+                                                </BackgroundLink>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </li>
+                            ))}
+                        </ul>
+                    </>
+                );
+            })}
+        </>
     );
 };
 
