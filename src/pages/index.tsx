@@ -27,9 +27,11 @@ const Entry: React.FunctionComponent<BasicLevelData> = ({
     levelId,
     levelName,
     gameNameUsa,
+    system,
 }) => {
+    const entryPath = [system, gameNameUsa, levelName].map(slug).join("/")
     return (
-        <Link to={`/bg/${slug(gameNameUsa)}/${slug(levelName)}/`}>
+        <Link to={entryPath}>
             {gameNameUsa} - {levelName}
         </Link>
     )
@@ -59,6 +61,7 @@ export const query = graphql`
                     levelId
                     levelName
                     gameNameUsa
+                    system
                 }
             }
         }

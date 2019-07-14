@@ -26,6 +26,7 @@ exports.createPages = async ({ graphql, actions }) => {
                         levelName
                         gameNameUsa
                         imageFileName
+                        system
                     }
                 }
             }
@@ -38,7 +39,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     result.data.allGoogleSheetLeveldataRow.edges.forEach(({ node }) => {
         const webPath = path.join(
-            "bg",
+            slug(node.system),
             slug(node.gameNameUsa),
             slug(node.levelName)
         )
