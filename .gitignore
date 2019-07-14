@@ -69,3 +69,6 @@ yarn-error.log
 .yarn-integrity
 
 client_secret.json
+
+# static bgs that get generated
+src/images/bgs/*_static.jpg
