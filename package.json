@@ -16,6 +16,7 @@
     "gatsby-source-filesystem": "^2.1.5",
     "gatsby-source-google-sheets": "^1.1.1",
     "gatsby-transformer-sharp": "^2.2.3",
+    "gh-pages": "^2.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -38,7 +39,8 @@
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
+    "deploy": "yarn build && gh-pages -d public"
   },
   "repository": {
     "type": "git",
