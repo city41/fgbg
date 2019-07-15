@@ -47,7 +47,7 @@
 .imageContainer {
     width: 75%;
     position: absolute;
-    top: 10%;
+    top: 100px;
     left: 50%;
     transform: translateX(-50%);
 }

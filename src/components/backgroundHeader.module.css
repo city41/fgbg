@@ -1,13 +1,29 @@
 .root {
     padding: 6px 16px;
     background-color: rgba(0, 0, 0, 0.7);
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.4);
     font-size: 0.8rem;
     border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
     text-align: center;
 
     display: grid;
     grid-template-columns: 50% 50%;
+}
+
+.root svg {
+    vertical-align: middle;
+    color: white;
+    height: 0.6rem;
+    width: 0.6rem;
+    margin-bottom: 2px;
+}
+
+.root svg:nth-child(1) {
+    margin-right: 4px;
+}
+
+.root svg:nth-child(2) {
+    margin-left: 4px;
 }
 
 .root div:nth-child(1) {
@@ -19,11 +35,15 @@
 }
 
 .root a {
-    color: white;
+    color: rgba(255, 255, 255, 0.4);
     text-decoration: none;
     cursor: pointer;
 }
 
 .root a:hover {
     text-decoration: underline;
+}
+
+.root .levelName {
+    color: white;
 }

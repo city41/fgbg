@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import classnames from "classnames";
 import { backgroundPath } from "../util/backgroundPath";
 
@@ -28,12 +29,14 @@ export const BackgroundHeader: React.FunctionComponent<BackgroundHeaderProps> = 
         <header className={classes}>
             <div>
                 <Link to={backgroundPath(prevLevel)}>
-                    &lt; {prevLevel.levelName} from {prevLevel.gameNameUsa}
+                    <FaChevronLeft />
+                    <span className={styles.levelName}>{prevLevel.levelName}</span> from {prevLevel.gameNameUsa}
                 </Link>
             </div>
             <div>
                 <Link to={backgroundPath(nextLevel)}>
-                    {nextLevel.levelName} from {nextLevel.gameNameUsa} &gt;
+                    <span className={styles.levelName}>{nextLevel.levelName}</span> from {nextLevel.gameNameUsa}{" "}
+                    <FaChevronRight />
                 </Link>
             </div>
         </header>
