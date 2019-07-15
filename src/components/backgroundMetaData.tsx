@@ -4,6 +4,7 @@ import classnames from "classnames";
 import { systemPath } from "../util/systemPath";
 import { yearPath } from "../util/yearPath";
 import { gamePath } from "../util/gamePath";
+import { developerPath } from "../util/developerPath";
 
 import styles from "./backgroundMetaData.module.css";
 
@@ -19,6 +20,7 @@ export const BackgroundMetaData: React.FunctionComponent<BackgroundMetaDataProps
     className,
     levelName,
     gameNameUsa,
+    developer,
     system,
     year,
 }) => {
@@ -34,6 +36,12 @@ export const BackgroundMetaData: React.FunctionComponent<BackgroundMetaDataProps
                     <td>game</td>
                     <td>
                         <Link to={gamePath(gameNameUsa)}>{gameNameUsa}</Link>
+                    </td>
+                </tr>
+                <tr>
+                    <td>developer</td>
+                    <td>
+                        <Link to={developerPath(developer)}>{developer}</Link>
                     </td>
                 </tr>
                 <tr>

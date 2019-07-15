@@ -62,6 +62,7 @@ export const query = graphql`
         currentLevel: googleSheetLeveldataRow(levelId: { eq: $levelId }) {
             levelName
             gameNameUsa
+            developer
             system
             year
         }

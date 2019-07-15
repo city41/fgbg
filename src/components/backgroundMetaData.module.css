@@ -14,6 +14,7 @@
 .root tr td:nth-child(1) {
     padding-right: 10px;
     color: rgba(255, 255, 255, 0.6);
+    text-align: right;
 }
 
 .root tr td:nth-child(2) {
