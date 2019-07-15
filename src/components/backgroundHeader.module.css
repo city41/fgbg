@@ -10,6 +10,24 @@
     grid-template-columns: 50% 50%;
 }
 
+.nextLevelContainer {
+    grid-column: 2;
+}
+
+@media (max-width: 401px) {
+    .root {
+        grid-template-columns: 100%;
+    }
+
+    .prevLevelContainer {
+        display: none;
+    }
+
+    .nextLevelContainer {
+        grid-column: 1;
+    }
+}
+
 .root svg {
     vertical-align: middle;
     color: white;

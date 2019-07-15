@@ -27,13 +27,13 @@ export const BackgroundHeader: React.FunctionComponent<BackgroundHeaderProps> = 
 
     return (
         <header className={classes}>
-            <div>
+            <div className={styles.prevLevelContainer}>
                 <Link to={backgroundPath(prevLevel)}>
                     <FaChevronLeft />
                     <span className={styles.levelName}>{prevLevel.levelName}</span> from {prevLevel.gameNameUsa}
                 </Link>
             </div>
-            <div>
+            <div className={styles.nextLevelContainer}>
                 <Link to={backgroundPath(nextLevel)}>
                     <span className={styles.levelName}>{nextLevel.levelName}</span> from {nextLevel.gameNameUsa}{" "}
                     <FaChevronRight />

@@ -52,6 +52,12 @@
     transform: translateX(-50%);
 }
 
+@media (max-width: 401px) {
+    .imageContainer {
+        width: 96%;
+    }
+}
+
 .imageContainer img {
     width: 100%;
     border: 1px solid rgba(255, 255, 255, 0.3);
