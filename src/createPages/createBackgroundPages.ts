@@ -44,7 +44,7 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
             context: {
                 levelId: node.levelId,
                 imageFileNameRegex: `/${imageFileRoot}/`,
-                prevLevelId: (previous && previous.levelId) || result.data.totalCount,
+                prevLevelId: (previous && previous.levelId) || result.data.allGoogleSheetLeveldataRow.totalCount,
                 nextLevelId: (next && next.levelId) || 1,
             },
         });
