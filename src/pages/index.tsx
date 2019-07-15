@@ -31,31 +31,35 @@ const IndexPage: React.FunctionComponent<IndexPageProps> = ({ data }) => {
         <Layout>
             <SEO title="Fighting Game Backgrounds" />
             <pre>FGBG ({data.allGoogleSheetLeveldataRow.totalCount} backgrounds)</pre>
-            {Object.keys(bySystem).map(systemName => {
-                const byGame = groupBy(bySystem[systemName], "gameNameUsa");
+            {Object.keys(bySystem)
+                .sort()
+                .map(systemName => {
+                    const byGame = groupBy(bySystem[systemName], "gameNameUsa");
 
-                return (
-                    <>
-                        <Link to={slug(systemName)}>
-                            <h2>{systemName}</h2>
-                        </Link>
-                        <ul>
-                            {Object.keys(byGame).map(gameName => (
-                                <li>
-                                    <Link to={slug(gameName)}>{gameName}</Link>
-                                    <ul>
-                                        {byGame[gameName].map(l => (
-                                            <li>
-                                                <BackgroundLink {...l}>{l.levelName}</BackgroundLink>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </li>
-                            ))}
-                        </ul>
-                    </>
-                );
-            })}
+                    return (
+                        <>
+                            <Link to={slug(systemName)}>
+                                <h2>{systemName}</h2>
+                            </Link>
+                            <ul>
+                                {Object.keys(byGame)
+                                    .sort()
+                                    .map(gameName => (
+                                        <li>
+                                            <Link to={slug(gameName)}>{gameName}</Link>
+                                            <ul>
+                                                {byGame[gameName].map(l => (
+                                                    <li>
+                                                        <BackgroundLink {...l}>{l.levelName}</BackgroundLink>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </li>
+                                    ))}
+                            </ul>
+                        </>
+                    );
+                })}
         </Layout>
     );
 };
