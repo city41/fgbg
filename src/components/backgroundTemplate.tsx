@@ -5,7 +5,6 @@ import { graphql } from "gatsby";
 import { Layout } from "./layout";
 import { BackgroundHeader } from "./backgroundHeader";
 import { BackgroundMetaData } from "./backgroundMetaData";
-import { NextBackground } from "./nextBackground";
 import { backgroundPath } from "../util/backgroundPath";
 
 import styles from "./backgroundTemplate.module.css";
@@ -52,7 +51,6 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
                         <BackgroundMetaData className={styles.metaData} {...levelData} />
                     </div>
                 </div>
-                {nextLevel && <NextBackground className={styles.nextBackground} {...nextLevel} />}
             </div>
         </Layout>
     );
