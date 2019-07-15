@@ -25,6 +25,7 @@ function getStaticImageUrl(edges) {
 
 const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
     const levelData = data.currentLevel;
+    const prevLevel = data.prevLevel;
     const nextLevel = data.nextLevel;
     const imgUrl = getImageUrl(data.allFile.edges);
     const staticImgUrl = getStaticImageUrl(data.allFile.edges);
@@ -33,7 +34,7 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
         <Layout>
             <div className={styles.blur} style={{ backgroundImage: `url(${staticImgUrl})` }} />
             <div className={styles.root}>
-                <BackgroundHeader className={styles.header} {...levelData} />
+                <BackgroundHeader className={styles.header} prevLevel={prevLevel} nextLevel={nextLevel} />
                 <div className={styles.imageContainer}>
                     <img src={imgUrl} />
                     <div className={styles.metaDataContainer}>
@@ -47,12 +48,16 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
 };
 
 export const query = graphql`
-    query($levelId: Int!, $nextLevelId: Int, $imageFileNameRegex: String!) {
+    query($levelId: Int!, $prevLevelId: Int!, $nextLevelId: Int!, $imageFileNameRegex: String!) {
         currentLevel: googleSheetLeveldataRow(levelId: { eq: $levelId }) {
             levelName
             gameNameUsa
             system
             year
+        }
+        prevLevel: googleSheetLeveldataRow(levelId: { eq: $prevLevelId }) {
+            levelName
+            gameNameUsa
         }
         nextLevel: googleSheetLeveldataRow(levelId: { eq: $nextLevelId }) {
             levelName

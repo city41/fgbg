@@ -9,6 +9,7 @@ import styles from "./backgroundMetaData.module.css";
 
 interface BackgroundMetaDataProps {
     className?: string;
+    levelName: string;
     gameNameUsa: string;
     system: string;
     year?: string;
@@ -16,6 +17,7 @@ interface BackgroundMetaDataProps {
 
 export const BackgroundMetaData: React.FunctionComponent<BackgroundMetaDataProps> = ({
     className,
+    levelName,
     gameNameUsa,
     system,
     year,
@@ -25,6 +27,9 @@ export const BackgroundMetaData: React.FunctionComponent<BackgroundMetaDataProps
     return (
         <table className={classes}>
             <tbody>
+                <tr className={styles.levelNameRow}>
+                    <td colSpan={2}>{levelName}</td>
+                </tr>
                 <tr>
                     <td>game</td>
                     <td>

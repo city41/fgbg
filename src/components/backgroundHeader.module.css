@@ -5,4 +5,25 @@
     font-size: 0.8rem;
     border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
     text-align: center;
+
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.root div:nth-child(1) {
+    text-align: left;
+}
+
+.root div:nth-child(2) {
+    text-align: right;
+}
+
+.root a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.root a:hover {
+    text-decoration: underline;
 }

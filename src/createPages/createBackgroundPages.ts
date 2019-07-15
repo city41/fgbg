@@ -19,6 +19,9 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
                         imageFileName
                         system
                     }
+                    previous {
+                        levelId
+                    }
                     next {
                         levelId
                     }
@@ -31,7 +34,7 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
         throw result.errors;
     }
 
-    result.data.allGoogleSheetLeveldataRow.edges.forEach(({ node, next }) => {
+    result.data.allGoogleSheetLeveldataRow.edges.forEach(({ node, previous, next }) => {
         const webPath = backgroundPath(node);
         const imageFileRoot = node.imageFileName.split(".")[0];
 
@@ -41,6 +44,7 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
             context: {
                 levelId: node.levelId,
                 imageFileNameRegex: `/${imageFileRoot}/`,
+                prevLevelId: (previous && previous.levelId) || result.data.totalCount,
                 nextLevelId: (next && next.levelId) || 1,
             },
         });

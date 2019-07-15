@@ -4,6 +4,13 @@
     font-size: 0.8rem;
 }
 
+.root tr.levelNameRow > td:nth-child(1) {
+    text-align: center;
+    padding-bottom: 12px;
+    color: white;
+    font-size: 1.2rem;
+}
+
 .root tr td:nth-child(1) {
     padding-right: 10px;
     color: rgba(255, 255, 255, 0.6);
