@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useHotkeys } from "react-hotkeys-hook";
 import { navigate } from "@reach/router";
 import { graphql } from "gatsby";
@@ -25,11 +26,6 @@ function getStaticImageUrl(edges) {
     return edge.node.publicURL;
 }
 
-// const keyMap = {
-//     PREV_LEVEL: "ArrowLeft",
-//     NEXT_LEVEL: "ArrowRight",
-// };
-
 const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
     const levelData = data.currentLevel;
     const prevLevel = data.prevLevel;
@@ -42,6 +38,11 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
 
     return (
         <Layout>
+            <Helmet>
+                <title>
+                    {levelData.levelName} from {levelData.gameNameUsa} - FGBG
+                </title>
+            </Helmet>
             <div className={styles.blur} style={{ backgroundImage: `url(${staticImgUrl})` }} />
             <div className={styles.root}>
                 <BackgroundHeader className={styles.header} prevLevel={prevLevel} nextLevel={nextLevel} />
