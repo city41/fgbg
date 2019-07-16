@@ -1,11 +1,8 @@
 import * as path from "path";
 import { GatsbyCreatePages } from "./types";
-import { slug } from "../util/slug";
+import { gamePath } from "../util";
 
-export const createGamePages: GatsbyCreatePages = async ({
-    graphql,
-    boundActionCreators,
-}) => {
+export const createGamePages: GatsbyCreatePages = async ({ graphql, boundActionCreators }) => {
     const { createPage } = boundActionCreators;
 
     const gameTemplate = path.resolve("src/components/gameTemplate.tsx");
@@ -32,7 +29,7 @@ export const createGamePages: GatsbyCreatePages = async ({
     }
 
     result.data.allGoogleSheetLeveldataRow.distinct.forEach(gameName => {
-        const webPath = slug(gameName);
+        const webPath = gamePath(gameName);
 
         createPage({
             path: webPath,
