@@ -1,0 +1,82 @@
+import React from "react";
+import { Link, graphql } from "gatsby";
+import { BackgroundLink } from "../components/backgroundLink";
+import { Layout } from "../components/layout";
+import Image from "../components/image";
+import SEO from "../components/seo";
+import { groupBy } from "lodash";
+import { slug } from "../util/slug";
+
+interface BasicLevelData {
+    levelName: string;
+    gameNameUsa: string;
+}
+
+interface IndexPageProps {
+    data: {
+        allGoogleSheetLeveldataRow: {
+            totalCount: number;
+            edges: Array<{
+                node: BasicLevelData;
+            }>;
+        };
+    };
+}
+
+const IndexPage: React.FunctionComponent<IndexPageProps> = ({ data }) => {
+    const nodes = data.allGoogleSheetLeveldataRow.edges.map(e => e.node);
+    const bySystem = groupBy(nodes, "system");
+
+    return (
+        <Layout>
+            <SEO title="Fighting Game Backgrounds" />
+            <pre>FGBG ({data.allGoogleSheetLeveldataRow.totalCount} backgrounds)</pre>
+            {Object.keys(bySystem)
+                .sort()
+                .map(systemName => {
+                    const byGame = groupBy(bySystem[systemName], "gameNameUsa");
+
+                    return (
+                        <>
+                            <Link to={slug(systemName)}>
+                                <h2>{systemName}</h2>
+                            </Link>
+                            <ul>
+                                {Object.keys(byGame)
+                                    .sort()
+                                    .map(gameName => (
+                                        <li>
+                                            <Link to={slug(gameName)}>{gameName}</Link>
+                                            <ul>
+                                                {byGame[gameName].map(l => (
+                                                    <li>
+                                                        <BackgroundLink {...l}>{l.levelName}</BackgroundLink>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </li>
+                                    ))}
+                            </ul>
+                        </>
+                    );
+                })}
+        </Layout>
+    );
+};
+
+export default IndexPage;
+
+export const query = graphql`
+    query {
+        allGoogleSheetLeveldataRow {
+            totalCount
+            edges {
+                node {
+                    levelName
+                    gameNameUsa
+                    system
+                }
+            }
+        }
+    }
+`;

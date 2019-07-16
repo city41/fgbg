@@ -2,28 +2,13 @@ import React from "react";
 import { Link, graphql } from "gatsby";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { Layout } from "../components/layout";
+import { Search } from "../components/search";
 import SEO from "../components/seo";
 import { seriesPath, developerPath, systemPath, yearPath } from "../util";
 
 import "react-tabs/style/react-tabs.css";
 
 import styles from "./index.module.css";
-
-interface BasicLevelData {
-    levelName: string;
-    gameNameUsa: string;
-}
-
-interface IndexPageProps {
-    data: {
-        allGoogleSheetLeveldataRow: {
-            totalCount: number;
-            edges: Array<{
-                node: BasicLevelData;
-            }>;
-        };
-    };
-}
 
 const BrowseColumn: React.FunctionComponent = props => {
     return (
@@ -40,7 +25,9 @@ const BrowseColumn: React.FunctionComponent = props => {
     );
 };
 
-const IndexPage: React.FunctionComponent<IndexPageProps> = ({ data }) => {
+const IndexPage: React.FunctionComponent = ({ data }) => {
+    const searchData = data.searchData.edges.map(e => e.node);
+
     return (
         <Layout>
             <SEO title="Fighting Game Backgrounds" />
@@ -59,7 +46,10 @@ const IndexPage: React.FunctionComponent<IndexPageProps> = ({ data }) => {
                         <BrowseColumn title="Year Released" pathFn={yearPath} values={data.years.distinct} />
                     </div>
                 </TabPanel>
-                <TabPanel>Search...</TabPanel>
+                <TabPanel>
+                    <h2>Search</h2>
+                    <Search data={searchData} />
+                </TabPanel>
             </Tabs>
         </Layout>
     );
