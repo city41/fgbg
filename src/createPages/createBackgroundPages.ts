@@ -13,17 +13,17 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
                 totalCount
                 edges {
                     node {
-                        levelId
+                        id
                         levelName
                         gameNameUsa
                         imageFileName
                         system
                     }
                     previous {
-                        levelId
+                        id
                     }
                     next {
-                        levelId
+                        id
                     }
                 }
             }
@@ -34,6 +34,10 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
         throw result.errors;
     }
 
+    const firstNode = result.data.allGoogleSheetLeveldataRow.edges[0].node;
+    const lastNode =
+        result.data.allGoogleSheetLeveldataRow.edges[result.data.allGoogleSheetLeveldataRow.totalCount - 1].node;
+
     result.data.allGoogleSheetLeveldataRow.edges.forEach(({ node, previous, next }) => {
         const webPath = backgroundPath(node);
         const imageFileRoot = node.imageFileName.split(".")[0];
@@ -42,10 +46,10 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
             path: webPath,
             component: backgroundTemplate,
             context: {
-                levelId: node.levelId,
+                currentId: node.id,
                 imageFileNameRegex: `/${imageFileRoot}/`,
-                prevLevelId: (previous && previous.levelId) || result.data.allGoogleSheetLeveldataRow.totalCount,
-                nextLevelId: (next && next.levelId) || 1,
+                prevId: (previous && previous.id) || lastNode.id,
+                nextId: (next && next.id) || firstNode.id,
             },
         });
     });
