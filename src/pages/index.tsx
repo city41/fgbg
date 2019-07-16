@@ -38,7 +38,7 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
                     <Tab>Search</Tab>
                 </TabList>
                 <TabPanel>
-                    <h2>Browse by</h2>
+                    <h2>Browse {data.searchData.totalCount} backgrounds by</h2>
                     <div className={styles.browseColumnContainer}>
                         <BrowseColumn title="Series" pathFn={seriesPath} values={data.series.distinct} />
                         <BrowseColumn title="Developer" pathFn={developerPath} values={data.developers.distinct} />
