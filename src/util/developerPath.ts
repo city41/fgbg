@@ -1,5 +1,5 @@
 import { slug } from "./slug";
 
 export function developerPath(developer: string) {
-    return "/" + slug(developer);
+    return "/developer:" + slug(developer);
 }

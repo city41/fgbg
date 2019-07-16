@@ -1,27 +1,15 @@
 import * as path from "path";
 import { GatsbyCreatePages } from "./types";
-import { slug } from "../util/slug";
+import { systemPath } from "../util";
 
-export const createSystemPages: GatsbyCreatePages = async ({
-    graphql,
-    boundActionCreators,
-}) => {
+export const createSystemPages: GatsbyCreatePages = async ({ graphql, boundActionCreators }) => {
     const { createPage } = boundActionCreators;
 
     const systemTemplate = path.resolve("src/components/systemTemplate.tsx");
 
     const result = await graphql(`
-        query allLevels {
-            allGoogleSheetLeveldataRow {
-                totalCount
-                edges {
-                    node {
-                        levelName
-                        gameNameUsa
-                        imageFileName
-                        system
-                    }
-                }
+        query {
+            systems: allGoogleSheetLeveldataRow {
                 distinct(field: system)
             }
         }
@@ -31,8 +19,8 @@ export const createSystemPages: GatsbyCreatePages = async ({
         throw result.errors;
     }
 
-    result.data.allGoogleSheetLeveldataRow.distinct.forEach(system => {
-        const webPath = slug(system);
+    result.data.systems.distinct.forEach(system => {
+        const webPath = systemPath(system);
 
         createPage({
             path: webPath,

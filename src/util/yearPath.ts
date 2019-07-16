@@ -2,8 +2,8 @@ import { slug } from "./slug";
 
 export function yearPath(year: number | null | undefined) {
     if (year) {
-        return "/" + year;
+        return "/year:" + year;
     } else {
-        return "/missing-release-year";
+        return "/year:missing";
     }
 }
