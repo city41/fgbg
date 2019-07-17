@@ -50,7 +50,9 @@ const IndexPage: React.FunctionComponent<IndexPageProps> = ({ data }) => {
                                             <ul>
                                                 {byGame[gameName].map(l => (
                                                     <li>
-                                                        <BackgroundLink {...l}>{l.levelName}</BackgroundLink>
+                                                        <BackgroundLink newPage {...l}>
+                                                            {l.levelName}
+                                                        </BackgroundLink>
                                                     </li>
                                                 ))}
                                             </ul>

@@ -5,12 +5,26 @@ import { backgroundPath } from "../util/backgroundPath";
 interface BackgroundLinkProps {
     levelName: string;
     gameNameUsa: string;
+    newPage?: boolean;
 }
 
-export const BackgroundLink: React.FunctionComponent<BackgroundLinkProps> = ({ levelName, gameNameUsa, children }) => {
+export const BackgroundLink: React.FunctionComponent<BackgroundLinkProps> = ({
+    levelName,
+    gameNameUsa,
+    newPage,
+    children,
+}) => {
     const entryPath = backgroundPath({ gameNameUsa, levelName });
 
     children = children || `${gameNameUsa} - ${levelName}`;
 
-    return <Link to={entryPath}>{children}</Link>;
+    if (newPage) {
+        return (
+            <a href={entryPath} target="_blank">
+                {children}
+            </a>
+        );
+    } else {
+        return <Link to={entryPath}>{children}</Link>;
+    }
 };
