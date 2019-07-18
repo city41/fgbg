@@ -3451,6 +3451,14 @@ csstype@^2.2.0:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.6.tgz#c34f8226a94bbb10c32cc0d714afdf942291fc41"
   integrity sha512-RpFbQGUE74iyPgvr46U9t1xoQBM8T4BL8SxrN66Le2xYAPSaDJJKeztV3awugusb3g3G9iL8StmkBBXhcbbXhg==
 
+csvtojson@^1.1:
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/csvtojson/-/csvtojson-1.1.12.tgz#3872eef9588080f74c222ffe53cfdd416f9bb7d5"
+  integrity sha512-gJg1II2uXh8H6XP7L1YzX/6H8rrUbSTiEg4SaI6/pHOcnZovwAR3Rmm9TizSsGQBBXl1pb/JJPlaImV2YIuMrg==
+  dependencies:
+    lodash "^4.17.3"
+    strip-bom "^2.0.0"
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -5308,6 +5316,15 @@ gatsby-telemetry@^1.1.6:
     stack-trace "^0.0.10"
     stack-utils "1.0.2"
     uuid "3.3.2"
+
+gatsby-transformer-csv@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/gatsby-transformer-csv/-/gatsby-transformer-csv-2.1.2.tgz#28340a6be1382c97657c532922beb022849d90cf"
+  integrity sha512-xUeYdiZ8iLU1rjUoGAAKibEvWaFPqI7A/DziHCsHziTu2OP3P8ikLb6SUVvq+k3TQ5UdAc9W8WyambD6EJQbIA==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    bluebird "^3.5.0"
+    csvtojson "^1.1"
 
 gatsby-transformer-sharp@^2.2.3:
   version "2.2.3"
@@ -7439,7 +7456,7 @@ lodash@^3.7.0:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   integrity sha1-W/Rejkm6QYnhfUgnid/RW9FAt7Y=
 
-lodash@^4.11.1, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.14, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
+lodash@^4.11.1, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.14, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
   version "4.17.14"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.14.tgz#9ce487ae66c96254fe20b599f21b6816028078ba"
   integrity sha512-mmKYbW3GLuJeX+iGP+Y7Gp1AiGHGbXHCOh/jZmrawMmsE7MS4znI3RL2FsjbqOyMayHInjOeykW7PEajUk1/xw==

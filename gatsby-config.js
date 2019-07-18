@@ -39,5 +39,13 @@ module.exports = {
                 credentials: require("./client_secret.json"),
             },
         },
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                name: `csv`,
+                path: `${__dirname}/src/csv`,
+            },
+        },
+        `gatsby-transformer-csv`,
     ],
 };

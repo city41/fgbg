@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useHotkeys } from "react-hotkeys-hook";
 import { navigate } from "@reach/router";
@@ -36,6 +36,25 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
     useHotkeys("left", () => navigate(backgroundPath(prevLevel)));
     useHotkeys("right", () => navigate(backgroundPath(nextLevel)));
 
+    const [dimensions, setDimensions] = useState<null | { imageWidth: number; imageHeight: number }>(null);
+
+    useEffect(() => {
+        const actualImageWidth = parseInt(data.dimensions.width);
+        const actualImageHeight = parseInt(data.dimensions.height);
+        const imageAspectRatio = actualImageHeight / actualImageWidth;
+
+        const windowWidth = window.innerWidth;
+
+        const imageWidth =
+            windowWidth < 401
+                ? Math.min(Math.floor(windowWidth * 0.96), actualImageWidth)
+                : Math.min(Math.floor(windowWidth * 0.75), actualImageWidth);
+
+        const imageHeight = Math.floor(imageWidth * imageAspectRatio);
+
+        setDimensions({ imageWidth, imageHeight });
+    });
+
     return (
         <Layout>
             <Helmet>
@@ -47,7 +66,11 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
             <div className={styles.root}>
                 <BackgroundHeader className={styles.header} prevLevel={prevLevel} nextLevel={nextLevel} />
                 <div className={styles.imageContainer}>
-                    <img src={imgUrl} />
+                    {dimensions ? (
+                        <img width={dimensions.imageWidth} height={dimensions.imageHeight} src={imgUrl} />
+                    ) : (
+                        <img src={imgUrl} />
+                    )}
                     <div className={styles.metaDataContainer}>
                         <BackgroundMetaData className={styles.metaData} {...levelData} />
                     </div>
@@ -81,6 +104,10 @@ export const query = graphql`
                     relativePath
                 }
             }
+        }
+        dimensions: bgsizesCsv(file: { regex: $imageFileNameRegex }) {
+            width
+            height
         }
     }
 `;
