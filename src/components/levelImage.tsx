@@ -14,9 +14,9 @@ interface LevelImageProps {
 export const LevelImage: React.FunctionComponent<LevelImageProps> = ({ className, width, height, src, alt }) => {
     const classes = classnames(styles.root, className);
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [hadError, setHadError] = useState(false);
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowWidth, setWindowWidth] = useState(0);
 
     const actualImageWidth = parseInt(width);
     const actualImageHeight = parseInt(height);
@@ -35,6 +35,10 @@ export const LevelImage: React.FunctionComponent<LevelImageProps> = ({ className
 
         return () => window.removeEventListener("resize", onWindowResize);
     });
+
+    useEffect(() => {
+        setWindowWidth(window.innerWidth);
+    }, []);
 
     return (
         <div className={classes} style={dimensions}>
