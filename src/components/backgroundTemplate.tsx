@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
 import { useHotkeys } from "react-hotkeys-hook";
 import { navigate } from "@reach/router";
@@ -6,25 +6,10 @@ import { graphql } from "gatsby";
 import { Layout } from "./layout";
 import { BackgroundHeader } from "./backgroundHeader";
 import { BackgroundMetaData } from "./backgroundMetaData";
+import { LevelImage } from "./levelImage";
 import { backgroundPath } from "../util/backgroundPath";
 
 import styles from "./backgroundTemplate.module.css";
-
-function getImageUrl(edges) {
-    const edge = edges.find(e => e.node.relativePath.indexOf("_static.jpg") < 0);
-
-    return edge && edge.node.publicURL;
-}
-
-function getStaticImageUrl(edges) {
-    const edge = edges.find(e => e.node.relativePath.indexOf("_static.jpg") > -1);
-
-    if (!edge) {
-        return getImageUrl(edges);
-    }
-
-    return edge.node.publicURL;
-}
 
 const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
     const levelData = data.currentLevel;
@@ -37,21 +22,6 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
     const imgUrl = data.mainImg.publicURL;
     const bgImageUrl = data.bgImg.childImageSharp.resize.src;
 
-    const [dimensions, setDimensions] = useState<null | { imageWidth: number; imageHeight: number }>(null);
-
-    useEffect(() => {
-        const actualImageWidth = parseInt(data.dimensions.width);
-        const actualImageHeight = parseInt(data.dimensions.height);
-        const imageAspectRatio = actualImageHeight / actualImageWidth;
-
-        const windowWidth = window.innerWidth;
-
-        const imageWidth = windowWidth < 401 ? Math.floor(windowWidth * 0.96) : Math.floor(windowWidth * 0.75);
-        const imageHeight = Math.floor(imageWidth * imageAspectRatio);
-
-        setDimensions({ imageWidth, imageHeight });
-    });
-
     return (
         <Layout>
             <Helmet>
@@ -63,11 +33,12 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
             <div className={styles.root}>
                 <BackgroundHeader className={styles.header} prevLevel={prevLevel} nextLevel={nextLevel} />
                 <div className={styles.imageContainer}>
-                    {dimensions ? (
-                        <img width={dimensions.imageWidth} height={dimensions.imageHeight} src={imgUrl} />
-                    ) : (
-                        <img src={imgUrl} />
-                    )}
+                    <LevelImage
+                        className={styles.levelImage}
+                        width={data.dimensions.width}
+                        height={data.dimensions.height}
+                        src={imgUrl}
+                    />
                     <div className={styles.metaDataContainer}>
                         <BackgroundMetaData className={styles.metaData} {...levelData} />
                     </div>
