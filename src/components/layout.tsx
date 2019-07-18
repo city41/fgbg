@@ -12,12 +12,10 @@ const keyMap = {
 export const Layout: React.FunctionComponent = ({ children }) => {
     return (
         <>
+            <Link to="/">
+                <div className={styles.logo} />
+            </Link>
             {children}
-            <div className={styles.logo}>
-                <Link to="/">
-                    <img src={logoSvg} />
-                </Link>
-            </div>
         </>
     );
 };

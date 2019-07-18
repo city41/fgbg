@@ -8,31 +8,33 @@ interface LevelImageProps {
     width: string;
     height: string;
     src: string;
+    alt: string;
 }
 
-export const LevelImage: React.FunctionComponent<LevelImageProps> = ({ className, width, height, src }) => {
+export const LevelImage: React.FunctionComponent<LevelImageProps> = ({ className, width, height, src, alt }) => {
     const classes = classnames(styles.root, className);
 
-    const [dimensions, setDimensions] = useState<null | { width: number; height: number }>(null);
     const [loading, setLoading] = useState(true);
     const [hadError, setHadError] = useState(false);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    const actualImageWidth = parseInt(width);
+    const actualImageHeight = parseInt(height);
+    const imageAspectRatio = actualImageHeight / actualImageWidth;
+
+    const imageWidth = windowWidth < 401 ? Math.floor(windowWidth * 0.96) : Math.floor(windowWidth * 0.75);
+    const imageHeight = Math.floor(imageWidth * imageAspectRatio);
+
+    const dimensions = { width: imageWidth, height: imageHeight };
 
     useEffect(() => {
-        const actualImageWidth = parseInt(width);
-        const actualImageHeight = parseInt(height);
-        const imageAspectRatio = actualImageHeight / actualImageWidth;
+        function onWindowResize() {
+            setWindowWidth(window.innerWidth);
+        }
+        window.addEventListener("resize", onWindowResize);
 
-        const windowWidth = window.innerWidth;
-
-        const imageWidth = windowWidth < 401 ? Math.floor(windowWidth * 0.96) : Math.floor(windowWidth * 0.75);
-        const imageHeight = Math.floor(imageWidth * imageAspectRatio);
-
-        setDimensions({ width: imageWidth, height: imageHeight });
+        return () => window.removeEventListener("resize", onWindowResize);
     });
-
-    if (!dimensions) {
-        return null;
-    }
 
     return (
         <div className={classes} style={dimensions}>
@@ -55,7 +57,7 @@ export const LevelImage: React.FunctionComponent<LevelImageProps> = ({ className
             ) : (
                 <>
                     <div />
-                    <img {...dimensions} src={src} />
+                    <img {...dimensions} src={src} alt={alt} />
                 </>
             )}
         </div>

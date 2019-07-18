@@ -2,6 +2,7 @@
     border-collapse: collapse;
     border: 0;
     font-size: 0.8rem;
+    margin-bottom: 64px;
 }
 
 .root tr.levelNameRow > td:nth-child(1) {

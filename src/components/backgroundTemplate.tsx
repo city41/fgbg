@@ -22,28 +22,29 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
     const imgUrl = data.mainImg.publicURL;
     const bgImageUrl = data.bgImg.childImageSharp.resize.src;
 
+    const levelDescription = `${levelData.levelName} from ${levelData.gameNameUsa}`;
+
     return (
         <Layout>
             <Helmet>
-                <title>
-                    {levelData.levelName} from {levelData.gameNameUsa} - FGBG
-                </title>
+                <title>{levelDescription} - FGBG</title>
             </Helmet>
             <div className={styles.blur} style={{ backgroundImage: `url(${bgImageUrl})` }} />
             <div className={styles.root}>
-                <BackgroundHeader className={styles.header} prevLevel={prevLevel} nextLevel={nextLevel} />
                 <div className={styles.imageContainer}>
                     <LevelImage
                         className={styles.levelImage}
                         width={data.dimensions.width}
                         height={data.dimensions.height}
                         src={imgUrl}
+                        alt={levelDescription}
                     />
                     <div className={styles.metaDataContainer}>
                         <BackgroundMetaData className={styles.metaData} {...levelData} />
                     </div>
                 </div>
             </div>
+            <BackgroundHeader className={styles.header} prevLevel={prevLevel} nextLevel={nextLevel} />
         </Layout>
     );
 };

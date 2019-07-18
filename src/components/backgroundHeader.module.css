@@ -1,13 +1,9 @@
 .root {
     padding: 6px 16px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: black;
     color: rgba(255, 255, 255, 0.4);
     font-size: 0.8rem;
-    border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
-    text-align: center;
-
-    display: grid;
-    grid-template-columns: 50% 50%;
+    text-align: right;
 }
 
 .nextLevelContainer {
@@ -45,7 +41,7 @@
 }
 
 .root div:nth-child(1) {
-    text-align: left;
+    text-align: right;
 }
 
 .root div:nth-child(2) {

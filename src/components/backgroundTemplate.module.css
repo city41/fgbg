@@ -9,9 +9,18 @@
 }
 
 .header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    position: fixed;
+    width: auto;
+    min-width: 300px;
+    right: 12.5%;
+    bottom: 0;
+}
+
+@media (max-width: 401px) {
+    .header {
+        width: 100%;
+        right: 0;
+    }
 }
 
 .blur {
