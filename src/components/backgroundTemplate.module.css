@@ -22,7 +22,7 @@
     bottom: -20px;
     left: -20px;
     background-size: cover;
-    filter: blur(4px);
+    filter: blur(6px);
 }
 
 .blur:after {
@@ -33,7 +33,7 @@
     bottom: 0;
     left: 0;
     background-color: black;
-    opacity: 0.7;
+    opacity: 0.75;
 }
 
 .outerImageContainer {

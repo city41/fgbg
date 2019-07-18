@@ -30,11 +30,12 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
     const levelData = data.currentLevel;
     const prevLevel = data.prevLevel;
     const nextLevel = data.nextLevel;
-    const imgUrl = getImageUrl(data.allFile.edges);
-    const staticImgUrl = getStaticImageUrl(data.allFile.edges);
 
     useHotkeys("left", () => navigate(backgroundPath(prevLevel)));
     useHotkeys("right", () => navigate(backgroundPath(nextLevel)));
+
+    const imgUrl = data.mainImg.publicURL;
+    const bgImageUrl = data.bgImg.childImageSharp.resize.src;
 
     const [dimensions, setDimensions] = useState<null | { imageWidth: number; imageHeight: number }>(null);
 
@@ -45,11 +46,7 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
 
         const windowWidth = window.innerWidth;
 
-        const imageWidth =
-            windowWidth < 401
-                ? Math.min(Math.floor(windowWidth * 0.96), actualImageWidth)
-                : Math.min(Math.floor(windowWidth * 0.75), actualImageWidth);
-
+        const imageWidth = windowWidth < 401 ? Math.floor(windowWidth * 0.96) : Math.floor(windowWidth * 0.75);
         const imageHeight = Math.floor(imageWidth * imageAspectRatio);
 
         setDimensions({ imageWidth, imageHeight });
@@ -62,7 +59,7 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
                     {levelData.levelName} from {levelData.gameNameUsa} - FGBG
                 </title>
             </Helmet>
-            <div className={styles.blur} style={{ backgroundImage: `url(${staticImgUrl})` }} />
+            <div className={styles.blur} style={{ backgroundImage: `url(${bgImageUrl})` }} />
             <div className={styles.root}>
                 <BackgroundHeader className={styles.header} prevLevel={prevLevel} nextLevel={nextLevel} />
                 <div className={styles.imageContainer}>
@@ -81,7 +78,14 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
 };
 
 export const query = graphql`
-    query($currentId: String!, $prevId: String!, $nextId: String!, $imageFileNameRegex: String!) {
+    query(
+        $currentId: String!
+        $prevId: String!
+        $nextId: String!
+        $mainImageRelativePath: String!
+        $mainImageRegex: String!
+        $bgImageRelativePath: String!
+    ) {
         currentLevel: googleSheetLeveldataRow(id: { eq: $currentId }) {
             levelName
             gameNameUsa
@@ -97,15 +101,17 @@ export const query = graphql`
             levelName
             gameNameUsa
         }
-        allFile(filter: { relativePath: { regex: $imageFileNameRegex } }) {
-            edges {
-                node {
-                    publicURL
-                    relativePath
+        mainImg: file(relativePath: { eq: $mainImageRelativePath }) {
+            publicURL
+        }
+        bgImg: file(relativePath: { eq: $bgImageRelativePath }) {
+            childImageSharp {
+                resize(height: 300, quality: 10) {
+                    src
                 }
             }
         }
-        dimensions: bgsizesCsv(file: { regex: $imageFileNameRegex }) {
+        dimensions: bgsizesCsv(file: { regex: $mainImageRegex }) {
             width
             height
         }
