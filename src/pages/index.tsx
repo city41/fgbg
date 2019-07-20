@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
-import { Layout } from "../components/layout";
 import { Search } from "../components/search";
+import { IndexHeader } from "../components/indexHeader";
 import SEO from "../components/seo";
 import { seriesPath, developerPath, systemPath, yearPath } from "../util";
 
@@ -26,9 +26,9 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
     const searchData = data.searchData.edges.map(e => e.node);
 
     return (
-        <Layout>
+        <>
             <SEO title="Fighting Game Backgrounds" />
-            <h1>FGBG</h1>
+            <IndexHeader />
             <Search data={searchData} />
             <h2>Browse {data.searchData.totalCount} backgrounds by</h2>
             <div className={styles.browseColumnContainer}>
@@ -37,7 +37,7 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
                 <BrowseColumn title="System" pathFn={systemPath} values={data.systems.distinct} />
                 <BrowseColumn title="Year Released" pathFn={yearPath} values={data.years.distinct} />
             </div>
-        </Layout>
+        </>
     );
 };
 
