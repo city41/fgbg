@@ -90,9 +90,9 @@ export const createListPages: GatsbyCreateListPages = async ({
     distinctResult.data[field].distinct.forEach(fieldValue => {
         const webPath = getWebPath(field, fieldValue);
 
-        const thumbnailUrls = getThumbnails(field, fieldValue, allLevels, allThumbnails).map(t => t.publicURL);
-
         const filterValue = fieldTransform ? fieldTransform(fieldValue) : fieldValue;
+
+        const thumbnailUrls = getThumbnails(field, filterValue, allLevels, allThumbnails).map(t => t.publicURL);
 
         createPage({
             path: webPath,
