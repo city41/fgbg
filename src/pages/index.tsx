@@ -1,12 +1,9 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { Layout } from "../components/layout";
 import { Search } from "../components/search";
 import SEO from "../components/seo";
 import { seriesPath, developerPath, systemPath, yearPath } from "../util";
-
-import "react-tabs/style/react-tabs.css";
 
 import styles from "./index.module.css";
 
@@ -32,25 +29,14 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
         <Layout>
             <SEO title="Fighting Game Backgrounds" />
             <h1>FGBG</h1>
-            <Tabs>
-                <TabList>
-                    <Tab>Browse</Tab>
-                    <Tab>Search</Tab>
-                </TabList>
-                <TabPanel>
-                    <h2>Browse {data.searchData.totalCount} backgrounds by</h2>
-                    <div className={styles.browseColumnContainer}>
-                        <BrowseColumn title="Series" pathFn={seriesPath} values={data.series.distinct} />
-                        <BrowseColumn title="Developer" pathFn={developerPath} values={data.developers.distinct} />
-                        <BrowseColumn title="System" pathFn={systemPath} values={data.systems.distinct} />
-                        <BrowseColumn title="Year Released" pathFn={yearPath} values={data.years.distinct} />
-                    </div>
-                </TabPanel>
-                <TabPanel>
-                    <h2>Search</h2>
-                    <Search data={searchData} />
-                </TabPanel>
-            </Tabs>
+            <Search data={searchData} />
+            <h2>Browse {data.searchData.totalCount} backgrounds by</h2>
+            <div className={styles.browseColumnContainer}>
+                <BrowseColumn title="Series" pathFn={seriesPath} values={data.series.distinct} />
+                <BrowseColumn title="Developer" pathFn={developerPath} values={data.developers.distinct} />
+                <BrowseColumn title="System" pathFn={systemPath} values={data.systems.distinct} />
+                <BrowseColumn title="Year Released" pathFn={yearPath} values={data.years.distinct} />
+            </div>
         </Layout>
     );
 };
