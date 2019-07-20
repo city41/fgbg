@@ -1,0 +1,10 @@
+.root ul {
+    list-style: none;
+}
+
+.gameHeader {
+    position: sticky;
+    top: 0;
+    background-color: black;
+    width: 100%;
+}

@@ -16,7 +16,11 @@ interface BoundActionCreators {
     }) => void;
 }
 
-export type GatsbyCreatePages = (fns: {
+export type GatsbyCreatePages = (fns: { graphql: any; boundActionCreators: BoundActionCreators }) => void;
+
+export type GatsbyCreateListPages = (fns: {
     graphql: any;
     boundActionCreators: BoundActionCreators;
+    field: string;
+    fieldTransform?: (fieldValue: string) => any;
 }) => void;
