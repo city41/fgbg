@@ -7,22 +7,19 @@ const staticSuffix = "_static.jpg";
 
 function getImagePaths(mainImageFileName: string): { mainImageRelativePath: string; bgImageRelativePath: string } {
     const mainImageBaseName = path.basename(mainImageFileName, path.extname(mainImageFileName));
-    const imgsDir = path.resolve(__dirname, "../images/bgs");
+    const rootImgsDir = path.resolve(__dirname, "../images/bgs");
 
-    const mainImagePath = path.resolve(imgsDir, mainImageFileName);
-    const potentialStaticImagePath = path.resolve(imgsDir, mainImageBaseName + staticSuffix);
+    const mainImagePath = path.resolve(rootImgsDir, "full", mainImageFileName);
+    const staticImagePath = path.resolve(rootImgsDir, "static", mainImageBaseName + staticSuffix);
 
-    if (fs.existsSync(potentialStaticImagePath)) {
-        return {
-            mainImageRelativePath: path.join("bgs", mainImageFileName),
-            bgImageRelativePath: path.join("bgs", mainImageBaseName + staticSuffix),
-        };
-    } else {
-        return {
-            mainImageRelativePath: path.join("bgs", mainImageFileName),
-            bgImageRelativePath: path.join("bgs", mainImageFileName),
-        };
+    if (!fs.existsSync(staticImagePath)) {
+        throw new Error("Failed to find static image: " + staticImagePath);
     }
+
+    return {
+        mainImageRelativePath: path.join("bgs", "full", mainImageFileName),
+        bgImageRelativePath: path.join("bgs", "static", mainImageBaseName + staticSuffix),
+    };
 }
 
 export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundActionCreators }) => {

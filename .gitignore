@@ -71,4 +71,4 @@ yarn-error.log
 client_secret.json
 
 # static bgs that get generated
-src/images/bgs/*_static.jpg
+src/images/bgs/static

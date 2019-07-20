@@ -53,8 +53,8 @@
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
     "deploy": "yarn build && gh-pages -d public",
-    "gen-static": "(cd src/images/bgs && ../../../scripts/generateStaticBgs.sh)",
-    "gen-image-sizes": "(cd src/images/bgs && ../../../scripts/setImageSizes.sh)"
+    "gen-static": "rm -rf src/images/bgs/static && (cd src/images/bgs/full && ../../../../scripts/generateStaticBgs.sh)",
+    "gen-image-sizes": "(cd src/images/bgs/full && ../../../../scripts/setImageSizes.sh)"
   },
   "repository": {
     "type": "git",

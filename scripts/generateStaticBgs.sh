@@ -1,7 +1,10 @@
 #!/bin/bash
 
-for gif in *.gif;
+mkdir -p ../static
+
+for img in *
 do
-    convert "$gif[0]" "${gif%.gif}_static.jpg"
+    root=$(echo "$img" | cut -f 1 -d '.');
+    convert "$img[0]" "../static/${root}_static.jpg"
 done
 

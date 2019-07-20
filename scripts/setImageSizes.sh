@@ -1,8 +1,8 @@
 #!/bin/bash
 
-CSV=../../csv/bgsizes.csv
+CSV=../../../csv/bgsizes.csv
 
-mkdir -p ../../csv
+mkdir -p ../../../csv
 rm -f $CSV
 touch $CSV
 
