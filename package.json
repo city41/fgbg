@@ -46,15 +46,18 @@
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf .cache",
-    "build": "yarn clean && yarn gen-static && yarn gen-image-sizes && gatsby build",
-    "develop": "yarn clean && yarn gen-static && yarn gen-image-sizes && gatsby develop",
+    "build": "yarn clean && yarn gen-images && gatsby build",
+    "develop": "yarn clean && yarn gen-images && gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
     "deploy": "yarn build && gh-pages -d public",
     "gen-static": "rm -rf src/images/bgs/static && (cd src/images/bgs/full && ../../../../scripts/generateStaticBgs.sh)",
-    "gen-image-sizes": "(cd src/images/bgs/full && ../../../../scripts/setImageSizes.sh)"
+    "gen-thumbnails": "rm -rf src/images/bgs/thumbnails && (cd src/images/bgs/full && ../../../../scripts/generateThumbnails.sh)",
+    "gen-image-sizes": "(cd src/images/bgs/full && ../../../../scripts/setImageSizes.sh)",
+    "gen-images": "yarn gen-static && yarn gen-thumbnails && yarn gen-image-sizes"
+
   },
   "repository": {
     "type": "git",

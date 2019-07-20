@@ -70,5 +70,7 @@ yarn-error.log
 
 client_secret.json
 
-# static bgs that get generated
+# generated image files
 src/images/bgs/static
+src/images/bgs/thumbnails
+src/csv/bgsizes.csv
