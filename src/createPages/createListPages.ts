@@ -56,6 +56,15 @@ export const createListPages: GatsbyCreateListPages = async ({
                     node {
                         relativePath
                         publicURL
+                        childImageSharp {
+                            original {
+                                width
+                                height
+                            }
+                            fixed(base64Width: 10) {
+                                base64
+                            }
+                        }
                     }
                 }
             }
@@ -92,7 +101,14 @@ export const createListPages: GatsbyCreateListPages = async ({
 
         const filterValue = fieldTransform ? fieldTransform(fieldValue) : fieldValue;
 
-        const thumbnailUrls = getThumbnails(field, filterValue, allLevels, allThumbnails).map(t => t.publicURL);
+        const thumbnails = getThumbnails(field, filterValue, allLevels, allThumbnails).map(t => {
+            return {
+                publicURL: t.publicURL,
+                width: t.childImageSharp.original.width,
+                height: t.childImageSharp.original.height,
+                dataUrl: t.childImageSharp.fixed.base64,
+            };
+        });
 
         createPage({
             path: webPath,
@@ -101,7 +117,7 @@ export const createListPages: GatsbyCreateListPages = async ({
                 filter: { [field]: { eq: filterValue } },
                 listType: field,
                 listTypeValue: fieldValue,
-                thumbnailUrls,
+                thumbnails,
             },
         });
     });

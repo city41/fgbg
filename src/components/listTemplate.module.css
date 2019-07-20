@@ -2,9 +2,17 @@
     list-style: none;
 }
 
+.root li li:last-child {
+    margin-bottom: 80px;
+}
+
 .gameHeader {
     position: sticky;
     top: 0;
-    background-color: black;
+    background-color: #050505;
     width: 100%;
+}
+
+.listEntry {
+    margin-bottom: 24px;
 }

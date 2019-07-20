@@ -26,6 +26,7 @@
     "react-helmet": "^5.2.1",
     "react-hotkeys-hook": "^1.4.0",
     "react-icons": "^3.7.0",
+    "react-lazy-load": "^3.0.13",
     "react-tabs": "^3.0.0",
     "slugify": "^1.3.4",
     "source-map-support": "^0.5.12",
@@ -57,7 +58,6 @@
     "gen-thumbnails": "rm -rf src/images/bgs/thumbnails && (cd src/images/bgs/full && ../../../../scripts/generateThumbnails.sh)",
     "gen-image-sizes": "(cd src/images/bgs/full && ../../../../scripts/setImageSizes.sh)",
     "gen-images": "yarn gen-static && yarn gen-thumbnails && yarn gen-image-sizes"
-
   },
   "repository": {
     "type": "git",

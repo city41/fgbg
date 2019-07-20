@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import classnames from "classnames";
 import { useStaticQuery, graphql } from "gatsby";
-import { BackgroundLink } from "./backgroundLink";
 import { groupBy } from "lodash";
+import { fileRoot } from "../util";
+import { LevelListEntry } from "./levelListEntry";
 
 import styles from "./listTemplate.module.css";
 
-function by(key: string) {
-    return function sortByKey(a: { [key: string]: string }, b: { [key: string]: string }): number {
-        return a[key].localeCompare(b[key]);
-    };
+function byLevelName(a: { levelName: string }, b: { levelName: string }): number {
+    return a.levelName.localeCompare(b.levelName);
 }
 
 function byIgnorePrefix(ignorePrefix: RegExp) {
@@ -20,24 +20,18 @@ function byIgnorePrefix(ignorePrefix: RegExp) {
     };
 }
 
-function root(filename: string): string {
-    return filename.split(".")[0];
+interface Thumbnail {
+    publicURL: string;
+    width: number;
+    height: number;
+    dataUrl: string;
 }
 
-function getThumbnail(thumbnailUrls: string[], imageFileName: string): string {
-    return thumbnailUrls.find(t => t.indexOf(root(imageFileName)) > -1);
+function getThumbnail(thumbnails: Thumbnail[], imageFileName: string): Thumbnail {
+    return thumbnails.find(t => t.publicURL.indexOf(fileRoot(imageFileName)) > -1);
 }
 
-const LevelListEntry: React.FunctionComponent = ({ thumbnailUrl, levelName, gameNameUsa, developer, system }) => {
-    return (
-        <div>
-            <img src={thumbnailUrl} />
-            {levelName} - {gameNameUsa} - {developer} - {system}
-        </div>
-    );
-};
-
-const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listType, listTypeValue, thumbnailUrls } }) => {
+const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listType, listTypeValue, thumbnails } }) => {
     const levels = data.levels.edges.map(e => e.node);
 
     const byGame = groupBy(levels, "gameNameUsa");
@@ -55,13 +49,14 @@ const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listType, 
                             <li>
                                 <h2 className={styles.gameHeader}>{gameName}</h2>
                                 <ul>
-                                    {byGame[gameName].sort(by("levelName")).map(level => (
-                                        <BackgroundLink {...level}>
+                                    {byGame[gameName].sort(byLevelName).map(level => (
+                                        <li>
                                             <LevelListEntry
+                                                className={styles.listEntry}
                                                 {...level}
-                                                thumbnailUrl={getThumbnail(thumbnailUrls, level.imageFileName)}
+                                                thumbnailData={getThumbnail(thumbnails, level.imageFileName)}
                                             />
-                                        </BackgroundLink>
+                                        </li>
                                     ))}
                                 </ul>
                             </li>
