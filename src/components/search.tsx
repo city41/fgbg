@@ -1,6 +1,7 @@
 import React from "react";
-import { Link } from "gatsby";
 import classnames from "classnames";
+import { Link } from "gatsby";
+import { FaSearch } from "react-icons/fa";
 import Downshift from "downshift";
 import { LevelListEntry } from "./levelListEntry";
 import { backgroundPath } from "../util";
@@ -63,6 +64,7 @@ export const Search: React.FunctionComponent<SearchProps> = ({ className, data }
                     return (
                         <div className={styles.searchContainer}>
                             <input {...getInputProps()} type="search" placeholder="search for a background..." />
+                            <FaSearch className={styles.searchIcon} />
                             <ul className={styles.resultsList}>
                                 {isOpen &&
                                     getMatchingLevels(inputValue).map(level => (

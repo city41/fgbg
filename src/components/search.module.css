@@ -2,9 +2,14 @@
     width: 100%;
 }
 
-.root input {
+.searchContainer {
+    position: relative;
+}
+
+.searchContainer input {
     width: 100%;
     padding: 12px;
+    padding-left: 40px;
     border: 0;
     background-color: black;
     color: #aaa;
@@ -12,8 +17,12 @@
     outline-offset: 0;
 }
 
-.searchContainer {
-    position: relative;
+.searchIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    fill: #aaa;
 }
 
 .resultsList {
@@ -24,10 +33,14 @@
     list-style: none;
 
     max-height: 50vh;
-    width: 100%;
-    margin: 0;
+    width: calc(100% + 2px);
+    margin: 0 -1px;
 
-    overflow-y: scroll;
+    overflow-y: auto;
+
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .resultsList li {
