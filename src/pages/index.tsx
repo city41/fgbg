@@ -26,18 +26,20 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
     const searchData = data.searchData.edges.map(e => e.node);
 
     return (
-        <>
-            <SEO title="Fighting Game Backgrounds" />
-            <IndexHeader />
-            <Search data={searchData} />
-            <h2>Browse {data.searchData.totalCount} backgrounds by</h2>
-            <div className={styles.browseColumnContainer}>
-                <BrowseColumn title="Series" pathFn={seriesPath} values={data.series.distinct} />
-                <BrowseColumn title="Developer" pathFn={developerPath} values={data.developers.distinct} />
-                <BrowseColumn title="System" pathFn={systemPath} values={data.systems.distinct} />
-                <BrowseColumn title="Year Released" pathFn={yearPath} values={data.years.distinct} />
+        <div className={styles.root}>
+            <div className={styles.content}>
+                <SEO title="Fighting Game Backgrounds" />
+                <IndexHeader />
+                <Search className={styles.search} data={searchData} />
+                <h2>Browse {data.searchData.totalCount} backgrounds by</h2>
+                <div className={styles.browseColumnContainer}>
+                    <BrowseColumn title="Series" pathFn={seriesPath} values={data.series.distinct} />
+                    <BrowseColumn title="Developer" pathFn={developerPath} values={data.developers.distinct} />
+                    <BrowseColumn title="System" pathFn={systemPath} values={data.systems.distinct} />
+                    <BrowseColumn title="Year Released" pathFn={yearPath} values={data.years.distinct} />
+                </div>
             </div>
-        </>
+        </div>
     );
 };
 

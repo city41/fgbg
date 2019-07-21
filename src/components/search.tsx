@@ -4,6 +4,8 @@ import classnames from "classnames";
 import Downshift from "downshift";
 import { backgroundPath } from "../util";
 
+import styles from "./search.module.css";
+
 interface Level {
     levelName: string;
     gameNameUsa: string;
@@ -29,7 +31,7 @@ const LevelResult: React.FunctionComponent<Level> = ({ levelName, gameNameUsa })
 };
 
 export const Search: React.FunctionComponent<SearchProps> = ({ className, data }) => {
-    const classes = classnames(className);
+    const classes = classnames(styles.root, className);
 
     function getMatchingLevels(term?: string): Level[] {
         if (!term) {
