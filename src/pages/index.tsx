@@ -36,7 +36,7 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
                 <SEO title="Fighting Game Backgrounds" />
                 <IndexHeader className={styles.header} />
                 <Search className={styles.search} data={totalSearchData} />
-                <p>or browse {data.searchData.totalCount} backgrounds by</p>
+                <p>or browse {data.searchData.totalCount} backgrounds by...</p>
                 <div className={styles.browseColumnContainer}>
                     <BrowseColumn title="series" pathFn={seriesPath} values={data.series.distinct.sort(byIgnoreThe)} />
                     <BrowseColumn title="developer" pathFn={developerPath} values={data.developers.distinct} />
