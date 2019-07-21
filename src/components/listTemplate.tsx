@@ -29,6 +29,9 @@ const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listType, 
         <Layout>
             <div className={styles.root}>
                 <h1>{listTypeValue}</h1>
+                <noscript>
+                    <div className={styles.noscriptWarning}>this page loads faster with JavaScript enabled</div>
+                </noscript>
                 <ul>
                     {Object.keys(byGame)
                         .sort(byIgnoreThe)

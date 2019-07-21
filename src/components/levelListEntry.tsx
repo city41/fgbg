@@ -25,6 +25,13 @@ export const LevelListEntry: React.FunctionComponent = ({
                         src={thumbnailData.dataUrl}
                         alt={`${levelName} from ${gameNameUsa}`}
                     />
+                    <noscript>
+                        <img
+                            className={styles.highRes}
+                            src={thumbnailData.publicURL}
+                            alt={`${levelName} from ${gameNameUsa}`}
+                        />
+                    </noscript>
                     <LazyLoad className={styles.lazyImg} offsetBottom={400}>
                         <>
                             <img
