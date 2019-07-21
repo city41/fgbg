@@ -22,5 +22,9 @@ export const LevelImage: React.FunctionComponent<LevelImageProps> = ({ className
     const imageAspectRatio = actualImageHeight / actualImageWidth;
     const paddingTop = `${Math.floor(imageAspectRatio * 100)}%`;
 
-    return <div className={classes} style={{ paddingTop, backgroundImage: `url(${src})` }} />;
+    return (
+        <div className={classes} style={{ paddingTop }}>
+            <img src={src} alt={alt} />
+        </div>
+    );
 };
