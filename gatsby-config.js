@@ -47,5 +47,13 @@ module.exports = {
             },
         },
         `gatsby-transformer-csv`,
+        {
+            resolve: "gatsby-plugin-google-analytics",
+            options: {
+                trackingId: "UA-144254440-1",
+                head: false,
+                respectDNT: true,
+            },
+        },
     ],
 };
