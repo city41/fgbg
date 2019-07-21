@@ -43,6 +43,18 @@
     margin-bottom: 48px;
 }
 
+.browseNewContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.newBackgroundLink {
+    font-size: 0.8rem;
+    color: yellow;
+    cursor: pointer;
+    justify-self: end;
+}
+
 .browseColumnContainer {
     display: flex;
     flex-direction: row;

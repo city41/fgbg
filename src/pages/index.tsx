@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { graphql } from "gatsby";
 import { Search } from "../components/search";
 import { IndexHeader } from "../components/indexHeader";
 import { BrowseColumn } from "../components/browseColumn";
+import { NewBackgroundModal } from "../components/newBackgroundModal";
 import SEO from "../components/seo";
 import { fileRoot, seriesPath, developerPath, systemPath, yearPath } from "../util";
 import { byIgnoreThe } from "../util/sort";
@@ -10,6 +11,13 @@ import { byIgnoreThe } from "../util/sort";
 import styles from "./index.module.css";
 
 const IndexPage: React.FunctionComponent = ({ data }) => {
+    const [showSubmitNew, setShowSubmitNew] = useState(false);
+    const [newModalOpen, setNewModalOpen] = useState(false);
+
+    useEffect(() => {
+        setShowSubmitNew(true);
+    }, []);
+
     const searchData = data.searchData.edges.map(e => e.node);
     const thumbnails = data.thumbnails.edges.map(e => e.node);
     const flattenedThumbnails = thumbnails.map(t => {
@@ -35,13 +43,21 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
 
     return (
         <>
+            <NewBackgroundModal isOpen={newModalOpen} onRequestClose={() => setNewModalOpen(false)} />
             <div className={styles.blur} style={{ backgroundImage: `url(${bgImageUrl})` }} />
             <div className={styles.root}>
                 <div className={styles.content}>
                     <SEO title="Fighting Game Backgrounds" />
                     <IndexHeader className={styles.header} />
                     <Search className={styles.search} data={totalSearchData} />
-                    <p>or browse {data.searchData.totalCount} backgrounds by...</p>
+                    <div className={styles.browseNewContainer}>
+                        <p>or browse {data.searchData.totalCount} backgrounds by...</p>
+                        {showSubmitNew && (
+                            <div className={styles.newBackgroundLink}>
+                                <a onClick={() => setNewModalOpen(true)}>add a background</a>
+                            </div>
+                        )}
+                    </div>
                     <div className={styles.browseColumnContainer}>
                         <BrowseColumn
                             title="series"

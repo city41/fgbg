@@ -3,7 +3,7 @@ import classnames from "classnames";
 
 import styles from "./correctionForm.module.css";
 
-interface CorrectionFormProps {
+interface NewBackgroundFormProps {
     className?: string;
     imageUrl?: string;
     onClose: () => void;
@@ -37,8 +37,8 @@ function getGoogleUrl(inputs: any): string {
     return BASE_URL + queryString;
 }
 
-const useCorrectionForm = (currentPathname: string) => {
-    const [inputs, setInputs] = useState({ siteUrl: currentPathname, submissionType: "correction" });
+const useNewBackgroundForm = (currentPathname: string) => {
+    const [inputs, setInputs] = useState({ siteUrl: currentPathname, submissionType: "new" });
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
     const handleSubmit = event => {
@@ -69,25 +69,34 @@ const useCorrectionForm = (currentPathname: string) => {
 function hasData(inputs: { [key: string]: string }): boolean {
     const keys = Object.keys(inputs).filter(k => k !== "siteUrl" && k !== "submissionType");
 
-    return keys.some(k => inputs[k] && inputs[k].trim());
+    return keys.length === Object.keys(mapToGoogle).length - 2 && keys.every(k => inputs[k] && inputs[k].trim());
 }
 
-export const CorrectionForm: React.FunctionComponent<CorrectionFormProps> = ({ className, imageUrl, onClose }) => {
-    const { handleInputChange, handleSubmit, inputs, hasSubmitted }: any = useCorrectionForm(window.location.pathname);
+export const NewBackgroundForm: React.FunctionComponent<NewBackgroundFormProps> = ({
+    className,
+    imageUrl,
+    onClose,
+}) => {
+    const { handleInputChange, handleSubmit, inputs, hasSubmitted }: any = useNewBackgroundForm(
+        window.location.pathname
+    );
 
     const classes = classnames(styles.root, className);
 
     const nonSubmittedHeader = (
         <div>
-            <h3>Found an error?</h3>
-            All fields are optional, just fill in whatever needs fixing.
+            <h3>Add a New Background</h3>
+            <div>
+                We are looking for backgrounds from the game's original platform. For example a Street Fighter 2
+                background should be of the CPS1 version and not say the Super Nintendo version
+            </div>
         </div>
     );
 
     const submittedHeader = (
         <div className={styles.submittedHeader}>
             <h3>Thanks!</h3>
-            <div>Thanks for improving the site! We will correct the mistake right away</div>
+            <div>Thanks for improving the site! We will add the new background ASAP!</div>
             <input
                 type="submit"
                 value="OK"
@@ -101,26 +110,23 @@ export const CorrectionForm: React.FunctionComponent<CorrectionFormProps> = ({ c
     return (
         <div className={classes}>
             <div>
-                <div className={styles.header}>
-                    <img src={imageUrl} />
-                    {hasSubmitted ? submittedHeader : nonSubmittedHeader}
-                </div>
+                <div className={styles.header}>{hasSubmitted ? submittedHeader : nonSubmittedHeader}</div>
                 {!hasSubmitted && (
                     <div className={styles.inputGrid}>
-                        <label htmlFor="levelName">level name</label>
-                        <input
-                            readOnly={hasSubmitted}
-                            type="text"
-                            name="levelName"
-                            value={inputs.levelName}
-                            onChange={handleInputChange}
-                        />
                         <label htmlFor="gameName">game name</label>
                         <input
                             readOnly={hasSubmitted}
                             type="text"
                             name="gameName"
                             value={inputs.gameName}
+                            onChange={handleInputChange}
+                        />
+                        <label htmlFor="levelName">level name</label>
+                        <input
+                            readOnly={hasSubmitted}
+                            type="text"
+                            name="levelName"
+                            value={inputs.levelName}
                             onChange={handleInputChange}
                         />
                         <label htmlFor="developer">developer</label>
@@ -155,7 +161,7 @@ export const CorrectionForm: React.FunctionComponent<CorrectionFormProps> = ({ c
                             value={inputs.series}
                             onChange={handleInputChange}
                         />
-                        <label htmlFor="image">URL of better image</label>
+                        <label htmlFor="image">URL of level image</label>
                         <input
                             readOnly={hasSubmitted}
                             type="text"

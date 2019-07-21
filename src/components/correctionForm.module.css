@@ -21,6 +21,10 @@
     outline: 1px solid white;
 }
 
+.header > div {
+    grid-column: 2;
+}
+
 .submittedHeader div {
     background-color: rgba(200, 255, 200, 0.6);
     padding: 4px;
