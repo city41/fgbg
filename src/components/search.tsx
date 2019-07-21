@@ -59,6 +59,9 @@ export const Search: React.FunctionComponent<SearchProps> = ({ className, data }
 
     return (
         <div className={classes}>
+            <noscript>
+                <div className={styles.noscriptCantSearch}>search doesn't work without JavaScript enabled</div>
+            </noscript>
             <Downshift onChange={item => alert(JSON.stringify(item))}>
                 {({ isOpen, getInputProps, inputValue }) => {
                     return (
