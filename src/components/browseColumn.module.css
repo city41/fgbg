@@ -1,0 +1,16 @@
+.root {
+}
+
+.root ul {
+    list-style: none;
+    margin: 0;
+}
+
+.root a {
+    color: rgba(255, 255, 100, 0.7);
+    text-decoration: none;
+}
+
+.root a:hover {
+    color: white;
+}

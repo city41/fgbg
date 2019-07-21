@@ -58,7 +58,7 @@ export const Search: React.FunctionComponent<SearchProps> = ({ className, data }
                 {({ isOpen, getInputProps, inputValue }) => {
                     return (
                         <div>
-                            <input {...getInputProps()} />
+                            <input {...getInputProps()} placeholder="search backgrounds..." />
                             <ul>
                                 {isOpen &&
                                     getMatchingLevels(inputValue).map(level => (
