@@ -1,0 +1,9 @@
+.root {
+    max-width: 80vw;
+    height: auto;
+    max-height: 80vh;
+    margin: 5vh auto;
+    background-color: rgba(0, 0, 0, 1);
+    overflow-y: auto;
+    box-shadow: 0px 21px 13px -13px rgba(0, 0, 0, 1);
+}

@@ -570,3 +570,7 @@ pre tt:after {
         font-size: 100%;
     }
 }
+
+.ReactModal__Overlay {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}

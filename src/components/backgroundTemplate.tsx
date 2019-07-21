@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useHotkeys } from "react-hotkeys-hook";
 import { navigate } from "@reach/router";
@@ -8,10 +8,18 @@ import { BackgroundHeader } from "./backgroundHeader";
 import { BackgroundMetaData } from "./backgroundMetaData";
 import { LevelImage } from "./levelImage";
 import { backgroundPath } from "../util/backgroundPath";
+import { CorrectionModal } from "./correctionModal";
 
 import styles from "./backgroundTemplate.module.css";
 
 const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
+    const [showSubmitCorrection, setShowSubmitCorrection] = useState(false);
+    const [correctionModalOpen, setCorrectionModalOpen] = useState(false);
+
+    useEffect(() => {
+        setShowSubmitCorrection(true);
+    }, []);
+
     const levelData = data.currentLevel;
     const prevLevel = data.prevLevel;
     const nextLevel = data.nextLevel;
@@ -25,27 +33,39 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
     const levelDescription = `${levelData.levelName} from ${levelData.gameNameUsa}`;
 
     return (
-        <Layout>
-            <Helmet>
-                <title>{levelDescription} - FGBG</title>
-            </Helmet>
-            <div className={styles.blur} style={{ backgroundImage: `url(${bgImageUrl})` }} />
-            <div className={styles.root}>
-                <div className={styles.imageContainer}>
-                    <LevelImage
-                        className={styles.levelImage}
-                        width={data.dimensions.width}
-                        height={data.dimensions.height}
-                        src={imgUrl}
-                        alt={levelDescription}
-                    />
-                    <div className={styles.metaDataContainer}>
-                        <BackgroundMetaData className={styles.metaData} {...levelData} />
+        <>
+            <CorrectionModal
+                imageUrl={bgImageUrl}
+                isOpen={correctionModalOpen}
+                onRequestClose={() => setCorrectionModalOpen(false)}
+            />
+            <Layout>
+                <Helmet>
+                    <title>{levelDescription} - FGBG</title>
+                </Helmet>
+                <div className={styles.blur} style={{ backgroundImage: `url(${bgImageUrl})` }} />
+                <div className={styles.root}>
+                    <div className={styles.imageContainer}>
+                        <LevelImage
+                            className={styles.levelImage}
+                            width={data.dimensions.width}
+                            height={data.dimensions.height}
+                            src={imgUrl}
+                            alt={levelDescription}
+                        />
+                        <div className={styles.metaDataContainer}>
+                            {showSubmitCorrection && (
+                                <div className={styles.correctionLink}>
+                                    <a onClick={() => setCorrectionModalOpen(true)}>submit a correction</a>
+                                </div>
+                            )}
+                            <BackgroundMetaData className={styles.metaData} {...levelData} />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <BackgroundHeader className={styles.header} prevLevel={prevLevel} nextLevel={nextLevel} />
-        </Layout>
+                <BackgroundHeader className={styles.header} prevLevel={prevLevel} nextLevel={nextLevel} />
+            </Layout>
+        </>
     );
 };
 

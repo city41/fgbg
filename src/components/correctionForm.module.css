@@ -1,0 +1,87 @@
+.root {
+    width: 100%;
+    height: 100%;
+    padding: 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+.header {
+    padding-bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    column-gap: 24px;
+}
+
+.header img {
+    max-height: 100px;
+    justify-self: end;
+    outline: 1px solid white;
+}
+
+.submittedHeader div {
+    background-color: rgba(200, 255, 200, 0.6);
+    padding: 4px;
+}
+
+.submittedHeader input {
+    float: right;
+}
+
+.inputGrid {
+    padding: 8px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    column-gap: 24px;
+    row-gap: 16px;
+}
+
+.root label {
+    text-align: right;
+}
+
+.root input {
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+    background-color: #1a1a1a;
+    color: white;
+    border: 0;
+}
+
+.root input[readOnly] {
+    background-color: black;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.root input:focus {
+    background-color: #444;
+}
+
+.root input[readOnly]:focus {
+    background-color: black;
+}
+
+.root input[type="text"] {
+    padding: 6px;
+}
+
+.root input[type="submit"]:disabled {
+    color: #333;
+    outline: 0;
+    border-bottom: 3px solid transparent;
+}
+
+.root input[type="submit"] {
+    grid-column: 1 / -1;
+    justify-self: end;
+
+    color: #fffc9e;
+
+    margin-top: 16px;
+    padding: 4px 16px;
+
+    border-bottom: 3px solid rgba(255, 255, 255, 0.5);
+
+    cursor: pointer;
+}

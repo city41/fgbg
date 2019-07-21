@@ -69,7 +69,6 @@
 
 .levelImage {
     width: 100%;
-    margin-bottom: 24px;
 }
 
 .metaDataContainer {
@@ -77,8 +76,16 @@
     grid-template-columns: 1fr max-content;
 }
 
+.correctionLink {
+    grid-column: 1;
+    font-size: 0.8rem;
+    color: yellow;
+    cursor: pointer;
+}
+
 .metaData {
     grid-column: 2;
+    margin-top: 24px;
 }
 
 .nextBackground {
