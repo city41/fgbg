@@ -23,6 +23,7 @@
     top: 43px;
     background-color: #050505;
     width: 100%;
+    z-index: 5;
 }
 
 .listEntry {

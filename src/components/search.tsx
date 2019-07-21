@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "gatsby";
 import classnames from "classnames";
 import Downshift from "downshift";
+import { LevelListEntry } from "./levelListEntry";
 import { backgroundPath } from "../util";
 
 import styles from "./search.module.css";
@@ -20,11 +21,11 @@ interface SearchProps {
     data: Level[];
 }
 
-const LevelResult: React.FunctionComponent<Level> = ({ levelName, gameNameUsa }) => {
+const LevelResult: React.FunctionComponent<Level> = props => {
     return (
         <div>
-            <Link to={backgroundPath({ levelName, gameNameUsa })}>
-                {levelName} from {gameNameUsa}
+            <Link to={backgroundPath(props)}>
+                <LevelListEntry {...props} />
             </Link>
         </div>
     );
@@ -57,9 +58,9 @@ export const Search: React.FunctionComponent<SearchProps> = ({ className, data }
             <Downshift onChange={item => alert(JSON.stringify(item))}>
                 {({ isOpen, getInputProps, inputValue }) => {
                     return (
-                        <div>
-                            <input {...getInputProps()} placeholder="search backgrounds..." />
-                            <ul>
+                        <div className={styles.searchContainer}>
+                            <input {...getInputProps()} placeholder="search for a background..." />
+                            <ul className={styles.resultsList}>
                                 {isOpen &&
                                     getMatchingLevels(inputValue).map(level => (
                                         <li>
