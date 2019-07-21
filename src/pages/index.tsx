@@ -21,6 +21,9 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
         };
     });
 
+    const randomThumbnailIndex = Math.floor(Math.random() * thumbnails.length);
+    const bgImageUrl = flattenedThumbnails[randomThumbnailIndex].publicURL;
+
     const totalSearchData = searchData.map(s => {
         const thumbnail = flattenedThumbnails.find(t => t.relativePath.indexOf(fileRoot(s.imageFileName)) > -1);
 
@@ -31,20 +34,27 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
     });
 
     return (
-        <div className={styles.root}>
-            <div className={styles.content}>
-                <SEO title="Fighting Game Backgrounds" />
-                <IndexHeader className={styles.header} />
-                <Search className={styles.search} data={totalSearchData} />
-                <p>or browse {data.searchData.totalCount} backgrounds by...</p>
-                <div className={styles.browseColumnContainer}>
-                    <BrowseColumn title="series" pathFn={seriesPath} values={data.series.distinct.sort(byIgnoreThe)} />
-                    <BrowseColumn title="developer" pathFn={developerPath} values={data.developers.distinct} />
-                    <BrowseColumn title="system" pathFn={systemPath} values={data.systems.distinct} />
-                    <BrowseColumn title="year released" pathFn={yearPath} values={data.years.distinct} />
+        <>
+            <div className={styles.blur} style={{ backgroundImage: `url(${bgImageUrl})` }} />
+            <div className={styles.root}>
+                <div className={styles.content}>
+                    <SEO title="Fighting Game Backgrounds" />
+                    <IndexHeader className={styles.header} />
+                    <Search className={styles.search} data={totalSearchData} />
+                    <p>or browse {data.searchData.totalCount} backgrounds by...</p>
+                    <div className={styles.browseColumnContainer}>
+                        <BrowseColumn
+                            title="series"
+                            pathFn={seriesPath}
+                            values={data.series.distinct.sort(byIgnoreThe)}
+                        />
+                        <BrowseColumn title="developer" pathFn={developerPath} values={data.developers.distinct} />
+                        <BrowseColumn title="system" pathFn={systemPath} values={data.systems.distinct} />
+                        <BrowseColumn title="year released" pathFn={yearPath} values={data.years.distinct} />
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

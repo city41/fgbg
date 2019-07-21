@@ -5,6 +5,28 @@
     justify-content: center;
 }
 
+.blur {
+    position: fixed;
+    z-index: -1;
+    top: -20px;
+    right: -20px;
+    bottom: -20px;
+    left: -20px;
+    background-size: cover;
+    filter: blur(6px);
+}
+
+.blur:after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
 .content {
     width: 75%;
     display: flex;
