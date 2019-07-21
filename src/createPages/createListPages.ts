@@ -1,12 +1,13 @@
 import * as path from "path";
 import { GatsbyCreateListPages } from "./types";
-import { systemPath, developerPath, yearPath, seriesPath } from "../util";
+import { systemPath, gamePath, developerPath, yearPath, seriesPath } from "../util";
 
 const pathMap = {
     system: systemPath,
     developer: developerPath,
     year: yearPath,
     series: seriesPath,
+    gameNameUsa: gamePath,
 };
 
 function getWebPath(field: string, fieldValue: string): string {
