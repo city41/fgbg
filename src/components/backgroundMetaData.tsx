@@ -1,10 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 import classnames from "classnames";
-import { systemPath } from "../util/systemPath";
-import { yearPath } from "../util/yearPath";
-import { gamePath } from "../util/gamePath";
-import { developerPath } from "../util/developerPath";
+import { systemPath, yearPath, gamePath, developerPath, seriesPath } from "../util";
 
 import styles from "./backgroundMetaData.module.css";
 
@@ -13,7 +10,8 @@ interface BackgroundMetaDataProps {
     levelName: string;
     gameNameUsa: string;
     system: string;
-    year?: string;
+    year: string;
+    series: string;
 }
 
 export const BackgroundMetaData: React.FunctionComponent<BackgroundMetaDataProps> = ({
@@ -23,6 +21,7 @@ export const BackgroundMetaData: React.FunctionComponent<BackgroundMetaDataProps
     developer,
     system,
     year,
+    series,
 }) => {
     const classes = classnames(styles.root, className);
 
@@ -36,6 +35,12 @@ export const BackgroundMetaData: React.FunctionComponent<BackgroundMetaDataProps
                     <td>game</td>
                     <td>
                         <Link to={gamePath(gameNameUsa)}>{gameNameUsa}</Link>
+                    </td>
+                </tr>
+                <tr>
+                    <td>series</td>
+                    <td>
+                        <Link to={seriesPath(series)}>{series}</Link>
                     </td>
                 </tr>
                 <tr>

@@ -84,6 +84,7 @@ export const query = graphql`
             developer
             system
             year
+            series
         }
         prevLevel: googleSheetLeveldataRow(id: { eq: $prevId }) {
             levelName
