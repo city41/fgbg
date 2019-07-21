@@ -5,6 +5,7 @@ import { IndexHeader } from "../components/indexHeader";
 import { BrowseColumn } from "../components/browseColumn";
 import SEO from "../components/seo";
 import { seriesPath, developerPath, systemPath, yearPath } from "../util";
+import { byIgnoreThe } from "../util/sort";
 
 import styles from "./index.module.css";
 
@@ -19,9 +20,13 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
                 <Search className={styles.search} data={searchData} />
                 <p>or browse {data.searchData.totalCount} backgrounds by</p>
                 <div className={styles.browseColumnContainer}>
-                    <BrowseColumn title="series" pathFn={seriesPath} values={data.series.distinct} />
-                    <BrowseColumn title="developer" pathFn={developerPath} values={data.developers.distinct} />
-                    <BrowseColumn title="system" pathFn={systemPath} values={data.systems.distinct} />
+                    <BrowseColumn title="series" pathFn={seriesPath} values={data.series.distinct.sort(byIgnoreThe)} />
+                    <BrowseColumn
+                        title="developer"
+                        pathFn={developerPath}
+                        values={data.developers.distinct.sort(byIgnoreThe)}
+                    />
+                    <BrowseColumn title="system" pathFn={systemPath} values={data.systems.distinct.sort(byIgnoreThe)} />
                     <BrowseColumn title="year released" pathFn={yearPath} values={data.years.distinct} />
                 </div>
             </div>

@@ -4,21 +4,10 @@ import { useStaticQuery, graphql } from "gatsby";
 import { groupBy } from "lodash";
 import { fileRoot } from "../util";
 import { LevelListEntry } from "./levelListEntry";
+import { Layout } from "./layout";
+import { byLevelName, byIgnoreThe } from "../util/sort";
 
 import styles from "./listTemplate.module.css";
-
-function byLevelName(a: { levelName: string }, b: { levelName: string }): number {
-    return a.levelName.localeCompare(b.levelName);
-}
-
-function byIgnorePrefix(ignorePrefix: RegExp) {
-    return function(a: string, b: string): number {
-        const aValue = a.replace(ignorePrefix, "");
-        const bValue = b.replace(ignorePrefix, "");
-
-        return aValue.localeCompare(bValue);
-    };
-}
 
 interface Thumbnail {
     publicURL: string;
@@ -37,33 +26,33 @@ const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listType, 
     const byGame = groupBy(levels, "gameNameUsa");
 
     return (
-        <div className={styles.root}>
-            <h1>
-                {listType}: {listTypeValue}
-            </h1>
-            <ul>
-                {Object.keys(byGame)
-                    .sort(byIgnorePrefix(/^the /i))
-                    .map(gameName => {
-                        return (
-                            <li>
-                                <h2 className={styles.gameHeader}>{gameName}</h2>
-                                <ul>
-                                    {byGame[gameName].sort(byLevelName).map(level => (
-                                        <li>
-                                            <LevelListEntry
-                                                className={styles.listEntry}
-                                                {...level}
-                                                thumbnailData={getThumbnail(thumbnails, level.imageFileName)}
-                                            />
-                                        </li>
-                                    ))}
-                                </ul>
-                            </li>
-                        );
-                    })}
-            </ul>
-        </div>
+        <Layout>
+            <div className={styles.root}>
+                <h1>{listTypeValue}</h1>
+                <ul>
+                    {Object.keys(byGame)
+                        .sort(byIgnoreThe)
+                        .map(gameName => {
+                            return (
+                                <li>
+                                    <h2 className={styles.gameHeader}>{gameName}</h2>
+                                    <ul>
+                                        {byGame[gameName].sort(byLevelName).map(level => (
+                                            <li>
+                                                <LevelListEntry
+                                                    className={styles.listEntry}
+                                                    {...level}
+                                                    thumbnailData={getThumbnail(thumbnails, level.imageFileName)}
+                                                />
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </li>
+                            );
+                        })}
+                </ul>
+            </div>
+        </Layout>
     );
 };
 
