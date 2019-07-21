@@ -1,9 +1,13 @@
+.backgroundLink {
+    display: block;
+}
+
 .root {
     display: grid;
     grid-template-columns: max-content max-content;
     column-gap: 20px;
     cursor: pointer;
-    max-width: 400px;
+    width: 100%;
 }
 
 .root:hover .imageContainer {
@@ -47,8 +51,4 @@
 .levelName {
     text-decoration: none;
     color: white;
-}
-
-.root:hover .levelName {
-    font-weight: bold;
 }

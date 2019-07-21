@@ -12,12 +12,13 @@ export const LevelListEntry: React.FunctionComponent = ({
     gameNameUsa,
     developer,
     system,
+    children,
 }) => {
     const aspectRatio = thumbnailData.height / thumbnailData.width;
     const classes = classnames(styles.root, className);
 
     return (
-        <BackgroundLink levelName={levelName} gameNameUsa={gameNameUsa}>
+        <BackgroundLink className={styles.backgroundLink} levelName={levelName} gameNameUsa={gameNameUsa}>
             <div className={classes}>
                 <div className={styles.imageContainer} style={{ paddingBottom: 200 * aspectRatio }}>
                     <img
@@ -42,7 +43,7 @@ export const LevelListEntry: React.FunctionComponent = ({
                         </>
                     </LazyLoad>
                 </div>
-                <div className={styles.levelName}>{levelName}</div>
+                <div className={styles.levelName}>{children || levelName}</div>
             </div>
         </BackgroundLink>
     );

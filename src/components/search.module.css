@@ -4,7 +4,12 @@
 
 .root input {
     width: 100%;
-    padding: 8px;
+    padding: 12px;
+    border: 0;
+    background-color: black;
+    color: #aaa;
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 0;
 }
 
 .searchContainer {
@@ -26,5 +31,22 @@
 }
 
 .resultsList li {
-    padding: 16px;
+    padding: 4px 16px;
+    margin: 0;
+}
+
+.resultsList li:first-child {
+    margin-top: 8px;
+}
+
+.resultsList .levelName {
+    font-weight: bold;
+}
+
+.resultsList .restOfText {
+    color: #777;
+}
+
+.levelListEntry:hover {
+    background-color: #444;
 }

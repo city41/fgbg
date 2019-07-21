@@ -24,9 +24,12 @@ interface SearchProps {
 const LevelResult: React.FunctionComponent<Level> = props => {
     return (
         <div>
-            <Link to={backgroundPath(props)}>
-                <LevelListEntry {...props} />
-            </Link>
+            <LevelListEntry className={styles.levelListEntry} {...props}>
+                <span className={styles.levelName}>{props.levelName}</span>{" "}
+                <span className={styles.restOfText}>
+                    from {props.gameNameUsa}, {props.system}
+                </span>
+            </LevelListEntry>
         </div>
     );
 };
@@ -59,7 +62,7 @@ export const Search: React.FunctionComponent<SearchProps> = ({ className, data }
                 {({ isOpen, getInputProps, inputValue }) => {
                     return (
                         <div className={styles.searchContainer}>
-                            <input {...getInputProps()} placeholder="search for a background..." />
+                            <input {...getInputProps()} type="search" placeholder="search for a background..." />
                             <ul className={styles.resultsList}>
                                 {isOpen &&
                                     getMatchingLevels(inputValue).map(level => (
