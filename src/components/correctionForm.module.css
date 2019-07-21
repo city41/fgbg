@@ -89,3 +89,24 @@
 
     cursor: pointer;
 }
+
+.allRequired,
+.sorryURL,
+.requiredAsterisk {
+    color: rgb(255, 150, 150);
+    font-size: 0.8rem;
+}
+
+.allRequired {
+    padding: 4px;
+    text-align: center;
+    margin-bottom: -50px;
+}
+
+.sorryURL {
+    grid-column: 2;
+}
+
+.sorryURL a {
+    color: white;
+}

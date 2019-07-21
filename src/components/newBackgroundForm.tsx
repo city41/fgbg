@@ -3,6 +3,10 @@ import classnames from "classnames";
 
 import styles from "./correctionForm.module.css";
 
+const Required: React.FunctionComponent = () => {
+    return <span className={styles.requiredAsterisk}>*</span>;
+};
+
 interface NewBackgroundFormProps {
     className?: string;
     imageUrl?: string;
@@ -90,6 +94,7 @@ export const NewBackgroundForm: React.FunctionComponent<NewBackgroundFormProps> 
                 We are looking for backgrounds from the game's original platform. For example a Street Fighter 2
                 background should be of the CPS1 version and not say the Super Nintendo version
             </div>
+            <div className={styles.allRequired}>all fields are required</div>
         </div>
     );
 
@@ -113,7 +118,10 @@ export const NewBackgroundForm: React.FunctionComponent<NewBackgroundFormProps> 
                 <div className={styles.header}>{hasSubmitted ? submittedHeader : nonSubmittedHeader}</div>
                 {!hasSubmitted && (
                     <div className={styles.inputGrid}>
-                        <label htmlFor="gameName">game name</label>
+                        <label htmlFor="gameName">
+                            game name
+                            <Required />
+                        </label>
                         <input
                             readOnly={hasSubmitted}
                             type="text"
@@ -121,7 +129,10 @@ export const NewBackgroundForm: React.FunctionComponent<NewBackgroundFormProps> 
                             value={inputs.gameName}
                             onChange={handleInputChange}
                         />
-                        <label htmlFor="levelName">level name</label>
+                        <label htmlFor="levelName">
+                            level name
+                            <Required />
+                        </label>
                         <input
                             readOnly={hasSubmitted}
                             type="text"
@@ -129,7 +140,10 @@ export const NewBackgroundForm: React.FunctionComponent<NewBackgroundFormProps> 
                             value={inputs.levelName}
                             onChange={handleInputChange}
                         />
-                        <label htmlFor="developer">developer</label>
+                        <label htmlFor="developer">
+                            developer
+                            <Required />
+                        </label>
                         <input
                             readOnly={hasSubmitted}
                             type="text"
@@ -137,7 +151,10 @@ export const NewBackgroundForm: React.FunctionComponent<NewBackgroundFormProps> 
                             value={inputs.developer}
                             onChange={handleInputChange}
                         />
-                        <label htmlFor="system">system</label>
+                        <label htmlFor="system">
+                            system
+                            <Required />
+                        </label>
                         <input
                             readOnly={hasSubmitted}
                             type="text"
@@ -145,7 +162,10 @@ export const NewBackgroundForm: React.FunctionComponent<NewBackgroundFormProps> 
                             value={inputs.system}
                             onChange={handleInputChange}
                         />
-                        <label htmlFor="year">year released</label>
+                        <label htmlFor="year">
+                            year released
+                            <Required />
+                        </label>
                         <input
                             readOnly={hasSubmitted}
                             type="text"
@@ -153,7 +173,10 @@ export const NewBackgroundForm: React.FunctionComponent<NewBackgroundFormProps> 
                             value={inputs.year}
                             onChange={handleInputChange}
                         />
-                        <label htmlFor="series">series</label>
+                        <label htmlFor="series">
+                            series
+                            <Required />
+                        </label>
                         <input
                             readOnly={hasSubmitted}
                             type="text"
@@ -161,7 +184,10 @@ export const NewBackgroundForm: React.FunctionComponent<NewBackgroundFormProps> 
                             value={inputs.series}
                             onChange={handleInputChange}
                         />
-                        <label htmlFor="image">URL of level image</label>
+                        <label htmlFor="image">
+                            URL of level image
+                            <Required />
+                        </label>
                         <input
                             readOnly={hasSubmitted}
                             type="text"
@@ -169,6 +195,10 @@ export const NewBackgroundForm: React.FunctionComponent<NewBackgroundFormProps> 
                             value={inputs.url}
                             onChange={handleInputChange}
                         />
+                        <div className={styles.sorryURL}>
+                            sorry, we can't handle image uploads (yet). If you have the image on your computer, you can
+                            upload it to <a href="https://imgur.com">imgur</a>
+                        </div>
                         <input
                             disabled={!hasData(inputs)}
                             type="submit"
