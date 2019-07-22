@@ -71,3 +71,8 @@
 .listEntry {
     margin-bottom: 24px;
 }
+
+.listEntry,
+.listEntryLink {
+    max-width: 400px;
+}

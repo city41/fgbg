@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 import classnames from "classnames";
 import { useStaticQuery, graphql } from "gatsby";
 import { groupBy } from "lodash";
@@ -27,6 +28,9 @@ const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listType, 
 
     return (
         <Layout logoClassName={styles.layoutLogo}>
+            <Helmet>
+                <title>{listTypeValue} - FGBG</title>
+            </Helmet>
             <div className={styles.root}>
                 <h1>
                     {listTypeValue}{" "}
@@ -48,6 +52,7 @@ const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listType, 
                                         {byGame[gameName].sort(byLevelName).map(level => (
                                             <li>
                                                 <LevelListEntry
+                                                    linkClassName={styles.listEntryLink}
                                                     className={styles.listEntry}
                                                     {...level}
                                                     thumbnailData={getThumbnail(thumbnails, level.imageFileName)}

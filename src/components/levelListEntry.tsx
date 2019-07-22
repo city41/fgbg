@@ -7,6 +7,7 @@ import styles from "./levelListEntry.module.css";
 
 export const LevelListEntry: React.FunctionComponent = ({
     className,
+    linkClassName,
     thumbnailData,
     levelName,
     gameNameUsa,
@@ -16,9 +17,10 @@ export const LevelListEntry: React.FunctionComponent = ({
 }) => {
     const aspectRatio = thumbnailData.height / thumbnailData.width;
     const classes = classnames(styles.root, className);
+    const linkClasses = classnames(styles.backgroundLink, linkClassName);
 
     return (
-        <BackgroundLink className={styles.backgroundLink} levelName={levelName} gameNameUsa={gameNameUsa}>
+        <BackgroundLink className={linkClasses} levelName={levelName} gameNameUsa={gameNameUsa}>
             <div className={classes}>
                 <div className={styles.imageContainer} style={{ paddingBottom: 200 * aspectRatio }}>
                     <img
