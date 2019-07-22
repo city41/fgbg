@@ -30,6 +30,17 @@
     padding-bottom: 4px;
 }
 
+.levelCount {
+    font-size: 0.85rem;
+    font-weight: normal;
+}
+
+@media (max-width: 401px) {
+    .levelCount {
+        display: none;
+    }
+}
+
 .noscriptWarning {
     margin-bottom: 16px;
     margin-top: -16px;

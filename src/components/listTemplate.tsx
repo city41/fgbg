@@ -28,7 +28,9 @@ const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listType, 
     return (
         <Layout logoClassName={styles.layoutLogo}>
             <div className={styles.root}>
-                <h1>{listTypeValue}</h1>
+                <h1>
+                    {listTypeValue} <span className={styles.levelCount}>{levels.length} backgrounds</span>
+                </h1>
                 <noscript>
                     <div className={styles.noscriptWarning}>this page loads faster with JavaScript enabled</div>
                 </noscript>
