@@ -1,5 +1,7 @@
-.root {
-    min-width: 300px;
+@media (max-width: 600px) {
+    .root {
+        min-width: 300px;
+    }
 }
 
 .root ul {

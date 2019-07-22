@@ -12,6 +12,10 @@ function getImagePaths(mainImageFileName: string): { mainImageRelativePath: stri
     const mainImagePath = path.resolve(rootImgsDir, "full", mainImageFileName);
     const staticImagePath = path.resolve(rootImgsDir, "static", mainImageBaseName + staticSuffix);
 
+    if (!fs.existsSync(mainImagePath)) {
+        throw new Error("Failed to find main background image: " + mainImagePath);
+    }
+
     if (!fs.existsSync(staticImagePath)) {
         throw new Error("Failed to find static image: " + staticImagePath);
     }
