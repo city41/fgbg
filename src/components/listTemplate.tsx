@@ -29,7 +29,10 @@ const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listType, 
         <Layout logoClassName={styles.layoutLogo}>
             <div className={styles.root}>
                 <h1>
-                    {listTypeValue} <span className={styles.levelCount}>{levels.length} backgrounds</span>
+                    {listTypeValue}{" "}
+                    <span className={styles.levelCount}>
+                        {levels.length} background{levels.length !== 1 && "s"}
+                    </span>
                 </h1>
                 <noscript>
                     <div className={styles.noscriptWarning}>this page loads faster with JavaScript enabled</div>
