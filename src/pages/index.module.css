@@ -78,3 +78,19 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
+.ukyo {
+    width: 86px;
+    height: 117px;
+    background-image: url(../images/ukyo.gif);
+    position: fixed;
+    bottom: 0;
+    right: 16px;
+    transform: scale(-1, 1);
+}
+
+@media (max-width: 700px) {
+    .ukyo {
+        display: none;
+    }
+}
