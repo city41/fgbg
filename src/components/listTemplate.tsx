@@ -46,11 +46,11 @@ const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listType, 
                         .sort(byIgnoreThe)
                         .map(gameName => {
                             return (
-                                <li>
+                                <li key={gameName}>
                                     {gameName !== listTypeValue && <h2 className={styles.gameHeader}>{gameName}</h2>}
                                     <ul>
                                         {byGame[gameName].sort(byLevelName).map(level => (
-                                            <li>
+                                            <li key={level.levelName}>
                                                 <LevelListEntry
                                                     linkClassName={styles.listEntryLink}
                                                     className={styles.listEntry}

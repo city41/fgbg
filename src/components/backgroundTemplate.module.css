@@ -83,6 +83,12 @@
     cursor: pointer;
 }
 
+@media (max-width: 700px) {
+    .correctionLink {
+        display: none;
+    }
+}
+
 .metaData {
     grid-column: 2;
     margin-top: 24px;
