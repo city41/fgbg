@@ -19,6 +19,12 @@
     margin-top: -10px;
 }
 
+@media (max-width: 401px) {
+    .logo {
+        display: none;
+    }
+}
+
 .titleText {
     text-transform: uppercase;
     font-weight: bold;

@@ -26,7 +26,7 @@ const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listType, 
     const byGame = groupBy(levels, "gameNameUsa");
 
     return (
-        <Layout>
+        <Layout logoClassName={styles.layoutLogo}>
             <div className={styles.root}>
                 <h1>{listTypeValue}</h1>
                 <noscript>

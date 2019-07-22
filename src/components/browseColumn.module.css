@@ -1,4 +1,5 @@
 .root {
+    min-width: 300px;
 }
 
 .root ul {

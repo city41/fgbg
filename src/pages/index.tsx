@@ -51,7 +51,10 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
                     <IndexHeader className={styles.header} />
                     <Search className={styles.search} data={totalSearchData} />
                     <div className={styles.browseNewContainer}>
-                        <p>or browse {data.searchData.totalCount} backgrounds by...</p>
+                        <p>
+                            <span className={styles.orForBrowse}>or</span> browse {data.searchData.totalCount}{" "}
+                            backgrounds by...
+                        </p>
                         {showSubmitNew && (
                             <div className={styles.newBackgroundLink}>
                                 <a onClick={() => setNewModalOpen(true)}>add a background</a>

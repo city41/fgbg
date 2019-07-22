@@ -43,6 +43,12 @@
     margin-bottom: 48px;
 }
 
+@media (max-width: 600px) {
+    .search {
+        display: none;
+    }
+}
+
 .browseNewContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -53,6 +59,17 @@
     color: yellow;
     cursor: pointer;
     justify-self: end;
+}
+
+@media (max-width: 600px) {
+    .browseNewContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .orForBrowse,
+    .newBackgroundLink {
+        display: none;
+    }
 }
 
 .browseColumnContainer {

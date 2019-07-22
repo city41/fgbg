@@ -2,6 +2,26 @@
     margin-left: 160px;
 }
 
+@media (max-width: 700px) {
+    .root {
+        margin-left: 100px;
+    }
+}
+
+@media (max-width: 401px) {
+    .root {
+        margin-left: 20px;
+    }
+
+    .layoutLogo {
+        top: initial;
+        left: initial;
+        bottom: 0;
+        right: 0;
+        background-color: black;
+    }
+}
+
 .root h1 {
     position: sticky;
     top: 0;

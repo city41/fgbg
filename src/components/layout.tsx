@@ -1,19 +1,20 @@
 import React from "react";
+import classnames from "classnames";
 import { Link } from "gatsby";
 import logoSvg from "../images/logo.svg";
 
 import styles from "./layout.module.css";
 
-const keyMap = {
-    PREV_LEVEL: "ArrowLeft",
-    NEXT_LEVEL: "ArrowRight",
-};
+interface LayoutProps {
+    logoClassName?: string;
+}
 
-export const Layout: React.FunctionComponent = ({ children }) => {
+export const Layout: React.FunctionComponent = ({ logoClassName, children }) => {
+    const logoClasses = classnames(styles.logo, logoClassName);
     return (
         <>
             <Link to="/">
-                <div className={styles.logo} />
+                <div className={logoClasses} />
             </Link>
             {children}
         </>
