@@ -10,7 +10,9 @@ async function hashPageDataJsonFiles() {
 
     const jsonFiles = glob.sync(`${publicPath}/page-data/**/page-data.json`);
     console.log("[onPostBuild] Renaming the following files:");
-    for (let file of jsonFiles) {
+    for (let f = 0; f < jsonFiles.length; ++f) {
+        const file = jsonFiles[f];
+
         console.log(file);
         const newFilename = file.replace(`page-data.json`, `page-data.${hash}.json`);
         await fs.rename(file, newFilename);
@@ -18,7 +20,10 @@ async function hashPageDataJsonFiles() {
 
     const htmlAndJSFiles = glob.sync(`${publicPath}/**/*.{html,js}`);
     console.log("[onPostBuild] Replacing page-data.json references in the following files:");
-    for (let file of htmlAndJSFiles) {
+
+    for (let f = 0; f < htmlAndJSFiles.length; ++f) {
+        const file = htmlAndJSFiles[f];
+
         const stats = await fs.stat(file, "utf8");
         if (!stats.isFile()) continue;
         console.log(file);
