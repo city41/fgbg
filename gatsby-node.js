@@ -16,3 +16,5 @@ require("ts-node").register({
 });
 
 exports.createPages = require("./src/createPages").createPages;
+
+exports.onPostBuild = require("./src/node/onPostBuild").onPostBuild;
