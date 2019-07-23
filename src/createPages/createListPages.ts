@@ -33,7 +33,6 @@ export const createListPages: GatsbyCreateListPages = async ({
     field,
     fieldTransform,
 }) => {
-    debugger;
     const { createPage } = boundActionCreators;
 
     const listTemplate = path.resolve("src/components/listTemplate.tsx");
