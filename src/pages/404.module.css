@@ -1,0 +1,13 @@
+.root {
+    margin: 100px 0 0 20px;
+}
+
+.root a {
+    color: yellow;
+    text-decoration: none;
+}
+
+.root a:hover {
+    color: yellow;
+    text-decoration: underline;
+}
