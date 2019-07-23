@@ -13,5 +13,4 @@ export const createPages: GatsbyCreatePages = async fns => {
     await createListPages({ ...fns, field: "series" });
     await createListPages({ ...fns, field: "developer" });
     await createListPages({ ...fns, field: "gameNameUsa" });
-    await createListPages({ ...fns, field: "gameNameUsa", pathFn: (gameName: string) => `bg:${slug(gameName)}` });
 };
