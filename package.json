@@ -1,9 +1,8 @@
 {
-  "name": "gatsby-starter-default",
-  "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "name": "fgbg",
+  "description": "A fighting game background appreciation website",
+  "version": "1.0.0",
+  "author": "Matt Greer <matt.e.greer@gmail.com>",
   "dependencies": {
     "classnames": "^2.2.6",
     "downshift": "^3.2.10",
@@ -44,7 +43,7 @@
     "prettier": "^1.18.2"
   },
   "keywords": [
-    "gatsby"
+    "retro gaming", "fighting games", "pixel art", "SNK", "capcom", "Neo Geo", "CPS2"
   ],
   "license": "MIT",
   "scripts": {
