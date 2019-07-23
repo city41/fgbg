@@ -1,3 +1,4 @@
+export * from "./slug";
 export * from "./backgroundPath";
 export * from "./developerPath";
 export * from "./systemPath";

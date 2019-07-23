@@ -23,4 +23,5 @@ export type GatsbyCreateListPages = (fns: {
     boundActionCreators: BoundActionCreators;
     field: string;
     fieldTransform?: (fieldValue: string) => any;
+    pathFn?: (gameName: string) => string;
 }) => void;

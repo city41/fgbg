@@ -32,6 +32,7 @@ export const createListPages: GatsbyCreateListPages = async ({
     boundActionCreators,
     field,
     fieldTransform,
+    pathFn,
 }) => {
     debugger;
     const { createPage } = boundActionCreators;
@@ -98,7 +99,7 @@ export const createListPages: GatsbyCreateListPages = async ({
     const allLevels = allLevelResult.data.levels.edges.map(e => e.node);
 
     distinctResult.data[field].distinct.forEach(fieldValue => {
-        const webPath = getWebPath(field, fieldValue);
+        const webPath = (pathFn && pathFn(fieldValue)) || getWebPath(field, fieldValue);
 
         const filterValue = fieldTransform ? fieldTransform(fieldValue) : fieldValue;
 
