@@ -18,7 +18,7 @@ interface Thumbnail {
 }
 
 function getThumbnail(thumbnails: Thumbnail[], imageFileName: string): Thumbnail {
-    return thumbnails.find(t => t.publicURL.indexOf(fileRoot(imageFileName)) > -1);
+    return thumbnails.find(t => t.publicURL.indexOf(fileRoot(imageFileName) + "_thumb") > -1);
 }
 
 const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listType, listTypeValue, thumbnails } }) => {
