@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FaExpand } from "react-icons/fa";
 import { Helmet } from "react-helmet";
 import { useHotkeys } from "react-hotkeys-hook";
 import { navigate } from "@reach/router";
@@ -13,11 +14,12 @@ import { CorrectionModal } from "./correctionModal";
 import styles from "./backgroundTemplate.module.css";
 
 const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
-    const [showSubmitCorrection, setShowSubmitCorrection] = useState(false);
+    const [jsSecondRender, setJsSecondRender] = useState(false);
     const [correctionModalOpen, setCorrectionModalOpen] = useState(false);
+    const [fullscreen, setFullscreen] = useState(false);
 
     useEffect(() => {
-        setShowSubmitCorrection(true);
+        setJsSecondRender(true);
     }, []);
 
     const levelData = data.currentLevel;
@@ -26,23 +28,38 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
 
     useHotkeys("left", () => navigate(backgroundPath(prevLevel)));
     useHotkeys("right", () => navigate(backgroundPath(nextLevel)));
+    useHotkeys("esc", () => setFullscreen(false));
 
     const imgUrl = data.mainImg.publicURL;
     const bgImageUrl = data.bgImg.childImageSharp.resize.src;
 
     const levelDescription = `${levelData.levelName} from ${levelData.gameNameUsa}`;
 
-    return (
-        <>
-            <CorrectionModal
-                imageUrl={bgImageUrl}
-                isOpen={correctionModalOpen}
-                onRequestClose={() => setCorrectionModalOpen(false)}
-            />
+    let body;
+
+    if (fullscreen) {
+        body = (
+            <>
+                <a className={styles.exitFullscreen} onClick={() => setFullscreen(false)}>
+                    exit fullscreen
+                </a>
+                <LevelImage
+                    className={styles.fullscreenLevelImage}
+                    width={data.dimensions.width}
+                    height={data.dimensions.height}
+                    src={imgUrl}
+                    alt={levelDescription}
+                />
+            </>
+        );
+    } else {
+        body = (
             <Layout>
-                <Helmet>
-                    <title>{levelDescription} - FGBG</title>
-                </Helmet>
+                <CorrectionModal
+                    imageUrl={bgImageUrl}
+                    isOpen={correctionModalOpen}
+                    onRequestClose={() => setCorrectionModalOpen(false)}
+                />
                 <div className={styles.blur} style={{ backgroundImage: `url(${bgImageUrl})` }} />
                 <div className={styles.root}>
                     <div className={styles.imageContainer}>
@@ -53,18 +70,36 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
                             src={imgUrl}
                             alt={levelDescription}
                         />
-                        <div className={styles.metaDataContainer}>
-                            {showSubmitCorrection && (
+                        {jsSecondRender && (
+                            <div className={styles.levelImageFooter}>
                                 <div className={styles.correctionLink}>
                                     <a onClick={() => setCorrectionModalOpen(true)}>submit a correction</a>
                                 </div>
-                            )}
+                                <a
+                                    className={styles.enterFullscreen}
+                                    title="fullscreen"
+                                    onClick={() => setFullscreen(true)}
+                                >
+                                    <FaExpand />
+                                </a>
+                            </div>
+                        )}
+                        <div className={styles.metaDataContainer}>
                             <BackgroundMetaData className={styles.metaData} {...levelData} />
                         </div>
                     </div>
                 </div>
                 <BackgroundHeader className={styles.header} prevLevel={prevLevel} nextLevel={nextLevel} />
             </Layout>
+        );
+    }
+
+    return (
+        <>
+            <Helmet>
+                <title>{levelDescription} - FGBG</title>
+            </Helmet>
+            {body}
         </>
     );
 };

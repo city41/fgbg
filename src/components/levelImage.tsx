@@ -11,7 +11,14 @@ interface LevelImageProps {
     alt: string;
 }
 
-export const LevelImage: React.FunctionComponent<LevelImageProps> = ({ className, width, height, src, alt }) => {
+export const LevelImage: React.FunctionComponent<LevelImageProps> = ({
+    className,
+    width,
+    height,
+    src,
+    alt,
+    children,
+}) => {
     const classes = classnames(styles.root, className);
 
     // const [loading, setLoading] = useState(false);
@@ -25,6 +32,7 @@ export const LevelImage: React.FunctionComponent<LevelImageProps> = ({ className
     return (
         <div className={classes} style={{ paddingTop }}>
             <img src={src} alt={alt} />
+            {children}
         </div>
     );
 };
