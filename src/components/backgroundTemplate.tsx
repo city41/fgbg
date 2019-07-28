@@ -106,14 +106,14 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
 
 export const query = graphql`
     query(
-        $currentId: String!
-        $prevId: String!
-        $nextId: String!
+        $currentId: Int!
+        $prevId: Int!
+        $nextId: Int!
         $mainImageRelativePath: String!
         $mainImageRegex: String!
         $bgImageRelativePath: String!
     ) {
-        currentLevel: googleSheetLeveldataRow(id: { eq: $currentId }) {
+        currentLevel: googleSheetLeveldataRow(levelId: { eq: $currentId }) {
             levelName
             gameNameUsa
             developer
@@ -121,11 +121,11 @@ export const query = graphql`
             year
             series
         }
-        prevLevel: googleSheetLeveldataRow(id: { eq: $prevId }) {
+        prevLevel: googleSheetLeveldataRow(levelId: { eq: $prevId }) {
             levelName
             gameNameUsa
         }
-        nextLevel: googleSheetLeveldataRow(id: { eq: $nextId }) {
+        nextLevel: googleSheetLeveldataRow(levelId: { eq: $nextId }) {
             levelName
             gameNameUsa
         }

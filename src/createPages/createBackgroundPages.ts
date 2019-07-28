@@ -32,22 +32,22 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
     const backgroundTemplate = path.resolve("src/components/backgroundTemplate.tsx");
 
     const result = await graphql(`
-        query allLevels {
-            allGoogleSheetLeveldataRow {
+        query {
+            allLevels: allGoogleSheetLeveldataRow {
                 totalCount
                 edges {
                     node {
-                        id
+                        levelId
                         levelName
                         gameNameUsa
                         imageFileName
                         system
                     }
                     previous {
-                        id
+                        levelId
                     }
                     next {
-                        id
+                        levelId
                     }
                 }
             }
@@ -58,11 +58,71 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
         throw result.errors;
     }
 
-    const firstNode = result.data.allGoogleSheetLeveldataRow.edges[0].node;
-    const lastNode =
-        result.data.allGoogleSheetLeveldataRow.edges[result.data.allGoogleSheetLeveldataRow.totalCount - 1].node;
+    const [seedEdge, ...restOfEdges] = result.data.allLevels.edges;
 
-    result.data.allGoogleSheetLeveldataRow.edges.forEach(({ node, previous, next }) => {
+    type Node = {
+        edge: any;
+        next?: Node;
+        prev?: Node;
+    };
+
+    const head: Node = {
+        edge: seedEdge,
+        next: null,
+        prev: null,
+    };
+
+    let tail: Node = head;
+
+    function pluckRandom<T>(array: T[]): T {
+        const randomIndex = Math.floor(Math.random() * array.length);
+        return array.splice(randomIndex, 1)[0];
+    }
+
+    while (restOfEdges.length) {
+        const nextEdge = pluckRandom(restOfEdges);
+        const nextNode = {
+            edge: nextEdge,
+            prev: tail,
+        };
+
+        tail.next = nextNode;
+
+        tail = nextNode;
+    }
+
+    head.prev = tail;
+    tail.next = head;
+
+    const nextPrevMap = {};
+
+    let iterator = head;
+
+    let iterationCount = 0;
+    while (Object.keys(nextPrevMap).length === 0 || iterator !== head) {
+        if (nextPrevMap[iterator.edge.node.levelId]) {
+            throw new Error("nextPrevMap, already encountered this node!");
+        }
+
+        nextPrevMap[iterator.edge.node.levelId] = {
+            nextId: iterator.next.edge.node.levelId,
+            prevId: iterator.prev.edge.node.levelId,
+        };
+
+        iterator = iterator.next;
+        ++iterationCount;
+    }
+
+    if (iterationCount !== result.data.allLevels.edges.length) {
+        throw new Error(
+            "nextPrevMap iterationCount mismatch, iterationCount: " +
+                iterationCount +
+                ", allLevels.length: " +
+                result.data.allLevels.edges.length
+        );
+    }
+
+    result.data.allLevels.edges.forEach(({ node }, index, edges) => {
         const webPath = backgroundPath(node);
 
         const imagePaths = getImagePaths(node.imageFileName);
@@ -71,9 +131,9 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
             path: webPath,
             component: backgroundTemplate,
             context: {
-                currentId: node.id,
-                prevId: (previous && previous.id) || lastNode.id,
-                nextId: (next && next.id) || firstNode.id,
+                currentId: node.levelId,
+                nextId: nextPrevMap[node.levelId].nextId,
+                prevId: nextPrevMap[node.levelId].prevId,
                 ...imagePaths,
                 mainImageRegex: `/${node.imageFileName}/`,
             },
