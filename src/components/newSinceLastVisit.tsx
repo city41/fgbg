@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from "react";
+import classnames from "classnames";
+import { FaBell } from "react-icons/fa";
+import { LevelListEntry } from "./levelListEntry";
+
+import styles from "./newSinceLastVisit.module.css";
 
 interface Level {
     levelId: number;
@@ -19,14 +24,15 @@ interface NewSinceLastVisitProps {
     levels: Level[];
 }
 
-export const NewSinceLastVisit: React.FunctionComponent = ({ levels }) => {
+function useNewLevelsSinceLastRender(levels) {
     const [secondRender, setSecondRender] = useState(false);
+
     useEffect(() => {
         setSecondRender(true);
     }, []);
 
     if (!secondRender) {
-        return null;
+        return [];
     }
 
     const maxLevelId = Math.max(...levels.map(l => l.levelId));
@@ -39,14 +45,45 @@ export const NewSinceLastVisit: React.FunctionComponent = ({ levels }) => {
     }
 
     if (!lastMaxLevelId) {
-        return null;
+        return [];
     }
 
-    const newLevels = levels.filter(l => l.levelId > lastMaxLevelId);
+    return levels.filter(l => l.levelId > lastMaxLevelId);
+}
 
-    if (newLevels.length === 0) {
-        return null;
+export const NewSinceLastVisit: React.FunctionComponent = ({ levels }) => {
+    const [open, setOpen] = useState(false);
+    const newLevels = useNewLevelsSinceLastRender(levels);
+
+    let body;
+
+    if (open && newLevels.length > 0) {
+        body = newLevels.map((l, i) => (
+            <div key={i}>
+                <LevelListEntry className={styles.levelListEntry} {...l}>
+                    <span className={styles.levelName}>{l.levelName}</span>{" "}
+                    <span className={styles.restOfText}>
+                        from {l.gameNameUsa}, {l.system}
+                    </span>
+                </LevelListEntry>
+            </div>
+        ));
+    } else {
+        body = (
+            <span>
+                <FaBell />
+                {newLevels.length} new levels since your last visit
+            </span>
+        );
     }
 
-    return <div>{newLevels.length} new levels since your last visit</div>;
+    const rootClasses = classnames(styles.root, {
+        [styles.noLevels]: newLevels.length === 0,
+    });
+
+    return (
+        <div className={rootClasses} onClick={() => setOpen(true)}>
+            {body}
+        </div>
+    );
 };

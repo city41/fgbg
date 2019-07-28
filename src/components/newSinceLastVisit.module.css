@@ -1,0 +1,13 @@
+.root {
+    margin: 8px 0;
+    font-size: 0.9rem;
+    color: #59bd78;
+}
+
+.root svg {
+    margin-right: 4px;
+}
+
+.noLevels {
+    visibility: hidden;
+}
