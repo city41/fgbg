@@ -4,6 +4,7 @@ import { Search } from "../components/search";
 import { IndexHeader } from "../components/indexHeader";
 import { BrowseColumn } from "../components/browseColumn";
 import { NewBackgroundModal } from "../components/newBackgroundModal";
+import { NewSinceLastVisitLink } from "../components/newSinceLastVisitLink";
 import SEO from "../components/seo";
 import { fileRoot, seriesPath, developerPath, systemPath, yearPath } from "../util";
 import { byIgnoreThe } from "../util/sort";
@@ -50,6 +51,7 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
                 <div className={styles.content}>
                     <SEO title="Fighting Game Backgrounds" />
                     <IndexHeader className={styles.header} />
+                    <NewSinceLastVisitLink levels={totalSearchData} />
                     <Search className={styles.search} data={totalSearchData} />
                     <div className={styles.browseNewContainer}>
                         <p>
@@ -86,6 +88,7 @@ export const query = graphql`
             totalCount
             edges {
                 node {
+                    levelId
                     levelName
                     gameNameUsa
                     system

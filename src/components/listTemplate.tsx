@@ -21,7 +21,7 @@ function getThumbnail(thumbnails: Thumbnail[], imageFileName: string): Thumbnail
     return thumbnails.find(t => t.publicURL.indexOf(fileRoot(imageFileName) + "_thumb") > -1);
 }
 
-const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listType, listTypeValue, thumbnails } }) => {
+const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listTypeValue, thumbnails } }) => {
     const levels = data.levels.edges.map(e => e.node);
 
     const byGame = groupBy(levels, "gameNameUsa");

@@ -4,18 +4,10 @@ import { Link } from "gatsby";
 import { FaSearch } from "react-icons/fa";
 import Downshift from "downshift";
 import { LevelListEntry } from "./levelListEntry";
+import { Level } from "../types";
 import { backgroundPath } from "../util";
 
 import styles from "./search.module.css";
-
-interface Level {
-    levelName: string;
-    gameNameUsa: string;
-    system: string;
-    developer: string;
-    year?: string;
-    series: string;
-}
 
 interface SearchProps {
     className?: string;

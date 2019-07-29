@@ -1,6 +1,6 @@
 import * as path from "path";
 import { GatsbyCreateListPages } from "./types";
-import { systemPath, gamePath, developerPath, yearPath, seriesPath } from "../util";
+import { fileRoot, systemPath, gamePath, developerPath, yearPath, seriesPath } from "../util";
 
 const pathMap = {
     system: systemPath,
@@ -15,15 +15,11 @@ function getWebPath(field: string, fieldValue: string): string {
     return fn(fieldValue);
 }
 
-function root(filename: string): string {
-    return filename.split(".")[0];
-}
-
 function getThumbnails(field: string, fieldValue: string, allLevels: any[], allThumbnails: any[]): any[] {
     const matchingLevels = allLevels.filter(level => level[field] === fieldValue);
 
     return allThumbnails.filter(thumbnail => {
-        return matchingLevels.some(level => thumbnail.relativePath.indexOf(root(level.imageFileName)) > -1);
+        return matchingLevels.some(level => thumbnail.relativePath.indexOf(fileRoot(level.imageFileName)) > -1);
     });
 }
 
