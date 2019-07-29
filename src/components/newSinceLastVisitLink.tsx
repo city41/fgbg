@@ -22,7 +22,7 @@ export const NewSinceLastVisitLink: React.FunctionComponent = ({ levels }) => {
     return (
         <Link className={rootClasses} to="/new">
             <FaBell />
-            {newLevels.length} new level{newLevels.length === 1 ? "" : "s"} since your last visit
+            {newLevels.length} new background{newLevels.length === 1 ? "" : "s"} since your last visit
         </Link>
     );
 };

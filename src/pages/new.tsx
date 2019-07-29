@@ -27,7 +27,7 @@ const NewPage: React.FunctionComponent = ({ data }) => {
     const newLevelNodes = newLevels.map(nl => ({ node: nl }));
 
     const pageContext = {
-        listTypeValue: "new arrivals",
+        listTypeValue: "new backgrounds",
         thumbnails: flattenedThumbnails.filter(t =>
             newLevels.some(l => t.relativePath.indexOf(fileRoot(l.imageFileName)) > -1)
         ),

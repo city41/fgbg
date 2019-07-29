@@ -19,7 +19,7 @@ export function useNewLevelsSinceLastVisit(levels) {
         localStorage.lastMaxLevelId ||
         maxLevelId;
 
-    localStorage.lastMaxLevelId = lastMaxLevelId;
+    localStorage.lastMaxLevelId = maxLevelId;
 
     if (isNaN(sessionStorage.lastMaxLevelId)) {
         sessionStorage.lastMaxLevelId = lastMaxLevelId;
