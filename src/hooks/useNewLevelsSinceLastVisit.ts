@@ -12,11 +12,13 @@ export function useNewLevelsSinceLastVisit(levels) {
     }
 
     const maxLevelId = Math.max(...levels.map(l => l.levelId));
-    const lastMaxLevelId = sessionStorage.lastMaxLevelId || localStorage.lastMaxLevelId;
+    const lastMaxLevelId = !isNaN(sessionStorage.lastMaxLevelId)
+        ? sessionStorage.lastMaxLevelId
+        : localStorage.lastMaxLevelId;
 
     localStorage.lastMaxLevelId = maxLevelId;
 
-    if (!sessionStorage.lastMaxLevelId) {
+    if (isNaN(sessionStorage.lastMaxLevelId)) {
         sessionStorage.lastMaxLevelId = lastMaxLevelId;
     }
 
