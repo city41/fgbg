@@ -89,8 +89,26 @@
     transform: scale(-1, 1);
 }
 
+.credit {
+    position: fixed;
+    bottom: 0;
+    left: 8px;
+    font-size: 0.6rem;
+    color: white;
+}
+
+.credit a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 @media (max-width: 700px) {
     .ukyo {
+        display: none;
+    }
+
+    .credit {
         display: none;
     }
 }

@@ -46,6 +46,9 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
         <>
             <NewBackgroundModal isOpen={newModalOpen} onRequestClose={() => setNewModalOpen(false)} />
             <div className={styles.ukyo} />
+            <div className={styles.credit}>
+                by <a href="https://twitter.com/mattegreer">@mattegreer</a>
+            </div>
             <div className={styles.blur} style={{ backgroundImage: `url(${bgImageUrl})` }} />
             <div className={styles.root}>
                 <div className={styles.content}>
