@@ -19,6 +19,8 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
         setShowSubmitNew(true);
     }, []);
 
+    const twitterImg = data.twitterImg.edges[0].node.childImageSharp.fixed.src;
+
     const searchData = data.searchData.edges.map(e => e.node);
     const thumbnails = data.thumbnails.edges.map(e => e.node);
     const flattenedThumbnails = thumbnails.map(t => {
@@ -52,7 +54,7 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
             <div className={styles.blur} style={{ backgroundImage: `url(${bgImageUrl})` }} />
             <div className={styles.root}>
                 <div className={styles.content}>
-                    <SEO title="Fighting Game Backgrounds" />
+                    <SEO title="Fighting Game Backgrounds" imageUrl={twitterImg} />
                     <IndexHeader className={styles.header} />
                     <NewSinceLastVisitLink levels={totalSearchData} />
                     <Search className={styles.search} data={totalSearchData} />
@@ -126,6 +128,17 @@ export const query = graphql`
                         }
                         fixed(base64Width: 10) {
                             base64
+                        }
+                    }
+                }
+            }
+        }
+        twitterImg: allFile(filter: { relativePath: { regex: "/bgs/static/kof99_park1/" } }) {
+            edges {
+                node {
+                    childImageSharp {
+                        fixed(height: 200) {
+                            src
                         }
                     }
                 }

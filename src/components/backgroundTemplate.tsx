@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import SEO from "./seo";
 import { FaCompress, FaExpand } from "react-icons/fa";
 import { Helmet } from "react-helmet";
 import { useHotkeys } from "react-hotkeys-hook";
@@ -35,6 +36,7 @@ const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { curr
 
     const imgUrl = data.mainImg.publicURL;
     const bgImageUrl = data.bgImg.childImageSharp.resize.src;
+    const twitterImageUrl = data.twitterImg.childImageSharp.resize.src;
 
     const levelDescription = `${levelData.levelName} from ${levelData.gameNameUsa}`;
 
@@ -113,6 +115,7 @@ const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { curr
             <Helmet>
                 <title>{levelDescription} - FGBG</title>
             </Helmet>
+            <SEO title={levelDescription} description="fighting game backgrounds website" imageUrl={twitterImageUrl} />
             {body}
         </>
     );
@@ -149,6 +152,13 @@ export const query = graphql`
         bgImg: file(relativePath: { eq: $bgImageRelativePath }) {
             childImageSharp {
                 resize(height: 300, quality: 10) {
+                    src
+                }
+            }
+        }
+        twitterImg: file(relativePath: { eq: $bgImageRelativePath }) {
+            childImageSharp {
+                resize(height: 300) {
                     src
                 }
             }
