@@ -10,8 +10,8 @@
     margin: 0 8px;
 }
 
-.root li:first-child {
-    margin-left: 0;
+.root li.liCurrentLabel {
+    margin: 0;
 }
 
 .root li a {

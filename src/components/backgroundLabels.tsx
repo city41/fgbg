@@ -25,13 +25,20 @@ export const BackgroundLabels: React.FunctionComponent<BackgroundLabelsProps> = 
         <ul className={styles.root}>
             {labels.map(label => {
                 let body;
-                if (label === currentLabel) {
+
+                const isCurrentLabel = label === currentLabel;
+
+                if (isCurrentLabel) {
                     body = <div className={styles.currentLabel}>{label}</div>;
                 } else {
                     body = <Link to={backgroundPath({ gameNameUsa, levelName }, label, fullscreen)}>{label}</Link>;
                 }
 
-                return <li key={label}>{body}</li>;
+                return (
+                    <li className={isCurrentLabel && styles.liCurrentLabel} key={label}>
+                        {body}
+                    </li>
+                );
             })}
         </ul>
     );
