@@ -101,7 +101,7 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
     let iterationCount = 0;
     while (Object.keys(nextPrevMap).length === 0 || iterator !== head) {
         if (nextPrevMap[iterator.edge.node.levelId]) {
-            throw new Error("nextPrevMap, already encountered this node!");
+            throw new Error("nextPrevMap, already encountered this node! " + iterator.edge.node.levelId);
         }
 
         nextPrevMap[iterator.edge.node.levelId] = {
