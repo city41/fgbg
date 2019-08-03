@@ -102,12 +102,13 @@
     margin-right: 4px;
 }
 
-.exitFullscreen {
+.fullscreenTitle {
     display: inline-block;
     margin-left: 50%;
     transform: translateX(-50%);
     cursor: pointer;
-    padding: 8px 0;
+    padding: 4px 0;
+    font-size: 0.8rem;
 }
 
 .exitFullscreen:hover {

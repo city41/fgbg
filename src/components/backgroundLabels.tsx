@@ -10,6 +10,7 @@ interface BackgroundLabelsProps {
     levelName: string;
     labels: string[];
     currentLabel: string;
+    fullscreen?: boolean;
 }
 
 export const BackgroundLabels: React.FunctionComponent<BackgroundLabelsProps> = ({
@@ -18,6 +19,7 @@ export const BackgroundLabels: React.FunctionComponent<BackgroundLabelsProps> = 
     levelName,
     labels,
     currentLabel,
+    fullscreen,
 }) => {
     return (
         <ul className={styles.root}>
@@ -26,10 +28,10 @@ export const BackgroundLabels: React.FunctionComponent<BackgroundLabelsProps> = 
                 if (label === currentLabel) {
                     body = <div className={styles.currentLabel}>{label}</div>;
                 } else {
-                    body = <Link to={backgroundPath({ gameNameUsa, levelName }, label)}>{label}</Link>;
+                    body = <Link to={backgroundPath({ gameNameUsa, levelName }, label, fullscreen)}>{label}</Link>;
                 }
 
-                return <li>{body}</li>;
+                return <li key={label}>{body}</li>;
             })}
         </ul>
     );

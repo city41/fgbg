@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaExpand } from "react-icons/fa";
+import { FaCompress, FaExpand } from "react-icons/fa";
 import { Helmet } from "react-helmet";
 import { useHotkeys } from "react-hotkeys-hook";
 import { navigate } from "@reach/router";
@@ -17,7 +17,9 @@ import styles from "./backgroundTemplate.module.css";
 const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { currentLabel, labels } }) => {
     const [jsSecondRender, setJsSecondRender] = useState(false);
     const [correctionModalOpen, setCorrectionModalOpen] = useState(false);
-    const [fullscreen, setFullscreen] = useState(false);
+    const [fullscreen, setFullscreen] = useState(
+        typeof window !== "undefined" && window.location.search.indexOf("fullscreen") > -1
+    );
 
     useEffect(() => {
         setJsSecondRender(true);
@@ -27,8 +29,8 @@ const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { curr
     const prevLevel = data.prevLevel;
     const nextLevel = data.nextLevel;
 
-    useHotkeys("left", () => navigate(backgroundPath(prevLevel)));
-    useHotkeys("right", () => navigate(backgroundPath(nextLevel)));
+    useHotkeys("left", () => navigate(backgroundPath(prevLevel, undefined, fullscreen)));
+    useHotkeys("right", () => navigate(backgroundPath(nextLevel, undefined, fullscreen)));
     useHotkeys("esc", () => setFullscreen(false));
 
     const imgUrl = data.mainImg.publicURL;
@@ -43,9 +45,9 @@ const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { curr
     if (fullscreen) {
         body = (
             <>
-                <a className={styles.exitFullscreen} onClick={() => setFullscreen(false)}>
-                    exit fullscreen
-                </a>
+                <div className={styles.fullscreenTitle}>
+                    {levelData.levelName}, {levelData.gameNameUsa}
+                </div>
                 <LevelImage
                     className={styles.fullscreenLevelImage}
                     width={data.dimensions.width}
@@ -53,6 +55,14 @@ const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { curr
                     src={imgUrl}
                     alt={levelDescription}
                 />
+                <div className={styles.levelImageFooter}>
+                    {!!labels && (
+                        <BackgroundLabels {...levelData} labels={labels} currentLabel={currentLabel} fullscreen />
+                    )}
+                    <a className={styles.enterFullscreen} title="leave fullscreen" onClick={() => setFullscreen(false)}>
+                        <FaCompress style={hideOnFirstRender} />
+                    </a>
+                </div>
             </>
         );
     } else {
@@ -77,7 +87,9 @@ const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { curr
                             alt={levelDescription}
                         />
                         <div className={styles.levelImageFooter}>
-                            <BackgroundLabels {...levelData} labels={labels} currentLabel={currentLabel} />
+                            {!!labels && (
+                                <BackgroundLabels {...levelData} labels={labels} currentLabel={currentLabel} />
+                            )}
                             <a
                                 className={styles.enterFullscreen}
                                 title="fullscreen"
