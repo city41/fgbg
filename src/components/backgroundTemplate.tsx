@@ -6,6 +6,7 @@ import { navigate } from "@reach/router";
 import { graphql } from "gatsby";
 import { Layout } from "./layout";
 import { BackgroundHeader } from "./backgroundHeader";
+import { BackgroundLabels } from "./backgroundLabels";
 import { BackgroundMetaData } from "./backgroundMetaData";
 import { LevelImage } from "./levelImage";
 import { backgroundPath } from "../util/backgroundPath";
@@ -13,7 +14,7 @@ import { CorrectionModal } from "./correctionModal";
 
 import styles from "./backgroundTemplate.module.css";
 
-const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
+const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { currentLabel, labels } }) => {
     const [jsSecondRender, setJsSecondRender] = useState(false);
     const [correctionModalOpen, setCorrectionModalOpen] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
@@ -36,6 +37,8 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
     const levelDescription = `${levelData.levelName} from ${levelData.gameNameUsa}`;
 
     let body;
+
+    const hideOnFirstRender = { visibility: jsSecondRender ? "visible" : "hidden" };
 
     if (fullscreen) {
         body = (
@@ -63,6 +66,9 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
                 <div className={styles.blur} style={{ backgroundImage: `url(${bgImageUrl})` }} />
                 <div className={styles.root}>
                     <div className={styles.imageContainer}>
+                        <div className={styles.correctionLink} style={hideOnFirstRender}>
+                            <a onClick={() => setCorrectionModalOpen(true)}>submit a correction</a>
+                        </div>
                         <LevelImage
                             className={styles.levelImage}
                             width={data.dimensions.width}
@@ -70,22 +76,18 @@ const BackgroundTemplate: React.FunctionComponent = ({ data }) => {
                             src={imgUrl}
                             alt={levelDescription}
                         />
-                        {jsSecondRender && (
-                            <div className={styles.levelImageFooter}>
-                                <div className={styles.correctionLink}>
-                                    <a onClick={() => setCorrectionModalOpen(true)}>submit a correction</a>
-                                </div>
-                                <a
-                                    className={styles.enterFullscreen}
-                                    title="fullscreen"
-                                    onClick={() => setFullscreen(true)}
-                                >
-                                    <FaExpand />
-                                </a>
-                            </div>
-                        )}
+                        <div className={styles.levelImageFooter}>
+                            <BackgroundLabels {...levelData} labels={labels} currentLabel={currentLabel} />
+                            <a
+                                className={styles.enterFullscreen}
+                                title="fullscreen"
+                                onClick={() => setFullscreen(true)}
+                            >
+                                <FaExpand style={hideOnFirstRender} />
+                            </a>
+                        </div>
                         <div className={styles.metaDataContainer}>
-                            <BackgroundMetaData className={styles.metaData} {...levelData} />
+                            <BackgroundMetaData className={styles.metaData} {...levelData} label={currentLabel} />
                         </div>
                     </div>
                 </div>

@@ -42,6 +42,7 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
                         gameNameUsa
                         imageFileName
                         system
+                        labels
                     }
                     previous {
                         levelId
@@ -122,21 +123,81 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
         );
     }
 
-    result.data.allLevels.edges.forEach(({ node }, index, edges) => {
-        const webPath = backgroundPath(node);
+    result.data.allLevels.edges.forEach(({ node }) => {
+        const images = node.imageFileName.split(",");
 
-        const imagePaths = getImagePaths(node.imageFileName);
+        if (images.length === 1) {
+            const webPath = backgroundPath(node);
 
-        createPage({
-            path: webPath,
-            component: backgroundTemplate,
-            context: {
-                currentId: node.levelId,
-                nextId: nextPrevMap[node.levelId].nextId,
-                prevId: nextPrevMap[node.levelId].prevId,
-                ...imagePaths,
-                mainImageRegex: `/${node.imageFileName}/`,
-            },
-        });
+            const imagePaths = getImagePaths(node.imageFileName);
+
+            createPage({
+                path: webPath,
+                component: backgroundTemplate,
+                context: {
+                    currentId: node.levelId,
+                    nextId: nextPrevMap[node.levelId].nextId,
+                    prevId: nextPrevMap[node.levelId].prevId,
+                    ...imagePaths,
+                    mainImageRegex: `/${node.imageFileName}/`,
+                },
+            });
+        } else {
+            const labels = node.labels.split(",");
+
+            if (labels.length !== images.length) {
+                throw new Error(`For ${node.levelName}, ${node.gameNameUsa}, images/labels mismatch`);
+            }
+
+            if (labels.some(l => l.trim().length === 0)) {
+                throw new Error(`For ${node.levelName}, ${node.gameNameUsa}, empty label found`);
+            }
+
+            if (images.some(i => i.trim().length === 0)) {
+                throw new Error(`For ${node.levelName}, ${node.gameNameUsa}, empty image filename found`);
+            }
+
+            // create game:kof99/park/round-1, .../round-2, etc
+            images.forEach((image, index) => {
+                const currentLabel = labels[index];
+
+                const webPath = backgroundPath(node, currentLabel);
+
+                const imagePaths = getImagePaths(image);
+
+                createPage({
+                    path: webPath,
+                    component: backgroundTemplate,
+                    context: {
+                        currentId: node.levelId,
+                        nextId: nextPrevMap[node.levelId].nextId,
+                        prevId: nextPrevMap[node.levelId].prevId,
+                        ...imagePaths,
+                        mainImageRegex: `/${image}/`,
+                        labels,
+                        currentLabel,
+                    },
+                });
+            });
+
+            // and create game:kof99/park which is just round-1 again
+            const webPath = backgroundPath(node);
+
+            const imagePaths = getImagePaths(images[0]);
+
+            createPage({
+                path: webPath,
+                component: backgroundTemplate,
+                context: {
+                    currentId: node.levelId,
+                    nextId: nextPrevMap[node.levelId].nextId,
+                    prevId: nextPrevMap[node.levelId].prevId,
+                    ...imagePaths,
+                    mainImageRegex: `/${images[0]}/`,
+                    labels,
+                    currentLabel: labels[0],
+                },
+            });
+        }
     });
 };
