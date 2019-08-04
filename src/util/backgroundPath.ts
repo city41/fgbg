@@ -12,7 +12,7 @@ export function backgroundPath(
     }
 
     if (fullscreen) {
-        return base + "?fullscreen";
+        return [base, "fullscreen"].join("/");
     } else {
         return base;
     }

@@ -1,4 +1,4 @@
-interface PageInput {
+export interface PageInput {
     path: string;
     component: string;
     layout?: string;

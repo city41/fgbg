@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "gatsby";
 import SEO from "./seo";
 import { FaCompress, FaExpand } from "react-icons/fa";
 import { Helmet } from "react-helmet";
@@ -15,12 +16,9 @@ import { CorrectionModal } from "./correctionModal";
 
 import styles from "./backgroundTemplate.module.css";
 
-const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { currentLabel, labels } }) => {
+const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { currentLabel, labels, fullscreen } }) => {
     const [jsSecondRender, setJsSecondRender] = useState(false);
     const [correctionModalOpen, setCorrectionModalOpen] = useState(false);
-    const [fullscreen, setFullscreen] = useState(
-        typeof window !== "undefined" && window.location.search.indexOf("fullscreen") > -1
-    );
 
     useEffect(() => {
         setJsSecondRender(true);
@@ -32,7 +30,7 @@ const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { curr
 
     useHotkeys("left", () => navigate(backgroundPath(prevLevel, undefined, fullscreen)));
     useHotkeys("right", () => navigate(backgroundPath(nextLevel, undefined, fullscreen)));
-    useHotkeys("esc", () => setFullscreen(false));
+    useHotkeys("esc", () => navigate(backgroundPath(levelData, currentLabel, false)));
 
     const imgUrl = data.mainImg.publicURL;
     const bgImageUrl = data.bgImg.childImageSharp.resize.src;
@@ -61,9 +59,13 @@ const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { curr
                     {!!labels && (
                         <BackgroundLabels {...levelData} labels={labels} currentLabel={currentLabel} fullscreen />
                     )}
-                    <a className={styles.enterFullscreen} title="leave fullscreen" onClick={() => setFullscreen(false)}>
+                    <Link
+                        className={styles.fullscreenLink}
+                        title="leave fullscreen"
+                        to={backgroundPath(levelData, currentLabel, false)}
+                    >
                         <FaCompress style={hideOnFirstRender} />
-                    </a>
+                    </Link>
                 </div>
             </>
         );
@@ -92,13 +94,13 @@ const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { curr
                             {!!labels && (
                                 <BackgroundLabels {...levelData} labels={labels} currentLabel={currentLabel} />
                             )}
-                            <a
-                                className={styles.enterFullscreen}
+                            <Link
+                                className={styles.fullscreenLink}
                                 title="fullscreen"
-                                onClick={() => setFullscreen(true)}
+                                to={backgroundPath(levelData, currentLabel, true)}
                             >
                                 <FaExpand style={hideOnFirstRender} />
-                            </a>
+                            </Link>
                         </div>
                         <div className={styles.metaDataContainer}>
                             <BackgroundMetaData className={styles.metaData} {...levelData} label={currentLabel} />

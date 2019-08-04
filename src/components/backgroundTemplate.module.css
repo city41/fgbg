@@ -93,13 +93,17 @@
     }
 }
 
-.enterFullscreen {
+.fullscreenLink {
     grid-column: 2;
     justify-self: end;
     display: inline-block;
     cursor: pointer;
     margin-top: 4px;
     margin-right: 4px;
+}
+
+.fullscreenLink svg {
+    fill: white;
 }
 
 .fullscreenTitle {

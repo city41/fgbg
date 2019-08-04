@@ -1,6 +1,6 @@
 import * as path from "path";
 import * as fs from "fs";
-import { GatsbyCreatePages } from "./types";
+import { GatsbyCreatePages, PageInput } from "./types";
 import { backgroundPath } from "../util/backgroundPath";
 
 const staticSuffix = "_static.jpg";
@@ -28,6 +28,19 @@ function getImagePaths(mainImageFileName: string): { mainImageRelativePath: stri
 
 export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundActionCreators }) => {
     const { createPage } = boundActionCreators;
+
+    function createPageWithFullscreenVariant(options: PageInput) {
+        createPage(options);
+
+        createPage({
+            ...options,
+            path: options.path + "/fullscreen",
+            context: {
+                ...options.context,
+                fullscreen: true,
+            },
+        });
+    }
 
     const backgroundTemplate = path.resolve("src/components/backgroundTemplate.tsx");
 
@@ -131,7 +144,7 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
 
             const imagePaths = getImagePaths(node.imageFileName);
 
-            createPage({
+            createPageWithFullscreenVariant({
                 path: webPath,
                 component: backgroundTemplate,
                 context: {
@@ -165,7 +178,7 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
 
                 const imagePaths = getImagePaths(image);
 
-                createPage({
+                createPageWithFullscreenVariant({
                     path: webPath,
                     component: backgroundTemplate,
                     context: {
@@ -185,7 +198,7 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
 
             const imagePaths = getImagePaths(images[0]);
 
-            createPage({
+            createPageWithFullscreenVariant({
                 path: webPath,
                 component: backgroundTemplate,
                 context: {
