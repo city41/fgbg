@@ -34,7 +34,7 @@ const NewestPage: React.FunctionComponent = ({ data }) => {
 
     return (
         <ListTemplate dontGroup data={listTemplateData} pageContext={pageContext}>
-            the 10 most recently added backgrounds
+            the 20 most recently added backgrounds
         </ListTemplate>
     );
 };
@@ -43,7 +43,7 @@ export default NewestPage;
 
 export const query = graphql`
     query MyQuery {
-        latestLevels: allGoogleSheetLeveldataRow(sort: { fields: levelId, order: DESC }, limit: 10) {
+        latestLevels: allGoogleSheetLeveldataRow(sort: { fields: levelId, order: DESC }, limit: 20) {
             edges {
                 node {
                     levelId
