@@ -51,7 +51,18 @@
 
 .browseNewContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr max-content;
+}
+
+.browseNewContainer a {
+    color: rgba(255, 255, 100, 0.7);
+    text-decoration: none;
+    cursor: pointer;
+    color: ;
+}
+
+.browseNewContainer a:hover {
+    text-decoration: underline;
 }
 
 .newBackgroundLink {

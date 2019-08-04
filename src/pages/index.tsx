@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { graphql } from "gatsby";
+import { Link, graphql } from "gatsby";
 import { Search } from "../components/search";
 import { IndexHeader } from "../components/indexHeader";
 import { BrowseColumn } from "../components/browseColumn";
@@ -60,7 +60,7 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
                     <Search className={styles.search} data={totalSearchData} />
                     <div className={styles.browseNewContainer}>
                         <p>
-                            <span className={styles.orForBrowse}>or</span> browse {data.searchData.totalCount}{" "}
+                            <Link to="/newest">view the newest additions</Link>, or browse {data.searchData.totalCount}{" "}
                             backgrounds by...
                         </p>
                         {showSubmitNew && (

@@ -21,10 +21,54 @@ function getThumbnail(thumbnails: Thumbnail[], imageFileName: string): Thumbnail
     return thumbnails.find(t => t.publicURL.indexOf(fileRoot(imageFileName) + "_thumb") > -1);
 }
 
-const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listTypeValue, thumbnails } }) => {
+const ListTemplate: React.FunctionComponent = ({
+    children,
+    dontGroup,
+    data,
+    pageContext: { listTypeValue, thumbnails },
+}) => {
     const levels = data.levels.edges.map(e => e.node);
 
     const byGame = groupBy(levels, "gameNameUsa");
+
+    const gameBody = dontGroup ? (
+        <ul>
+            {levels.map(level => (
+                <li key={level.levelName}>
+                    <LevelListEntry
+                        linkClassName={styles.listEntryLink}
+                        className={styles.listEntry}
+                        {...level}
+                        thumbnailData={getThumbnail(thumbnails, level.imageFileName)}
+                    />
+                </li>
+            ))}
+        </ul>
+    ) : (
+        <ul>
+            {Object.keys(byGame)
+                .sort(byIgnoreThe)
+                .map(gameName => {
+                    return (
+                        <li key={gameName}>
+                            {gameName !== listTypeValue && <h2 className={styles.gameHeader}>{gameName}</h2>}
+                            <ul>
+                                {byGame[gameName].sort(byLevelName).map(level => (
+                                    <li key={level.levelName}>
+                                        <LevelListEntry
+                                            linkClassName={styles.listEntryLink}
+                                            className={styles.listEntry}
+                                            {...level}
+                                            thumbnailData={getThumbnail(thumbnails, level.imageFileName)}
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+                    );
+                })}
+        </ul>
+    );
 
     return (
         <Layout logoClassName={styles.layoutLogo}>
@@ -35,35 +79,17 @@ const ListTemplate: React.FunctionComponent = ({ data, pageContext: { listTypeVa
                 <h1>
                     {listTypeValue}{" "}
                     <span className={styles.levelCount}>
-                        {levels.length} background{levels.length !== 1 && "s"}
+                        {children || (
+                            <span>
+                                {levels.length} background{levels.length !== 1 && "s"}
+                            </span>
+                        )}
                     </span>
                 </h1>
                 <noscript>
                     <div className={styles.noscriptWarning}>this page loads faster with JavaScript enabled</div>
                 </noscript>
-                <ul>
-                    {Object.keys(byGame)
-                        .sort(byIgnoreThe)
-                        .map(gameName => {
-                            return (
-                                <li key={gameName}>
-                                    {gameName !== listTypeValue && <h2 className={styles.gameHeader}>{gameName}</h2>}
-                                    <ul>
-                                        {byGame[gameName].sort(byLevelName).map(level => (
-                                            <li key={level.levelName}>
-                                                <LevelListEntry
-                                                    linkClassName={styles.listEntryLink}
-                                                    className={styles.listEntry}
-                                                    {...level}
-                                                    thumbnailData={getThumbnail(thumbnails, level.imageFileName)}
-                                                />
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </li>
-                            );
-                        })}
-                </ul>
+                {gameBody}
             </div>
         </Layout>
     );
