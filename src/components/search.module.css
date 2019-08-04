@@ -52,6 +52,10 @@
     margin-top: 8px;
 }
 
+.resultsList li:last-child {
+    margin-bottom: 8px;
+}
+
 .resultsList .levelName {
     font-weight: bold;
 }
