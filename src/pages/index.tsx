@@ -77,7 +77,12 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
                         />
                         <BrowseColumn title="developer" pathFn={developerPath} values={data.developers.distinct} />
                         <BrowseColumn title="system" pathFn={systemPath} values={data.systems.distinct} />
-                        <BrowseColumn title="year released" pathFn={yearPath} values={data.years.distinct} />
+                        <BrowseColumn
+                            title="year released"
+                            columns={2}
+                            pathFn={yearPath}
+                            values={data.years.distinct}
+                        />
                     </div>
                 </div>
             </div>

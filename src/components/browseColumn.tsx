@@ -7,7 +7,7 @@ export const BrowseColumn: React.FunctionComponent = props => {
     return (
         <div className={styles.root}>
             <h3>{props.title}</h3>
-            <ul>
+            <ul style={{ columns: props.columns || 1 }}>
                 {props.values.map(v => (
                     <li key={v}>
                         <Link to={props.pathFn(v)}>{v}</Link>
