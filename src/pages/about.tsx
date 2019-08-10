@@ -39,8 +39,8 @@ const AboutPage: React.FunctionComponent<AboutPageProps> = ({ data }) => {
                         decided to create a more permanent home for this awesome artwork, and FGBG was born.
                     </p>
                     <p>
-                        FGBG's goal is to gather all backgrounds from every 2D fighter. It's going to take a while, but
-                        let's see if we can pull it off!
+                        FGBG's goal is to gather as many backgrounds as possible, you can help by{" "}
+                        <Link to="/identify-backgrounds">identifying unknown backgrounds</Link>.
                     </p>
                     <p className={styles.signOff}>
                         Thanks for stopping by - <a href="https://twitter.com/mattegreer">Matt</a>
@@ -50,9 +50,6 @@ const AboutPage: React.FunctionComponent<AboutPageProps> = ({ data }) => {
         </>
     );
 };
-
-// You can help by{" "}
-// <Link to="/identify-backgrounds">identifying unknown backgrounds</Link>.
 
 export default AboutPage;
 

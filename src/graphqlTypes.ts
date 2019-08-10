@@ -2870,7 +2870,15 @@ export type IdentifyBackgroundsPageQuery = { __typename?: "Query" } & {
                                             "width" | "height"
                                         >
                                     >;
-                                    fixed: Maybe<{ __typename?: "ImageSharpFixed" } & Pick<ImageSharpFixed, "src">>;
+                                    fixed: Maybe<
+                                        { __typename?: "ImageSharpFixed" } & Pick<
+                                            ImageSharpFixed,
+                                            "src" | "originalName"
+                                        >
+                                    >;
+                                    dataUrl: Maybe<
+                                        { __typename?: "ImageSharpFixed" } & Pick<ImageSharpFixed, "base64">
+                                    >;
                                 }
                             >;
                         };

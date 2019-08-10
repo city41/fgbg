@@ -1,0 +1,28 @@
+.root {
+    display: inline-block;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.lazyImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.root img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.lowRes {
+    z-index: 0;
+}
+
+.highRes {
+    z-index: 1;
+}
