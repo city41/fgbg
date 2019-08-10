@@ -1,0 +1,34 @@
+.root {
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    font-size: 0.8rem;
+}
+
+.root ul {
+    list-style: none;
+    margin: 0;
+    margin-left: 12.5%;
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.root li {
+    margin: 0;
+    margin-right: 24px;
+}
+
+.root li:last-child {
+    margin-right: 0;
+}
+
+.root a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.root a:hover {
+    text-decoration: underline;
+}

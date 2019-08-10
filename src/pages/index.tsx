@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, graphql } from "gatsby";
 import { Search } from "../components/search";
 import { IndexHeader } from "../components/indexHeader";
 import { BrowseColumn } from "../components/browseColumn";
-import { NewBackgroundModal } from "../components/newBackgroundModal";
 import { NewSinceLastVisitLink } from "../components/newSinceLastVisitLink";
+import { IndexMenu } from "../components/indexMenu";
 import SEO from "../components/seo";
 import { fileRoot, seriesPath, developerPath, systemPath, yearPath } from "../util";
 import { byIgnoreThe } from "../util/sort";
@@ -12,13 +12,6 @@ import { byIgnoreThe } from "../util/sort";
 import styles from "./index.module.css";
 
 const IndexPage: React.FunctionComponent = ({ data }) => {
-    const [showSubmitNew, setShowSubmitNew] = useState(false);
-    const [newModalOpen, setNewModalOpen] = useState(false);
-
-    useEffect(() => {
-        setShowSubmitNew(true);
-    }, []);
-
     const twitterImg = data.twitterImg.edges[0].node.childImageSharp.fixed.src;
 
     const searchData = data.searchData.edges.map(e => e.node);
@@ -46,12 +39,12 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
 
     return (
         <>
-            <NewBackgroundModal isOpen={newModalOpen} onRequestClose={() => setNewModalOpen(false)} />
             <div className={styles.ukyo} />
             <div className={styles.credit}>
                 by <a href="https://twitter.com/mattegreer">@mattegreer</a>
             </div>
             <div className={styles.blur} style={{ backgroundImage: `url(${bgImageUrl})` }} />
+            <IndexMenu className={styles.menu} />
             <div className={styles.root}>
                 <div className={styles.content}>
                     <SEO title="Fighting Game Backgrounds" imageUrl={twitterImg} />
@@ -63,11 +56,6 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
                             <Link to="/newest">view the newest additions</Link>, or browse {data.searchData.totalCount}{" "}
                             backgrounds by...
                         </p>
-                        {showSubmitNew && (
-                            <div className={styles.newBackgroundLink}>
-                                <a onClick={() => setNewModalOpen(true)}>add a background</a>
-                            </div>
-                        )}
                     </div>
                     <div className={styles.browseColumnContainer}>
                         <BrowseColumn

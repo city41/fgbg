@@ -1,7 +1,7 @@
 .root {
     margin: 8px 0;
     font-size: 0.9rem;
-    color: #59bd78;
+    color: #59bd78 !important;
 }
 
 .root svg {
