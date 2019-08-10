@@ -74,3 +74,5 @@ client_secret.json
 src/images/bgs/static
 src/images/bgs/thumbnails
 src/csv/bgsizes.csv
+src/images/bgs/unknown/static
+src/images/bgs/unknown/thumbnails

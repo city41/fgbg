@@ -17,10 +17,10 @@ export const IndexMenu: React.FunctionComponent<IndexMenuProps> = ({ className }
                 <li>
                     <Link to="/about">about</Link>
                 </li>
-                <li>
-                    <Link to="/identify-backgrounds">help us!</Link>
-                </li>
             </ul>
         </div>
     );
 };
+// <li>
+//     <Link to="/identify-backgrounds">help us!</Link>
+// </li>

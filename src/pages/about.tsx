@@ -35,8 +35,7 @@ const AboutPage: React.FunctionComponent = ({ data }) => {
                     </p>
                     <p>
                         FGBG's goal is to gather all backgrounds from every 2D fighter. It's going to take a while, but
-                        let's see if we can pull it off! You can help by{" "}
-                        <Link to="/identify-backgrounds">identifying unknown backgrounds</Link>.
+                        let's see if we can pull it off!
                     </p>
                     <p className={styles.signOff}>
                         Thanks for stopping by - <a href="https://twitter.com/mattegreer">Matt</a>
@@ -46,6 +45,9 @@ const AboutPage: React.FunctionComponent = ({ data }) => {
         </>
     );
 };
+
+// You can help by{" "}
+// <Link to="/identify-backgrounds">identifying unknown backgrounds</Link>.
 
 export default AboutPage;
 
