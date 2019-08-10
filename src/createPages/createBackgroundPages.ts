@@ -2,6 +2,7 @@ import * as path from "path";
 import * as fs from "fs";
 import { GatsbyCreatePages, PageInput } from "./types";
 import { backgroundPath } from "../util/backgroundPath";
+import { without } from "lodash";
 
 const staticSuffix = "_static.jpg";
 
@@ -44,6 +45,8 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
 
     const backgroundTemplate = path.resolve("src/components/backgroundTemplate.tsx");
 
+    const allImageFiles = fs.readdirSync(path.resolve("src/images/bgs/full"));
+
     const result = await graphql(`
         query {
             allLevels: allGoogleSheetLeveldataRow {
@@ -67,6 +70,15 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
             }
         }
     `);
+
+    const imagesWithPages = result.data.allLevels.edges
+        .map(e => e.node.imageFileName)
+        .reduce((building, i) => {
+            return building.concat(i.split(","));
+        }, []);
+
+    const imagesWithoutPages = allImageFiles.filter(i => !imagesWithPages.some(iwp => i === iwp));
+    console.log("imagesWithoutPages", imagesWithoutPages);
 
     if (result.errors) {
         throw result.errors;
