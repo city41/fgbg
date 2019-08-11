@@ -2886,6 +2886,11 @@ export type IdentifyBackgroundsPageQuery = { __typename?: "Query" } & {
             >;
         }
     >;
+    unknownGifs: Maybe<
+        { __typename?: "FileConnection" } & {
+            edges: Array<{ __typename?: "FileEdge" } & { node: { __typename?: "File" } & Pick<File, "publicURL"> }>;
+        }
+    >;
 };
 
 export type IndexPageQueryVariables = {};

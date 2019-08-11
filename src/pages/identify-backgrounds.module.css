@@ -1,0 +1,20 @@
+.root {
+    margin-left: 12.5%;
+    width: 75%;
+}
+
+@media (max-width: 700px) {
+    .root {
+        margin-left: 0;
+    }
+
+    .logo {
+        bottom: 0;
+        top: initial;
+    }
+}
+
+.identityEntry {
+    margin: 20px;
+    margin-bottom: 120px;
+}

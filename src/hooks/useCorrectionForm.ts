@@ -13,6 +13,11 @@ const mapToGoogle = {
     unknownId: "entry.1564011080",
 };
 
+const initialState = Object.keys(mapToGoogle).reduce<Record<string, string>>((building, keyName) => {
+    building[keyName] = "";
+    return building;
+}, {});
+
 const formId = "1FAIpQLScSRFk3nVFwV0obvwZsd6H-oAG7SCXM7FsXZ6cU-YsyiqDzAQ";
 const BASE_URL = `https://docs.google.com/forms/d/e/${formId}/formResponse?`;
 
@@ -28,8 +33,13 @@ function getGoogleUrl(inputs: any): string {
 
     return BASE_URL + queryString;
 }
-export const useCorrectionForm = (currentPathname: string, submissionType: string, initialData = {}) => {
-    const [inputs, setInputs] = useState({ ...initialData, siteUrl: currentPathname, submissionType });
+export const useCorrectionForm = (currentPathname: string | undefined, submissionType: string, initialData = {}) => {
+    const [inputs, setInputs] = useState({
+        ...initialState,
+        ...initialData,
+        siteUrl: currentPathname || "unknown",
+        submissionType,
+    });
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
     const handleSubmit = (event: React.MouseEvent<HTMLInputElement>) => {

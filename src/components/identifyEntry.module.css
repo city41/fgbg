@@ -1,41 +1,37 @@
 .root {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.thumbnail {
+    justify-self: flex-end;
+}
+
+.thankYou,
+.form {
+    margin-left: 20px;
+}
+
+.inputContainer {
+    margin: 8px;
     display: grid;
-    grid-template-columns: max-content max-content;
-    column-gap: 20px;
-    cursor: pointer;
-    width: 100%;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 8px;
 }
 
-.root:hover .imageContainer {
-    outline: 2px solid rgba(255, 255, 255, 0.7);
+.inputContainer label {
+    text-align: right;
 }
 
-.imageContainer {
-    display: inline-block;
-    width: 200px;
-    position: relative;
-    background-color: rgba(255, 255, 255, 0.4);
+.inputContainer input[type="submit"] {
+    grid-row: 3;
+    grid-column: 1 / -1;
+    justify-self: end;
 }
 
-.lazyImg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-
-.imageContainer img {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.lowRes {
-    z-index: 0;
-}
-
-.highRes {
-    z-index: 1;
+.thankYou {
+    font-size: 1.2rem;
+    margin-top: 10px;
 }

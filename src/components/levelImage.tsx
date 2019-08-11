@@ -21,9 +21,6 @@ export const LevelImage: React.FunctionComponent<LevelImageProps> = ({
 }) => {
     const classes = classnames(styles.root, className);
 
-    // const [loading, setLoading] = useState(false);
-    // const [hadError, setHadError] = useState(false);
-
     const actualImageWidth = parseInt(width);
     const actualImageHeight = parseInt(height);
     const imageAspectRatio = actualImageHeight / actualImageWidth;

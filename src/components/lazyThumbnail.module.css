@@ -20,9 +20,9 @@
 }
 
 .lowRes {
-    z-index: 0;
+    z-index: -1;
 }
 
 .highRes {
-    z-index: 1;
+    z-index: 0;
 }

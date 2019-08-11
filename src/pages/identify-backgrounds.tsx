@@ -2,6 +2,9 @@ import React from "react";
 import { graphql } from "gatsby";
 import { IdentifyEntry } from "../components/identifyEntry";
 import { IdentifyBackgroundsPageQuery } from "../graphqlTypes";
+import { Layout } from "../components/layout";
+
+import styles from "./identify-backgrounds.module.css";
 
 interface IdentifyBackgroundsPageProps {
     data: IdentifyBackgroundsPageQuery;
@@ -9,27 +12,38 @@ interface IdentifyBackgroundsPageProps {
 
 const IdentifyBackgroundsPage: React.FunctionComponent<IdentifyBackgroundsPageProps> = ({ data }) => {
     const identityDatas = data.unknowns.edges.map(e => {
+        const originalName = e.node.childImageSharp.fixed.originalName;
+        const unknownId = originalName.replace("_static.jpg", "");
+
         return {
-            unknownId: e.node.childImageSharp.fixed.originalName,
+            unknownId,
             thumbnailData: {
                 dataUrl: e.node.childImageSharp.dataUrl.base64,
                 publicURL: e.node.childImageSharp.fixed.src,
                 width: e.node.childImageSharp.original.width,
                 height: e.node.childImageSharp.original.height,
             },
+            fullImageUrl: data.unknownGifs.edges.find(e => e.node.publicURL.indexOf(unknownId) > -1).node.publicURL,
         };
     });
 
     return (
-        <div>
-            {identityDatas.map(identityData => (
-                <IdentifyEntry
-                    key={identityData.unknownId}
-                    unknownId={identityData.unknownId}
-                    thumbnailData={identityData.thumbnailData}
-                />
-            ))}
-        </div>
+        <Layout logoClassName={styles.logo}>
+            <div className={styles.root}>
+                <p>Do you know what games these backgrounds are from? Let us know!</p>
+                <div className={styles.identityEntriesContainer}>
+                    {identityDatas.map(identityData => (
+                        <IdentifyEntry
+                            className={styles.identityEntry}
+                            key={identityData.unknownId}
+                            unknownId={identityData.unknownId}
+                            thumbnailData={identityData.thumbnailData}
+                            fullImageUrl={identityData.fullImageUrl}
+                        />
+                    ))}
+                </div>
+            </div>
+        </Layout>
     );
 };
 
@@ -55,6 +69,13 @@ export const query = graphql`
                             base64
                         }
                     }
+                }
+            }
+        }
+        unknownGifs: allFile(filter: { relativePath: { regex: "/bgs/unknown/full/" } }) {
+            edges {
+                node {
+                    publicURL
                 }
             }
         }

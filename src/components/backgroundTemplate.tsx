@@ -14,6 +14,7 @@ import { LevelImage } from "./levelImage";
 import { backgroundPath } from "../util/backgroundPath";
 import { CorrectionModal } from "./correctionModal";
 import { BackgroundTemplateQuery } from "../graphqlTypes";
+import { useHasJavaScript } from "../hooks/useHasJavaScript";
 
 import styles from "./backgroundTemplate.module.css";
 
@@ -30,12 +31,8 @@ const BackgroundTemplate: React.FunctionComponent<BackgroundTemplateProps> = ({
     data,
     pageContext: { currentLabel, labels, fullscreen },
 }) => {
-    const [jsSecondRender, setJsSecondRender] = useState(false);
+    const hasJS = useHasJavaScript();
     const [correctionModalOpen, setCorrectionModalOpen] = useState(false);
-
-    useEffect(() => {
-        setJsSecondRender(true);
-    }, []);
 
     const levelData = data.currentLevel!;
     const prevLevel = data.prevLevel!;
@@ -53,7 +50,7 @@ const BackgroundTemplate: React.FunctionComponent<BackgroundTemplateProps> = ({
 
     let body;
 
-    const hideOnFirstRender = { visibility: jsSecondRender ? "visible" : "hidden" } as const;
+    const hideOnFirstRender = { visibility: hasJS ? "visible" : "hidden" } as const;
 
     if (fullscreen) {
         body = (

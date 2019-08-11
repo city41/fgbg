@@ -46,48 +46,16 @@
     text-align: right;
 }
 
-.root input {
-    outline: 1px solid rgba(255, 255, 255, 0.5);
-    background-color: #1a1a1a;
-    color: white;
-    border: 0;
-}
-
-.root input[readOnly] {
-    background-color: black;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.root input:focus {
-    background-color: #444;
-}
-
-.root input[readOnly]:focus {
-    background-color: black;
-}
-
 .root input[type="text"] {
     padding: 6px;
-}
-
-.root input[type="submit"]:disabled {
-    color: #333;
-    outline: 0;
-    border-bottom: 3px solid transparent;
 }
 
 .root input[type="submit"] {
     grid-column: 1 / -1;
     justify-self: end;
 
-    color: #fffc9e;
-
     margin-top: 16px;
     padding: 4px 16px;
-
-    border-bottom: 3px solid rgba(255, 255, 255, 0.5);
-
-    cursor: pointer;
 }
 
 .allRequired,
