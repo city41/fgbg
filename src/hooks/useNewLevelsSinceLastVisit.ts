@@ -1,6 +1,17 @@
 import { useState, useEffect } from "react";
 
-export function useNewLevelsSinceLastVisit(levels) {
+export interface Level {
+    levelId: number | null | undefined;
+    levelName: string;
+    gameNameUsa: string;
+    system: string;
+    developer: string;
+    year: number;
+    series: string;
+    imageFileName: string;
+}
+
+export function useNewLevelsSinceLastVisit(levels: Level[]) {
     const [secondRender, setSecondRender] = useState(false);
 
     useEffect(() => {
@@ -11,7 +22,7 @@ export function useNewLevelsSinceLastVisit(levels) {
         return [];
     }
 
-    const maxLevelId = Math.max(...levels.map(l => l.levelId));
+    const maxLevelId = Math.max(...levels.map(l => l.levelId || 0));
 
     // this feature was added around level id 162
     const lastMaxLevelId =
@@ -29,5 +40,5 @@ export function useNewLevelsSinceLastVisit(levels) {
         return [];
     }
 
-    return levels.filter(l => l.levelId > lastMaxLevelId);
+    return levels.filter(l => l.levelId && l.levelId > lastMaxLevelId);
 }

@@ -25,8 +25,8 @@ const formId = "1FAIpQLScSRFk3nVFwV0obvwZsd6H-oAG7SCXM7FsXZ6cU-YsyiqDzAQ";
 const BASE_URL = `https://docs.google.com/forms/d/e/${formId}/formResponse?`;
 
 function getGoogleUrl(inputs: any): string {
-    const queryParamArray = Object.keys(inputs).reduce((building, inputKey) => {
-        const googleKey = mapToGoogle[inputKey];
+    const queryParamArray = Object.keys(inputs).reduce<string[]>((building, inputKey) => {
+        const googleKey = mapToGoogle[inputKey as keyof typeof mapToGoogle];
         const value = encodeURIComponent(inputs[inputKey]);
 
         return building.concat(`${googleKey}=${value}`);
@@ -41,7 +41,7 @@ const useCorrectionForm = (currentPathname: string) => {
     const [inputs, setInputs] = useState({ siteUrl: currentPathname, submissionType: "correction" });
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
-    const handleSubmit = event => {
+    const handleSubmit = (event: React.MouseEvent<HTMLInputElement>) => {
         if (event) {
             event.preventDefault();
         }
@@ -53,7 +53,7 @@ const useCorrectionForm = (currentPathname: string) => {
         setHasSubmitted(true);
     };
 
-    const handleInputChange = event => {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.persist();
         setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
     };
@@ -91,7 +91,7 @@ export const CorrectionForm: React.FunctionComponent<CorrectionFormProps> = ({ c
             <input
                 type="submit"
                 value="OK"
-                onClick={e => {
+                onClick={() => {
                     onClose();
                 }}
             />

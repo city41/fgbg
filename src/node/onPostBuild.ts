@@ -1,12 +1,14 @@
-const fs = require("fs").promises;
-const path = require("path");
-const glob = require("glob");
-const md5 = require("md5");
+import { promises as fs } from "fs";
+import * as path from "path";
+// @ts-ignore
+import glob from "glob";
+// @ts-ignore
+import md5 from "md5";
 
 const publicPath = path.resolve(__dirname, "../../public");
 
 async function hashPageDataJsonFiles() {
-    const hash = md5(Date.now());
+    const hash = md5(Date.now().toString());
 
     const jsonFiles = glob.sync(`${publicPath}/page-data/**/page-data.json`);
     console.log("[onPostBuild] Renaming the following files:");
@@ -24,7 +26,7 @@ async function hashPageDataJsonFiles() {
     for (let f = 0; f < htmlAndJSFiles.length; ++f) {
         const file = htmlAndJSFiles[f];
 
-        const stats = await fs.stat(file, "utf8");
+        const stats = await fs.stat(file);
         if (!stats.isFile()) continue;
         console.log(file);
         var content = await fs.readFile(file, "utf8");
@@ -34,12 +36,22 @@ async function hashPageDataJsonFiles() {
 }
 
 async function hashAppJsFile() {
-    const hash = md5(Date.now());
+    const hash = md5(Date.now().toString());
 
     const appJsFiles = glob.sync(`${publicPath}/app-*.js*`);
 
     const appJsFile = appJsFiles.find(f => f.endsWith(".js"));
+
+    if (!appJsFile) {
+        throw new Error("onPostBuild: failed to find the app-*.js file");
+    }
+
     const appJsMapFile = appJsFiles.find(f => f.endsWith(".map"));
+
+    if (!appJsMapFile) {
+        throw new Error("onPostBuild: failed to find the app-*.js.map file");
+    }
+
     const appJsFileRoot = path.basename(appJsFile, ".js");
 
     const appJsFileName = path.basename(appJsFile);
@@ -58,7 +70,7 @@ async function hashAppJsFile() {
         const file = htmlAndJSFiles[f];
 
         console.log(file);
-        const stats = await fs.stat(file, "utf8");
+        const stats = await fs.stat(file);
 
         if (!stats.isFile()) {
             continue;

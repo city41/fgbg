@@ -10,8 +10,9 @@ interface BackgroundMetaDataProps {
     levelName: string;
     label?: string;
     gameNameUsa: string;
+    developer: string;
     system: string;
-    year: string;
+    year: number;
     series: string;
 }
 

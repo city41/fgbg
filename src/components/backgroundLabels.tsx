@@ -1,4 +1,5 @@
 import React from "react";
+import classnames from "classnames";
 import { Link } from "gatsby";
 import { backgroundPath } from "../util";
 
@@ -21,8 +22,10 @@ export const BackgroundLabels: React.FunctionComponent<BackgroundLabelsProps> = 
     currentLabel,
     fullscreen,
 }) => {
+    const classes = classnames(styles.root, className);
+
     return (
-        <ul className={styles.root}>
+        <ul className={classes}>
             {labels.map(label => {
                 let body;
 

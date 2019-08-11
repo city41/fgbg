@@ -5,20 +5,26 @@ import { BackgroundLink } from "./backgroundLink";
 
 import styles from "./levelListEntry.module.css";
 
-export const LevelListEntry: React.FunctionComponent = ({
+interface LevelListEntryProps {
+    className?: string;
+    // TODO type this
+    thumbnailData: any;
+    linkClassName?: string;
+    levelName: string;
+    gameNameUsa: string;
+}
+
+export const LevelListEntry: React.FunctionComponent<LevelListEntryProps> = ({
     className,
     linkClassName,
     thumbnailData,
     levelName,
     gameNameUsa,
-    developer,
-    system,
     children,
 }) => {
     const aspectRatio = thumbnailData.height / thumbnailData.width;
     const classes = classnames(styles.root, className);
     const linkClasses = classnames(styles.backgroundLink, linkClassName);
-
     return (
         <BackgroundLink className={linkClasses} levelName={levelName} gameNameUsa={gameNameUsa}>
             <div className={classes}>

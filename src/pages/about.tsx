@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, graphql } from "gatsby";
 import { IndexHeader } from "../components/indexHeader";
 import { IndexMenu } from "../components/indexMenu";
 import SEO from "../components/seo";
+import { AboutPageQuery } from "../graphqlTypes";
 
 import styles from "./about.module.css";
 
-const AboutPage: React.FunctionComponent = ({ data }) => {
+interface AboutPageProps {
+    data: AboutPageQuery;
+}
+
+const AboutPage: React.FunctionComponent<AboutPageProps> = ({ data }) => {
     const twitterImg = data.twitterImg.edges[0].node.childImageSharp.fixed.src;
     const bgImg = data.bgImg.edges[0].node.childImageSharp.fixed.src;
 
@@ -52,7 +57,7 @@ const AboutPage: React.FunctionComponent = ({ data }) => {
 export default AboutPage;
 
 export const query = graphql`
-    query {
+    query AboutPage {
         twitterImg: allFile(filter: { relativePath: { regex: "/bgs/static/kof99_park1/" } }) {
             edges {
                 node {

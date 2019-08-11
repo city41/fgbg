@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
-import classnames from "classnames";
-import { useStaticQuery, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import { groupBy } from "lodash";
 import { fileRoot } from "../util";
 import { LevelListEntry } from "./levelListEntry";
@@ -17,11 +16,32 @@ interface Thumbnail {
     dataUrl: string;
 }
 
-function getThumbnail(thumbnails: Thumbnail[], imageFileName: string): Thumbnail {
+function getThumbnail(thumbnails: Thumbnail[], imageFileName: string): Thumbnail | undefined {
     return thumbnails.find(t => t.publicURL.indexOf(fileRoot(imageFileName) + "_thumb") > -1);
 }
 
-const ListTemplate: React.FunctionComponent = ({
+interface ListTemplateProps {
+    dontGroup?: boolean;
+    pageContext: {
+        listTypeValue: string;
+        thumbnails: Thumbnail[];
+    };
+    data: {
+        levels: {
+            edges: Array<{
+                node: {
+                    developer: string;
+                    gameNameUsa: string;
+                    levelName: string;
+                    system: string;
+                    imageFileName: string;
+                };
+            }>;
+        };
+    };
+}
+
+const ListTemplate: React.FunctionComponent<ListTemplateProps> = ({
     children,
     dontGroup,
     data,
@@ -96,7 +116,7 @@ const ListTemplate: React.FunctionComponent = ({
 };
 
 export const query = graphql`
-    query($filter: googleSheetLeveldataRowFilterInput!) {
+    query ListTemplate($filter: googleSheetLeveldataRowFilterInput!) {
         levels: allGoogleSheetLeveldataRow(filter: $filter) {
             edges {
                 node {

@@ -1,7 +1,12 @@
 import React from "react";
 import { graphql } from "gatsby";
+import { IdentifyBackgroundsPageQuery } from "../graphqlTypes";
 
-const IdentifyBackgroundsPage: React.FunctionComponent = ({ data }) => {
+interface IdentifyBackgroundsPageProps {
+    data: IdentifyBackgroundsPageQuery;
+}
+
+const IdentifyBackgroundsPage: React.FunctionComponent<IdentifyBackgroundsPageProps> = ({ data }) => {
     return (
         <div>
             {data.unknowns.edges.map(e => (
@@ -16,7 +21,7 @@ const IdentifyBackgroundsPage: React.FunctionComponent = ({ data }) => {
 export default IdentifyBackgroundsPage;
 
 export const query = graphql`
-    query {
+    query IdentifyBackgroundsPage {
         unknowns: allFile(filter: { relativePath: { regex: "/bgs/unknown/static/" } }) {
             edges {
                 node {

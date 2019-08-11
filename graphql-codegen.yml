@@ -1,0 +1,23 @@
+overwrite: true
+schema: "http://localhost:8000/___graphql"
+documents:
+  - "src/**/*.tsx"
+  - "node_modules/gatsby-transformer-sharp/src/fragments.js"
+pluckConfig:
+  modules:
+    - name: gatsby
+      identifier: graphql
+generates:
+  src/graphqlTypes.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+    config:
+        avoidOptionals: true
+        maybeValue: T
+        namingConvention:
+            enumValues: keep
+            transformUnderscore: false
+  ./graphql.json:
+    plugins:
+      - "introspection"

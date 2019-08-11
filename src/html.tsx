@@ -1,6 +1,15 @@
 import React from "react";
 
-const HTML: React.FunctionComponent = props => {
+interface HTMLProps {
+    htmlAttributes: Record<string, string>;
+    headComponents: React.ReactNode[];
+    bodyAttributes: Record<string, string>;
+    preBodyComponents: React.ReactNode[];
+    postBodyComponents: React.ReactNode[];
+    body: string;
+}
+
+const HTML: React.FunctionComponent<HTMLProps> = props => {
     return (
         <html {...props.htmlAttributes}>
             <head>

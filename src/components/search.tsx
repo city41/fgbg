@@ -1,11 +1,9 @@
 import React from "react";
 import classnames from "classnames";
-import { Link } from "gatsby";
 import { FaSearch } from "react-icons/fa";
 import Downshift from "downshift";
 import { LevelListEntry } from "./levelListEntry";
 import { Level } from "../types";
-import { backgroundPath } from "../util";
 
 import styles from "./search.module.css";
 
@@ -30,7 +28,7 @@ const LevelResult: React.FunctionComponent<Level> = props => {
 export const Search: React.FunctionComponent<SearchProps> = ({ className, data }) => {
     const classes = classnames(styles.root, className);
 
-    function getMatchingLevels(term?: string): Level[] {
+    function getMatchingLevels(term: string | null): Level[] {
         if (!term) {
             return [];
         }
@@ -38,6 +36,7 @@ export const Search: React.FunctionComponent<SearchProps> = ({ className, data }
         term = term.toLowerCase();
 
         return data.filter(level => {
+            term = term || "";
             return (
                 level.levelName.toLowerCase().indexOf(term) > -1 ||
                 level.gameNameUsa.toLowerCase().indexOf(term) > -1 ||

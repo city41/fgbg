@@ -2,7 +2,6 @@ import * as path from "path";
 import * as fs from "fs";
 import { GatsbyCreatePages, PageInput } from "./types";
 import { backgroundPath } from "../util/backgroundPath";
-import { without } from "lodash";
 
 const staticSuffix = "_static.jpg";
 
@@ -71,9 +70,9 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
         }
     `);
 
-    const imagesWithPages = result.data.allLevels.edges
-        .map(e => e.node.imageFileName)
-        .reduce((building, i) => {
+    const imagesWithPages: string[] = result.data.allLevels.edges
+        .map((e: { node: { imageFileName: string } }) => e.node.imageFileName)
+        .reduce((building: string[], i: string) => {
             return building.concat(i.split(","));
         }, []);
 
@@ -94,8 +93,6 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
 
     const head: Node = {
         edge: seedEdge,
-        next: null,
-        prev: null,
     };
 
     let tail: Node = head;
@@ -120,22 +117,22 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
     head.prev = tail;
     tail.next = head;
 
-    const nextPrevMap = {};
+    const nextPrevMap: { [key: number]: { nextId: number; prevId: number } } = {};
 
     let iterator = head;
 
     let iterationCount = 0;
     while (Object.keys(nextPrevMap).length === 0 || iterator !== head) {
-        if (nextPrevMap[iterator.edge.node.levelId]) {
+        if (nextPrevMap[iterator.edge.node.levelId as number]) {
             throw new Error("nextPrevMap, already encountered this node! " + iterator.edge.node.levelId);
         }
 
         nextPrevMap[iterator.edge.node.levelId] = {
-            nextId: iterator.next.edge.node.levelId,
-            prevId: iterator.prev.edge.node.levelId,
+            nextId: iterator.next!.edge.node.levelId,
+            prevId: iterator.prev!.edge.node.levelId,
         };
 
-        iterator = iterator.next;
+        iterator = iterator.next!;
         ++iterationCount;
     }
 
@@ -148,7 +145,15 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
         );
     }
 
-    result.data.allLevels.edges.forEach(({ node }) => {
+    interface ResultNode {
+        levelId: number;
+        labels?: string;
+        imageFileName: string;
+        gameNameUsa: string;
+        levelName: string;
+    }
+
+    result.data.allLevels.edges.forEach(({ node }: { node: ResultNode }) => {
         const images = node.imageFileName.split(",");
 
         if (images.length === 1) {
@@ -168,6 +173,10 @@ export const createBackgroundPages: GatsbyCreatePages = async ({ graphql, boundA
                 },
             });
         } else {
+            if (!node.labels) {
+                throw new Error("found a row with multiple images but no labels");
+            }
+
             const labels = node.labels.split(",");
 
             if (labels.length !== images.length) {

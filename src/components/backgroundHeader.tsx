@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
 import classnames from "classnames";
 import { backgroundPath } from "../util/backgroundPath";
 
@@ -8,21 +8,13 @@ import styles from "./backgroundHeader.module.css";
 
 interface BackgroundHeaderProps {
     className?: string;
-    prevLevel: {
-        gameNameUsa: string;
-        levelName: string;
-    };
     nextLevel: {
         gameNameUsa: string;
         levelName: string;
     };
 }
 
-export const BackgroundHeader: React.FunctionComponent<BackgroundHeaderProps> = ({
-    className,
-    prevLevel,
-    nextLevel,
-}) => {
+export const BackgroundHeader: React.FunctionComponent<BackgroundHeaderProps> = ({ className, nextLevel }) => {
     const classes = classnames(styles.root, className);
 
     return (

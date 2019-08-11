@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "gatsby";
 import classnames from "classnames";
 import { FaBell } from "react-icons/fa";
-import { LevelListEntry } from "./levelListEntry";
-import { Level } from "../types";
-import { useNewLevelsSinceLastVisit } from "../hooks/useNewLevelsSinceLastVisit";
+import { useNewLevelsSinceLastVisit, Level } from "../hooks/useNewLevelsSinceLastVisit";
 
 import styles from "./newSinceLastVisit.module.css";
 
@@ -12,7 +10,7 @@ interface NewSinceLastVisitLinkProps {
     levels: Level[];
 }
 
-export const NewSinceLastVisitLink: React.FunctionComponent = ({ levels }) => {
+export const NewSinceLastVisitLink: React.FunctionComponent<NewSinceLastVisitLinkProps> = ({ levels }) => {
     const newLevels = useNewLevelsSinceLastVisit(levels);
 
     const rootClasses = classnames(styles.root, {

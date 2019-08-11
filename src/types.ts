@@ -4,7 +4,7 @@ export interface Level {
     gameNameUsa: string;
     system: string;
     developer: string;
-    year: string;
+    year: number;
     series: string;
     thumbnailData: {
         width: number;

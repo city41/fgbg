@@ -1,11 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { graphql } from "gatsby";
-import SEO from "../components/seo";
 import { fileRoot } from "../util";
-import { LevelListEntry } from "../components/levelListEntry";
 import ListTemplate from "../components/listTemplate";
 
-const NewestPage: React.FunctionComponent = ({ data }) => {
+interface NewestPageProps {
+    data: {
+        latestLevels: {
+            edges: Array<{
+                node: {
+                    levelId: number;
+                    levelName: string;
+                    gameNameUsa: string;
+                    system: string;
+                    developer: string;
+                    year: number;
+                    series: string;
+                    imageFileName: string;
+                };
+            }>;
+        };
+        thumbnails: {
+            edges: Array<{
+                node: {
+                    relativePath: string;
+                    publicURL: string;
+                    childImageSharp: {
+                        original: {
+                            width: number;
+                            height: number;
+                        };
+                        fixed: {
+                            base64: string;
+                        };
+                    };
+                };
+            }>;
+        };
+    };
+}
+
+const NewestPage: React.FunctionComponent<NewestPageProps> = ({ data }) => {
     const latestLevels = data.latestLevels.edges.map(e => e.node);
     const thumbnails = data.thumbnails.edges.map(e => e.node);
 
@@ -17,9 +51,6 @@ const NewestPage: React.FunctionComponent = ({ data }) => {
             dataUrl: t.childImageSharp.fixed.base64,
         };
     });
-
-    const randomThumbnailIndex = Math.floor(Math.random() * thumbnails.length);
-    const bgImageUrl = flattenedThumbnails[randomThumbnailIndex].publicURL;
 
     const latestLevelNodes = latestLevels.map(nl => ({ node: nl }));
 
@@ -42,7 +73,7 @@ const NewestPage: React.FunctionComponent = ({ data }) => {
 export default NewestPage;
 
 export const query = graphql`
-    query MyQuery {
+    query NewestPage {
         latestLevels: allGoogleSheetLeveldataRow(sort: { fields: levelId, order: DESC }, limit: 20) {
             edges {
                 node {

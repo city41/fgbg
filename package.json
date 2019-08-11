@@ -4,6 +4,10 @@
   "version": "1.0.0",
   "author": "Matt Greer <matt.e.greer@gmail.com>",
   "dependencies": {
+    "@graphql-codegen/cli": "^1.5.0",
+    "@graphql-codegen/introspection": "^1.5.0",
+    "@graphql-codegen/typescript": "^1.5.0",
+    "@graphql-codegen/typescript-operations": "^1.5.0",
     "classnames": "^2.2.6",
     "downshift": "^3.2.10",
     "gatsby": "^2.13.20",
@@ -14,12 +18,13 @@
     "gatsby-plugin-react-helmet": "^3.1.2",
     "gatsby-plugin-sharp": "^2.2.7",
     "gatsby-plugin-typescript": "^2.1.2",
-    "gatsby-plugin-typescript-checker": "^1.1.1",
     "gatsby-source-filesystem": "^2.1.5",
     "gatsby-source-google-sheets": "^1.1.1",
     "gatsby-transformer-csv": "^2.1.2",
     "gatsby-transformer-sharp": "^2.2.3",
     "gh-pages": "^2.0.1",
+    "graphql": "^14.4.2",
+    "graphql-tag": "^2.10.1",
     "lodash": "^4.17.14",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
@@ -36,14 +41,24 @@
   },
   "devDependencies": {
     "@types/classnames": "^2.2.9",
-    "@types/node": "^12.6.2",
+    "@types/graphql": "^14.2.3",
+    "@types/lodash": "^4.14.136",
+    "@types/md5": "^2.1.33",
+    "@types/node": "^12.7.1",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
+    "@types/react-helmet": "^5.0.9",
     "@types/react-modal": "^3.8.2",
     "prettier": "^1.18.2"
   },
   "keywords": [
-    "retro gaming", "fighting games", "pixel art", "SNK", "capcom", "Neo Geo", "CPS2"
+    "retro gaming",
+    "fighting games",
+    "pixel art",
+    "SNK",
+    "capcom",
+    "Neo Geo",
+    "CPS2"
   ],
   "license": "MIT",
   "scripts": {
@@ -59,7 +74,8 @@
     "gen-unknown-static": "rm -rf src/images/bgs/unknown/static && (cd src/images/bgs/unknown/full && ../../../../../scripts/generateStaticBgs.sh)",
     "gen-thumbnails": "rm -rf src/images/bgs/thumbnails && (cd src/images/bgs/full && ../../../../scripts/generateThumbnails.sh)",
     "gen-image-sizes": "(cd src/images/bgs/full && ../../../../scripts/setImageSizes.sh)",
-    "gen-images": "yarn gen-static && yarn gen-unknown-static && yarn gen-thumbnails && yarn gen-image-sizes"
+    "gen-images": "yarn gen-static && yarn gen-unknown-static && yarn gen-thumbnails && yarn gen-image-sizes",
+    "codegen": "graphql-codegen --config graphql-codegen.yml"
   },
   "repository": {
     "type": "git",

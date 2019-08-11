@@ -2,7 +2,7 @@ import * as path from "path";
 import { GatsbyCreateListPages } from "./types";
 import { fileRoot, systemPath, gamePath, developerPath, yearPath, seriesPath } from "../util";
 
-const pathMap = {
+const pathMap: { [key: string]: (value: any) => string } = {
     system: systemPath,
     developer: developerPath,
     year: yearPath,
@@ -10,7 +10,7 @@ const pathMap = {
     gameNameUsa: gamePath,
 };
 
-function getWebPath(field: string, fieldValue: string): string {
+function getWebPath(field: keyof typeof pathMap, fieldValue: string | number): string {
     const fn = pathMap[field];
     return fn(fieldValue);
 }
@@ -71,7 +71,7 @@ export const createListPages: GatsbyCreateListPages = async ({
         throw thumbnailResult.errors;
     }
 
-    const allThumbnails = thumbnailResult.data.thumbnails.edges.map(e => e.node);
+    const allThumbnails = thumbnailResult.data.thumbnails.edges.map((e: any) => e.node);
 
     const allLevelResult = await graphql(`
         query {
@@ -90,9 +90,9 @@ export const createListPages: GatsbyCreateListPages = async ({
         throw allLevelResult.errors;
     }
 
-    const allLevels = allLevelResult.data.levels.edges.map(e => e.node);
+    const allLevels = allLevelResult.data.levels.edges.map((e: any) => e.node);
 
-    distinctResult.data[field].distinct.forEach(fieldValue => {
+    distinctResult.data[field].distinct.forEach((fieldValue: string) => {
         const webPath = getWebPath(field, fieldValue);
 
         const filterValue = fieldTransform ? fieldTransform(fieldValue) : fieldValue;

@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { graphql } from "gatsby";
-import SEO from "../components/seo";
 import { fileRoot } from "../util";
 import { useNewLevelsSinceLastVisit } from "../hooks/useNewLevelsSinceLastVisit";
-import { LevelListEntry } from "../components/levelListEntry";
 import ListTemplate from "../components/listTemplate";
+import { NewPageQuery } from "../graphqlTypes";
 
-const NewPage: React.FunctionComponent = ({ data }) => {
+interface NewPageProps {
+    data: NewPageQuery;
+}
+
+const NewPage: React.FunctionComponent<NewPageProps> = ({ data }) => {
     const allLevels = data.newLevelData.edges.map(e => e.node);
     const thumbnails = data.thumbnails.edges.map(e => e.node);
 
@@ -19,9 +22,6 @@ const NewPage: React.FunctionComponent = ({ data }) => {
         };
     });
 
-    const randomThumbnailIndex = Math.floor(Math.random() * thumbnails.length);
-    const bgImageUrl = flattenedThumbnails[randomThumbnailIndex].publicURL;
-
     const newLevels = useNewLevelsSinceLastVisit(allLevels);
 
     const newLevelNodes = newLevels.map(nl => ({ node: nl }));
@@ -29,7 +29,7 @@ const NewPage: React.FunctionComponent = ({ data }) => {
     const pageContext = {
         listTypeValue: "new backgrounds",
         thumbnails: flattenedThumbnails.filter(t =>
-            newLevels.some(l => t.relativePath.indexOf(fileRoot(l.imageFileName)) > -1)
+            newLevels.some(l => t.relativePath && t.relativePath.indexOf(fileRoot(l.imageFileName)) > -1)
         ),
     };
 
@@ -41,7 +41,7 @@ const NewPage: React.FunctionComponent = ({ data }) => {
 export default NewPage;
 
 export const query = graphql`
-    query {
+    query NewPage {
         newLevelData: allGoogleSheetLeveldataRow {
             totalCount
             edges {

@@ -8,10 +8,15 @@ import { IndexMenu } from "../components/indexMenu";
 import SEO from "../components/seo";
 import { fileRoot, seriesPath, developerPath, systemPath, yearPath } from "../util";
 import { byIgnoreThe } from "../util/sort";
+import { IndexPageQuery } from "../graphqlTypes";
 
 import styles from "./index.module.css";
 
-const IndexPage: React.FunctionComponent = ({ data }) => {
+interface IndexPageProps {
+    data: IndexPageQuery;
+}
+
+const IndexPage: React.FunctionComponent<IndexPageProps> = ({ data }) => {
     const twitterImg = data.twitterImg.edges[0].node.childImageSharp.fixed.src;
 
     const searchData = data.searchData.edges.map(e => e.node);
@@ -30,6 +35,10 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
 
     const totalSearchData = searchData.map(s => {
         const thumbnail = flattenedThumbnails.find(t => t.relativePath.indexOf(fileRoot(s.imageFileName)) > -1);
+
+        if (!thumbnail) {
+            throw new Error("Failed to find a thumbnail for: " + s.imageFileName);
+        }
 
         return {
             ...s,
@@ -81,7 +90,7 @@ const IndexPage: React.FunctionComponent = ({ data }) => {
 export default IndexPage;
 
 export const query = graphql`
-    query {
+    query IndexPage {
         searchData: allGoogleSheetLeveldataRow {
             totalCount
             edges {

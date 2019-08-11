@@ -1,10 +1,11 @@
 import { slug } from "./slug";
 
-export function backgroundPath(
-    { gameNameUsa, levelName }: { gameNameUsa: string; levelName: string },
-    label?: string,
-    fullscreen?: boolean
-) {
+export interface BackgroundPathProps {
+    gameNameUsa: string;
+    levelName: string;
+}
+
+export function backgroundPath({ gameNameUsa, levelName }: BackgroundPathProps, label?: string, fullscreen?: boolean) {
     let base = "/game:" + [gameNameUsa, levelName].map(slug).join("/");
 
     if (label) {

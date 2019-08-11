@@ -13,10 +13,23 @@ import { BackgroundMetaData } from "./backgroundMetaData";
 import { LevelImage } from "./levelImage";
 import { backgroundPath } from "../util/backgroundPath";
 import { CorrectionModal } from "./correctionModal";
+import { BackgroundTemplateQuery } from "../graphqlTypes";
 
 import styles from "./backgroundTemplate.module.css";
 
-const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { currentLabel, labels, fullscreen } }) => {
+interface BackgroundTemplateProps {
+    data: BackgroundTemplateQuery;
+    pageContext: {
+        currentLabel?: string;
+        labels?: string[];
+        fullscreen?: boolean;
+    };
+}
+
+const BackgroundTemplate: React.FunctionComponent<BackgroundTemplateProps> = ({
+    data,
+    pageContext: { currentLabel, labels, fullscreen },
+}) => {
     const [jsSecondRender, setJsSecondRender] = useState(false);
     const [correctionModalOpen, setCorrectionModalOpen] = useState(false);
 
@@ -24,23 +37,23 @@ const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { curr
         setJsSecondRender(true);
     }, []);
 
-    const levelData = data.currentLevel;
-    const prevLevel = data.prevLevel;
-    const nextLevel = data.nextLevel;
+    const levelData = data.currentLevel!;
+    const prevLevel = data.prevLevel!;
+    const nextLevel = data.nextLevel!;
 
     useHotkeys("left", () => navigate(backgroundPath(prevLevel, undefined, fullscreen)));
     useHotkeys("right", () => navigate(backgroundPath(nextLevel, undefined, fullscreen)));
     useHotkeys("esc", () => navigate(backgroundPath(levelData, currentLabel, false)));
 
-    const imgUrl = data.mainImg.publicURL;
-    const bgImageUrl = data.bgImg.childImageSharp.resize.src;
+    const imgUrl = data.mainImg && data.mainImg.publicURL;
+    const bgImageUrl = data.bgImg && data.bgImg.childImageSharp.resize.src;
     const twitterImageUrl = data.twitterImg.childImageSharp.resize.src;
 
     const levelDescription = `${levelData.levelName} from ${levelData.gameNameUsa}`;
 
     let body;
 
-    const hideOnFirstRender = { visibility: jsSecondRender ? "visible" : "hidden" };
+    const hideOnFirstRender = { visibility: jsSecondRender ? "visible" : "hidden" } as const;
 
     if (fullscreen) {
         body = (
@@ -56,7 +69,7 @@ const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { curr
                     alt={levelDescription}
                 />
                 <div className={styles.levelImageFooter}>
-                    {!!labels && (
+                    {!!labels && !!currentLabel && (
                         <BackgroundLabels {...levelData} labels={labels} currentLabel={currentLabel} fullscreen />
                     )}
                     <Link
@@ -91,7 +104,7 @@ const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { curr
                             alt={levelDescription}
                         />
                         <div className={styles.levelImageFooter}>
-                            {!!labels && (
+                            {!!labels && !!currentLabel && (
                                 <BackgroundLabels {...levelData} labels={labels} currentLabel={currentLabel} />
                             )}
                             <Link
@@ -107,7 +120,7 @@ const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { curr
                         </div>
                     </div>
                 </div>
-                <BackgroundHeader className={styles.header} prevLevel={prevLevel} nextLevel={nextLevel} />
+                <BackgroundHeader className={styles.header} nextLevel={nextLevel} />
             </Layout>
         );
     }
@@ -124,7 +137,7 @@ const BackgroundTemplate: React.FunctionComponent = ({ data, pageContext: { curr
 };
 
 export const query = graphql`
-    query(
+    query BackgroundTemplate(
         $currentId: Int!
         $prevId: Int!
         $nextId: Int!
