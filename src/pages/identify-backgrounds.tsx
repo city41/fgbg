@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import { IdentifyEntry } from "../components/identifyEntry";
 import { IdentifyBackgroundsPageQuery } from "../graphqlTypes";
 import { Layout } from "../components/layout";
+import SEO from "../components/seo";
 
 import styles from "./identify-backgrounds.module.css";
 
@@ -11,6 +12,8 @@ interface IdentifyBackgroundsPageProps {
 }
 
 const IdentifyBackgroundsPage: React.FunctionComponent<IdentifyBackgroundsPageProps> = ({ data }) => {
+    const twitterImg = data.twitterImg.edges[0].node.childImageSharp.fixed.src;
+
     const identityDatas = data.unknowns.edges.map(e => {
         const originalName = e.node.childImageSharp.fixed.originalName;
         const unknownId = originalName.replace("_static.jpg", "");
@@ -28,24 +31,31 @@ const IdentifyBackgroundsPage: React.FunctionComponent<IdentifyBackgroundsPagePr
     });
 
     return (
-        <Layout logoClassName={styles.logo}>
-            <div className={styles.root}>
-                <p className={styles.intro}>
-                    Do you know what games these {data.unknowns.totalCount} backgrounds are from? Let us know!
-                </p>
-                <div className={styles.identityEntriesContainer}>
-                    {identityDatas.map(identityData => (
-                        <IdentifyEntry
-                            className={styles.identityEntry}
-                            key={identityData.unknownId}
-                            unknownId={identityData.unknownId}
-                            thumbnailData={identityData.thumbnailData}
-                            fullImageUrl={identityData.fullImageUrl}
-                        />
-                    ))}
+        <>
+            <SEO
+                title="Unknown backgrounds | FGBG"
+                description="help identify these unknown backgrounds from fighting games"
+                imageUrl={twitterImg}
+            />
+            <Layout logoClassName={styles.logo}>
+                <div className={styles.root}>
+                    <p className={styles.intro}>
+                        Do you know what games these {data.unknowns.totalCount} backgrounds are from? Let us know!
+                    </p>
+                    <div className={styles.identityEntriesContainer}>
+                        {identityDatas.map(identityData => (
+                            <IdentifyEntry
+                                className={styles.identityEntry}
+                                key={identityData.unknownId}
+                                unknownId={identityData.unknownId}
+                                thumbnailData={identityData.thumbnailData}
+                                fullImageUrl={identityData.fullImageUrl}
+                            />
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </Layout>
+            </Layout>
+        </>
     );
 };
 
@@ -79,6 +89,17 @@ export const query = graphql`
             edges {
                 node {
                     publicURL
+                }
+            }
+        }
+        twitterImg: allFile(filter: { relativePath: { regex: "/bgs/static/kof99_park1/" } }) {
+            edges {
+                node {
+                    childImageSharp {
+                        fixed(height: 200) {
+                            src
+                        }
+                    }
                 }
             }
         }
