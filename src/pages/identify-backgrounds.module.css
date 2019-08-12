@@ -3,6 +3,10 @@
     width: 75%;
 }
 
+.intro {
+    padding: 16px;
+}
+
 @media (max-width: 700px) {
     .root {
         margin-left: 0;

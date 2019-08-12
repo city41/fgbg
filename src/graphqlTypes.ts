@@ -2858,33 +2858,33 @@ export type IdentifyBackgroundsPageQueryVariables = {};
 
 export type IdentifyBackgroundsPageQuery = { __typename?: "Query" } & {
     unknowns: Maybe<
-        { __typename?: "FileConnection" } & {
-            edges: Array<
-                { __typename?: "FileEdge" } & {
-                    node: { __typename?: "File" } & Pick<File, "relativePath" | "publicURL"> & {
-                            childImageSharp: Maybe<
-                                { __typename?: "ImageSharp" } & {
-                                    original: Maybe<
-                                        { __typename?: "ImageSharpOriginal" } & Pick<
-                                            ImageSharpOriginal,
-                                            "width" | "height"
-                                        >
-                                    >;
-                                    fixed: Maybe<
-                                        { __typename?: "ImageSharpFixed" } & Pick<
-                                            ImageSharpFixed,
-                                            "src" | "originalName"
-                                        >
-                                    >;
-                                    dataUrl: Maybe<
-                                        { __typename?: "ImageSharpFixed" } & Pick<ImageSharpFixed, "base64">
-                                    >;
-                                }
-                            >;
-                        };
-                }
-            >;
-        }
+        { __typename?: "FileConnection" } & Pick<FileConnection, "totalCount"> & {
+                edges: Array<
+                    { __typename?: "FileEdge" } & {
+                        node: { __typename?: "File" } & Pick<File, "relativePath" | "publicURL"> & {
+                                childImageSharp: Maybe<
+                                    { __typename?: "ImageSharp" } & {
+                                        original: Maybe<
+                                            { __typename?: "ImageSharpOriginal" } & Pick<
+                                                ImageSharpOriginal,
+                                                "width" | "height"
+                                            >
+                                        >;
+                                        fixed: Maybe<
+                                            { __typename?: "ImageSharpFixed" } & Pick<
+                                                ImageSharpFixed,
+                                                "src" | "originalName"
+                                            >
+                                        >;
+                                        dataUrl: Maybe<
+                                            { __typename?: "ImageSharpFixed" } & Pick<ImageSharpFixed, "base64">
+                                        >;
+                                    }
+                                >;
+                            };
+                    }
+                >;
+            }
     >;
     unknownGifs: Maybe<
         { __typename?: "FileConnection" } & {

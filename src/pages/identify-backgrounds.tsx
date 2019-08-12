@@ -30,7 +30,9 @@ const IdentifyBackgroundsPage: React.FunctionComponent<IdentifyBackgroundsPagePr
     return (
         <Layout logoClassName={styles.logo}>
             <div className={styles.root}>
-                <p>Do you know what games these backgrounds are from? Let us know!</p>
+                <p className={styles.intro}>
+                    Do you know what games these {data.unknowns.totalCount} backgrounds are from? Let us know!
+                </p>
                 <div className={styles.identityEntriesContainer}>
                     {identityDatas.map(identityData => (
                         <IdentifyEntry
@@ -52,6 +54,7 @@ export default IdentifyBackgroundsPage;
 export const query = graphql`
     query IdentifyBackgroundsPage {
         unknowns: allFile(filter: { relativePath: { regex: "/bgs/unknown/static/" } }) {
+            totalCount
             edges {
                 node {
                     relativePath
