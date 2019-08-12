@@ -24,6 +24,8 @@ export const IdentifyEntry: React.FunctionComponent<IdentifyEntryProps> = ({ cla
         { unknownId }
     );
 
+    const idEl = process.env.NODE_ENV === "production" ? null : <div>{unknownId}</div>;
+
     const classes = classnames(styles.root, className);
 
     let form;
@@ -79,6 +81,7 @@ export const IdentifyEntry: React.FunctionComponent<IdentifyEntryProps> = ({ cla
                     width={400}
                     alt="unknown fighting game background"
                 />
+                {idEl}
                 {form}
             </div>
         </>
