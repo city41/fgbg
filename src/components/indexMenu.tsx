@@ -15,9 +15,6 @@ export const IndexMenu: React.FunctionComponent<IndexMenuProps> = ({ className }
         <div className={classes}>
             <ul>
                 <li>
-                    <Link to="/identify-backgrounds">help us!</Link>
-                </li>
-                <li>
                     <Link to="/about">about</Link>
                 </li>
             </ul>

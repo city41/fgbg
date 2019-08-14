@@ -38,10 +38,6 @@ const AboutPage: React.FunctionComponent<AboutPageProps> = ({ data }) => {
                         posted, but as time went on the images gradually turned into broken links or became corrupted. I
                         decided to create a more permanent home for this awesome artwork, and FGBG was born.
                     </p>
-                    <p>
-                        FGBG's goal is to gather as many backgrounds as possible, you can help by{" "}
-                        <Link to="/identify-backgrounds">identifying unknown backgrounds</Link>.
-                    </p>
                     <p className={styles.signOff}>
                         Thanks for stopping by - <a href="https://twitter.com/mattegreer">Matt</a>
                     </p>
