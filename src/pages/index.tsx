@@ -6,7 +6,7 @@ import { BrowseColumn } from "../components/browseColumn";
 import { NewSinceLastVisitLink } from "../components/newSinceLastVisitLink";
 import { IndexMenu } from "../components/indexMenu";
 import SEO from "../components/seo";
-import { fileRoot, seriesPath, developerPath, systemPath, yearPath } from "../util";
+import { fileRoot, seriesPath, developerPath, otherPath, systemPath, yearPath } from "../util";
 import { byIgnoreThe } from "../util/sort";
 import { IndexPageQuery } from "../graphqlTypes";
 
@@ -80,6 +80,7 @@ const IndexPage: React.FunctionComponent<IndexPageProps> = ({ data }) => {
                             pathFn={yearPath}
                             values={data.years.distinct}
                         />
+                        <BrowseColumn title="other" pathFn={otherPath} values={["multipart"]} />
                     </div>
                 </div>
             </div>

@@ -25,6 +25,7 @@ interface ListTemplateProps {
     pageContext: {
         listTypeValue: string;
         thumbnails: Thumbnail[];
+        description?: string;
     };
     data: {
         levels: {
@@ -45,7 +46,7 @@ const ListTemplate: React.FunctionComponent<ListTemplateProps> = ({
     children,
     dontGroup,
     data,
-    pageContext: { listTypeValue, thumbnails },
+    pageContext: { listTypeValue, thumbnails, description },
 }) => {
     const levels = data.levels.edges.map(e => e.node);
 
@@ -106,6 +107,7 @@ const ListTemplate: React.FunctionComponent<ListTemplateProps> = ({
                         )}
                     </span>
                 </h1>
+                {description && <p>{description}</p>}
                 <noscript>
                     <div className={styles.noscriptWarning}>this page loads faster with JavaScript enabled</div>
                 </noscript>
