@@ -92,6 +92,8 @@ export const createListPages: GatsbyCreateListPages = async ({
 
     const allLevels = allLevelResult.data.levels.edges.map((e: any) => e.node);
 
+    const seoImageRoot = fileRoot(allLevels[0].imageFileName);
+
     distinctResult.data[field].distinct.forEach((fieldValue: string) => {
         const webPath = getWebPath(field, fieldValue);
 
@@ -114,6 +116,7 @@ export const createListPages: GatsbyCreateListPages = async ({
                 listType: field,
                 listTypeValue: fieldValue,
                 thumbnails,
+                seoImageRegex: "/bgs/static/" + seoImageRoot + "/",
             },
         });
     });

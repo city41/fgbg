@@ -1,11 +1,13 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { graphql } from "gatsby";
+import SEO from "./seo";
 import { groupBy } from "lodash";
 import { fileRoot } from "../util";
 import { LevelListEntry } from "./levelListEntry";
 import { Layout } from "./layout";
 import { byLevelName, byIgnoreThe } from "../util/sort";
+import { ListTemplateQuery } from "../graphqlTypes";
 
 import styles from "./listTemplate.module.css";
 
@@ -27,19 +29,7 @@ interface ListTemplateProps {
         thumbnails: Thumbnail[];
         description?: string;
     };
-    data: {
-        levels: {
-            edges: Array<{
-                node: {
-                    developer: string;
-                    gameNameUsa: string;
-                    levelName: string;
-                    system: string;
-                    imageFileName: string;
-                };
-            }>;
-        };
-    };
+    data: ListTemplateQuery;
 }
 
 const ListTemplate: React.FunctionComponent<ListTemplateProps> = ({
@@ -49,6 +39,7 @@ const ListTemplate: React.FunctionComponent<ListTemplateProps> = ({
     pageContext: { listTypeValue, thumbnails, description },
 }) => {
     const levels = data.levels.edges.map(e => e.node);
+    const twitterImageUrl = data.twitterImg && data.twitterImg.edges[0].node.childImageSharp.fixed.src;
 
     const byGame = groupBy(levels, "gameNameUsa");
 
@@ -92,33 +83,37 @@ const ListTemplate: React.FunctionComponent<ListTemplateProps> = ({
     );
 
     return (
-        <Layout logoClassName={styles.layoutLogo}>
-            <Helmet>
-                <title>{listTypeValue} - FGBG</title>
-            </Helmet>
-            <div className={styles.root}>
-                <h1>
-                    {listTypeValue}{" "}
-                    <span className={styles.levelCount}>
-                        {children || (
-                            <span>
-                                {levels.length} background{levels.length !== 1 && "s"}
-                            </span>
-                        )}
-                    </span>
-                </h1>
-                {description && <p>{description}</p>}
-                <noscript>
-                    <div className={styles.noscriptWarning}>this page loads faster with JavaScript enabled</div>
-                </noscript>
-                {gameBody}
-            </div>
-        </Layout>
+        <>
+            <SEO
+                title={`${listTypeValue} - FGBG`}
+                description="fighting game backgrounds website"
+                imageUrl={twitterImageUrl}
+            />
+            <Layout logoClassName={styles.layoutLogo}>
+                <div className={styles.root}>
+                    <h1>
+                        {listTypeValue}{" "}
+                        <span className={styles.levelCount}>
+                            {children || (
+                                <span>
+                                    {levels.length} background{levels.length !== 1 && "s"}
+                                </span>
+                            )}
+                        </span>
+                    </h1>
+                    {description && <p>{description}</p>}
+                    <noscript>
+                        <div className={styles.noscriptWarning}>this page loads faster with JavaScript enabled</div>
+                    </noscript>
+                    {gameBody}
+                </div>
+            </Layout>
+        </>
     );
 };
 
 export const query = graphql`
-    query ListTemplate($filter: googleSheetLeveldataRowFilterInput!) {
+    query ListTemplate($filter: googleSheetLeveldataRowFilterInput!, $seoImageRegex: String!) {
         levels: allGoogleSheetLeveldataRow(filter: $filter) {
             edges {
                 node {
@@ -127,6 +122,17 @@ export const query = graphql`
                     levelName
                     system
                     imageFileName
+                }
+            }
+        }
+        twitterImg: allFile(filter: { relativePath: { regex: $seoImageRegex } }) {
+            edges {
+                node {
+                    childImageSharp {
+                        fixed(height: 200) {
+                            src
+                        }
+                    }
                 }
             }
         }

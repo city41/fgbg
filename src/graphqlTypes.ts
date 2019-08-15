@@ -2013,6 +2013,7 @@ export type SitePageContext = {
     listType: Maybe<Scalars["String"]>;
     listTypeValue: Maybe<Scalars["String"]>;
     thumbnails: Maybe<Array<Maybe<SitePageContextThumbnails>>>;
+    description: Maybe<Scalars["String"]>;
 };
 
 export type SitePageContextFilter = {
@@ -2022,6 +2023,7 @@ export type SitePageContextFilter = {
     series: Maybe<SitePageContextFilterSeries>;
     developer: Maybe<SitePageContextFilterDeveloper>;
     gameNameUsa: Maybe<SitePageContextFilterGameNameUsa>;
+    imageFileName: Maybe<SitePageContextFilterImageFileName>;
 };
 
 export type SitePageContextFilterDeveloper = {
@@ -2042,12 +2044,22 @@ export type SitePageContextFilterGameNameUsaInput = {
     eq: Maybe<Scalars["String"]>;
 };
 
+export type SitePageContextFilterImageFileName = {
+    __typename?: "SitePageContextFilterImageFileName";
+    regex: Maybe<Scalars["String"]>;
+};
+
+export type SitePageContextFilterImageFileNameInput = {
+    regex: Maybe<Scalars["String"]>;
+};
+
 export type SitePageContextFilterInput = {
     year: Maybe<SitePageContextFilterYearInput>;
     system: Maybe<SitePageContextFilterSystemInput>;
     series: Maybe<SitePageContextFilterSeriesInput>;
     developer: Maybe<SitePageContextFilterDeveloperInput>;
     gameNameUsa: Maybe<SitePageContextFilterGameNameUsaInput>;
+    imageFileName: Maybe<SitePageContextFilterImageFileNameInput>;
 };
 
 export type SitePageContextFilterSeries = {
@@ -2198,6 +2210,7 @@ export enum SitePageFieldsEnum {
     context___filter___series___eq = "context___filter___series___eq",
     context___filter___developer___eq = "context___filter___developer___eq",
     context___filter___gameNameUsa___eq = "context___filter___gameNameUsa___eq",
+    context___filter___imageFileName___regex = "context___filter___imageFileName___regex",
     context___listType = "context___listType",
     context___listTypeValue = "context___listTypeValue",
     context___thumbnails = "context___thumbnails",
@@ -2205,6 +2218,7 @@ export enum SitePageFieldsEnum {
     context___thumbnails___width = "context___thumbnails___width",
     context___thumbnails___height = "context___thumbnails___height",
     context___thumbnails___dataUrl = "context___thumbnails___dataUrl",
+    context___description = "context___description",
     pluginCreator___id = "pluginCreator___id",
     pluginCreator___parent___id = "pluginCreator___parent___id",
     pluginCreator___parent___parent___id = "pluginCreator___parent___parent___id",
@@ -2805,6 +2819,21 @@ export type ListTemplateQuery = { __typename?: "Query" } & {
             >;
         }
     >;
+    twitterImg: Maybe<
+        { __typename?: "FileConnection" } & {
+            edges: Array<
+                { __typename?: "FileEdge" } & {
+                    node: { __typename?: "File" } & {
+                        childImageSharp: Maybe<
+                            { __typename?: "ImageSharp" } & {
+                                fixed: Maybe<{ __typename?: "ImageSharpFixed" } & Pick<ImageSharpFixed, "src">>;
+                            }
+                        >;
+                    };
+                }
+            >;
+        }
+    >;
 };
 
 export type Unnamed_1_QueryVariables = {};
@@ -2889,6 +2918,21 @@ export type IdentifyBackgroundsPageQuery = { __typename?: "Query" } & {
     unknownGifs: Maybe<
         { __typename?: "FileConnection" } & {
             edges: Array<{ __typename?: "FileEdge" } & { node: { __typename?: "File" } & Pick<File, "publicURL"> }>;
+        }
+    >;
+    twitterImg: Maybe<
+        { __typename?: "FileConnection" } & {
+            edges: Array<
+                { __typename?: "FileEdge" } & {
+                    node: { __typename?: "File" } & {
+                        childImageSharp: Maybe<
+                            { __typename?: "ImageSharp" } & {
+                                fixed: Maybe<{ __typename?: "ImageSharpFixed" } & Pick<ImageSharpFixed, "src">>;
+                            }
+                        >;
+                    };
+                }
+            >;
         }
     >;
 };

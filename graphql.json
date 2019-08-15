@@ -6554,6 +6554,16 @@
                             "ofType": null
                         },
                         "defaultValue": null
+                    },
+                    {
+                        "name": "imageFileName",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "SitePageContextFilterImageFileNameInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
                     }
                 ],
                 "interfaces": null,
@@ -6636,6 +6646,23 @@
                 "inputFields": [
                     {
                         "name": "eq",
+                        "description": null,
+                        "type": { "kind": "SCALAR", "name": "String", "ofType": null },
+                        "defaultValue": null
+                    }
+                ],
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "INPUT_OBJECT",
+                "name": "SitePageContextFilterImageFileNameInput",
+                "description": null,
+                "fields": null,
+                "inputFields": [
+                    {
+                        "name": "regex",
                         "description": null,
                         "type": { "kind": "SCALAR", "name": "String", "ofType": null },
                         "defaultValue": null
@@ -7449,6 +7476,14 @@
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
+                    },
+                    {
+                        "name": "description",
+                        "description": null,
+                        "args": [],
+                        "type": { "kind": "SCALAR", "name": "String", "ofType": null },
+                        "isDeprecated": false,
+                        "deprecationReason": null
                     }
                 ],
                 "inputFields": null,
@@ -7498,6 +7533,14 @@
                         "description": null,
                         "args": [],
                         "type": { "kind": "OBJECT", "name": "SitePageContextFilterGameNameUsa", "ofType": null },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "imageFileName",
+                        "description": null,
+                        "args": [],
+                        "type": { "kind": "OBJECT", "name": "SitePageContextFilterImageFileName", "ofType": null },
                         "isDeprecated": false,
                         "deprecationReason": null
                     }
@@ -7590,6 +7633,25 @@
                 "fields": [
                     {
                         "name": "eq",
+                        "description": null,
+                        "args": [],
+                        "type": { "kind": "SCALAR", "name": "String", "ofType": null },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    }
+                ],
+                "inputFields": null,
+                "interfaces": [],
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "OBJECT",
+                "name": "SitePageContextFilterImageFileName",
+                "description": null,
+                "fields": [
+                    {
+                        "name": "regex",
                         "description": null,
                         "args": [],
                         "type": { "kind": "SCALAR", "name": "String", "ofType": null },
@@ -9022,6 +9084,12 @@
                         "deprecationReason": null
                     },
                     {
+                        "name": "context___filter___imageFileName___regex",
+                        "description": null,
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
                         "name": "context___listType",
                         "description": null,
                         "isDeprecated": false,
@@ -9059,6 +9127,12 @@
                     },
                     {
                         "name": "context___thumbnails___dataUrl",
+                        "description": null,
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "context___description",
                         "description": null,
                         "isDeprecated": false,
                         "deprecationReason": null

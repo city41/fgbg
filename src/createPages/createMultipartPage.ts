@@ -66,6 +66,8 @@ export const createMultipartPage: GatsbyCreatePages = async ({ graphql, boundAct
         return levelNode.imageFileName.split(",").length > 1;
     });
 
+    const seoImageRoot = fileRoot(multipartLevels[0].imageFileName);
+
     const thumbnails = getThumbnails(multipartLevels, allThumbnails).map(t => {
         return {
             publicURL: t.publicURL,
@@ -85,6 +87,7 @@ export const createMultipartPage: GatsbyCreatePages = async ({ graphql, boundAct
             thumbnails,
             description:
                 'All of the backgrounds here have multiple "parts", for example they might change from round 1 to round 2',
+            seoImageRegex: "/bgs/static/" + seoImageRoot + "/",
         },
     });
 };
