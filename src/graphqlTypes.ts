@@ -822,6 +822,8 @@ export type GoogleSheetLeveldataRow = Node & {
     year: Maybe<Scalars["Int"]>;
     series: Maybe<Scalars["String"]>;
     labels: Maybe<Scalars["String"]>;
+    ripCredit: Maybe<Scalars["String"]>;
+    ripCreditUrl: Maybe<Scalars["String"]>;
 };
 
 export type GoogleSheetLeveldataRowConnection = {
@@ -948,6 +950,8 @@ export enum GoogleSheetLeveldataRowFieldsEnum {
     year = "year",
     series = "series",
     labels = "labels",
+    ripCredit = "ripCredit",
+    ripCreditUrl = "ripCreditUrl",
 }
 
 export type GoogleSheetLeveldataRowFilterInput = {
@@ -965,6 +969,8 @@ export type GoogleSheetLeveldataRowFilterInput = {
     year: Maybe<IntQueryOperatorInput>;
     series: Maybe<StringQueryOperatorInput>;
     labels: Maybe<StringQueryOperatorInput>;
+    ripCredit: Maybe<StringQueryOperatorInput>;
+    ripCreditUrl: Maybe<StringQueryOperatorInput>;
 };
 
 export type GoogleSheetLeveldataRowGroupConnection = {
@@ -1767,6 +1773,8 @@ export type QueryGoogleSheetLeveldataRowArgs = {
     year: Maybe<IntQueryOperatorInput>;
     series: Maybe<StringQueryOperatorInput>;
     labels: Maybe<StringQueryOperatorInput>;
+    ripCredit: Maybe<StringQueryOperatorInput>;
+    ripCreditUrl: Maybe<StringQueryOperatorInput>;
 };
 
 export type QueryAllGoogleSheetLeveldataRowArgs = {
@@ -2013,6 +2021,7 @@ export type SitePageContext = {
     listType: Maybe<Scalars["String"]>;
     listTypeValue: Maybe<Scalars["String"]>;
     thumbnails: Maybe<Array<Maybe<SitePageContextThumbnails>>>;
+    seoImageRegex: Maybe<Scalars["String"]>;
     description: Maybe<Scalars["String"]>;
 };
 
@@ -2218,6 +2227,7 @@ export enum SitePageFieldsEnum {
     context___thumbnails___width = "context___thumbnails___width",
     context___thumbnails___height = "context___thumbnails___height",
     context___thumbnails___dataUrl = "context___thumbnails___dataUrl",
+    context___seoImageRegex = "context___seoImageRegex",
     context___description = "context___description",
     pluginCreator___id = "pluginCreator___id",
     pluginCreator___parent___id = "pluginCreator___parent___id",
@@ -2771,7 +2781,7 @@ export type BackgroundTemplateQuery = { __typename?: "Query" } & {
     currentLevel: Maybe<
         { __typename?: "googleSheetLeveldataRow" } & Pick<
             GoogleSheetLeveldataRow,
-            "levelName" | "gameNameUsa" | "developer" | "system" | "year" | "series"
+            "levelName" | "gameNameUsa" | "developer" | "system" | "year" | "series" | "ripCredit" | "ripCreditUrl"
         >
     >;
     prevLevel: Maybe<
@@ -2794,7 +2804,7 @@ export type BackgroundTemplateQuery = { __typename?: "Query" } & {
         { __typename?: "File" } & {
             childImageSharp: Maybe<
                 { __typename?: "ImageSharp" } & {
-                    resize: Maybe<{ __typename?: "ImageSharpResize" } & Pick<ImageSharpResize, "src">>;
+                    fixed: Maybe<{ __typename?: "ImageSharpFixed" } & Pick<ImageSharpFixed, "src">>;
                 }
             >;
         }
@@ -2804,6 +2814,7 @@ export type BackgroundTemplateQuery = { __typename?: "Query" } & {
 
 export type ListTemplateQueryVariables = {
     filter: GoogleSheetLeveldataRowFilterInput;
+    seoImageRegex: Scalars["String"];
 };
 
 export type ListTemplateQuery = { __typename?: "Query" } & {

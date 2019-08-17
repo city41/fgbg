@@ -41,6 +41,12 @@ const AboutPage: React.FunctionComponent<AboutPageProps> = ({ data }) => {
                     <p className={styles.signOff}>
                         Thanks for stopping by - <a href="https://twitter.com/mattegreer">Matt</a>
                     </p>
+                    <h2>rip credits</h2>
+                    <p>
+                        Currently every background on this site I found on the internet. I have no idea who ripped
+                        pretty much any of these. If you want credit for ripping a background, you can let me know by
+                        clicking the "submit a correction" link on the background in question.
+                    </p>
                 </div>
             </div>
         </>

@@ -54,6 +54,14 @@ export const CorrectionForm: React.FunctionComponent<CorrectionFormProps> = ({ c
                 </div>
                 {!hasSubmitted && (
                     <div className={styles.inputGrid}>
+                        <label htmlFor="ripCredit">rip credit (name and website)</label>
+                        <input
+                            readOnly={hasSubmitted}
+                            type="text"
+                            name="ripCredit"
+                            value={inputs.ripCredit}
+                            onChange={handleInputChange}
+                        />
                         <label htmlFor="levelName">level name</label>
                         <input
                             readOnly={hasSubmitted}

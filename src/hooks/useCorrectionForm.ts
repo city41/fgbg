@@ -11,6 +11,7 @@ const mapToGoogle = {
     siteUrl: "entry.36955456",
     submissionType: "entry.1271839613",
     unknownId: "entry.1564011080",
+    ripCredit: "entry.116198943",
 };
 
 const initialState = Object.keys(mapToGoogle).reduce<Record<string, string>>((building, keyName) => {

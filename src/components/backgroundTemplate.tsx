@@ -90,8 +90,15 @@ const BackgroundTemplate: React.FunctionComponent<BackgroundTemplateProps> = ({
                 <div className={styles.blur} style={{ backgroundImage: `url(${bgImageUrl})` }} />
                 <div className={styles.root}>
                     <div className={styles.imageContainer}>
-                        <div className={styles.correctionLink} style={hideOnFirstRender}>
-                            <a onClick={() => setCorrectionModalOpen(true)}>submit a correction</a>
+                        <div className={styles.upperLinkContainer}>
+                            <div className={styles.correctionLink} style={hideOnFirstRender}>
+                                <a onClick={() => setCorrectionModalOpen(true)}>submit a correction</a>
+                            </div>
+                            {!!levelData.ripCredit && (
+                                <div className={styles.ripCreditLink}>
+                                    ripped by: <a href={levelData.ripCreditUrl}>{levelData.ripCredit}</a>
+                                </div>
+                            )}
                         </div>
                         <LevelImage
                             className={styles.levelImage}
@@ -149,6 +156,8 @@ export const query = graphql`
             system
             year
             series
+            ripCredit
+            ripCreditUrl
         }
         prevLevel: googleSheetLeveldataRow(levelId: { eq: $prevId }) {
             levelName

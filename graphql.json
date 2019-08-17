@@ -1114,6 +1114,18 @@
                                 "description": null,
                                 "type": { "kind": "INPUT_OBJECT", "name": "StringQueryOperatorInput", "ofType": null },
                                 "defaultValue": null
+                            },
+                            {
+                                "name": "ripCredit",
+                                "description": null,
+                                "type": { "kind": "INPUT_OBJECT", "name": "StringQueryOperatorInput", "ofType": null },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "ripCreditUrl",
+                                "description": null,
+                                "type": { "kind": "INPUT_OBJECT", "name": "StringQueryOperatorInput", "ofType": null },
+                                "defaultValue": null
                             }
                         ],
                         "type": { "kind": "OBJECT", "name": "googleSheetLeveldataRow", "ofType": null },
@@ -7478,6 +7490,14 @@
                         "deprecationReason": null
                     },
                     {
+                        "name": "seoImageRegex",
+                        "description": null,
+                        "args": [],
+                        "type": { "kind": "SCALAR", "name": "String", "ofType": null },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
                         "name": "description",
                         "description": null,
                         "args": [],
@@ -9127,6 +9147,12 @@
                     },
                     {
                         "name": "context___thumbnails___dataUrl",
+                        "description": null,
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "context___seoImageRegex",
                         "description": null,
                         "isDeprecated": false,
                         "deprecationReason": null
@@ -13979,6 +14005,22 @@
                         "type": { "kind": "SCALAR", "name": "String", "ofType": null },
                         "isDeprecated": false,
                         "deprecationReason": null
+                    },
+                    {
+                        "name": "ripCredit",
+                        "description": null,
+                        "args": [],
+                        "type": { "kind": "SCALAR", "name": "String", "ofType": null },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "ripCreditUrl",
+                        "description": null,
+                        "args": [],
+                        "type": { "kind": "SCALAR", "name": "String", "ofType": null },
+                        "isDeprecated": false,
+                        "deprecationReason": null
                     }
                 ],
                 "inputFields": null,
@@ -14072,6 +14114,18 @@
                     },
                     {
                         "name": "labels",
+                        "description": null,
+                        "type": { "kind": "INPUT_OBJECT", "name": "StringQueryOperatorInput", "ofType": null },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "ripCredit",
+                        "description": null,
+                        "type": { "kind": "INPUT_OBJECT", "name": "StringQueryOperatorInput", "ofType": null },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "ripCreditUrl",
                         "description": null,
                         "type": { "kind": "INPUT_OBJECT", "name": "StringQueryOperatorInput", "ofType": null },
                         "defaultValue": null
@@ -14625,7 +14679,9 @@
                     { "name": "developer", "description": null, "isDeprecated": false, "deprecationReason": null },
                     { "name": "year", "description": null, "isDeprecated": false, "deprecationReason": null },
                     { "name": "series", "description": null, "isDeprecated": false, "deprecationReason": null },
-                    { "name": "labels", "description": null, "isDeprecated": false, "deprecationReason": null }
+                    { "name": "labels", "description": null, "isDeprecated": false, "deprecationReason": null },
+                    { "name": "ripCredit", "description": null, "isDeprecated": false, "deprecationReason": null },
+                    { "name": "ripCreditUrl", "description": null, "isDeprecated": false, "deprecationReason": null }
                 ],
                 "possibleTypes": null
             },

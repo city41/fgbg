@@ -1,13 +1,14 @@
 .root {
-    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 24px auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.root p {
-    max-width: 600px;
-    margin: 0 auto 24px auto;
+.root h2 {
+    margin-top: 60px;
+    text-align: center;
 }
 
 .menu {
