@@ -140,7 +140,7 @@ export const query = graphql`
             edges {
                 node {
                     childImageSharp {
-                        fixed(height: 200) {
+                        fixed(height: 300, width: 300) {
                             src
                         }
                     }

@@ -21,6 +21,7 @@ export const createPages: GatsbyCreatePages = async fns => {
 
         await createMultipartPage({ ...fns });
     } catch (e) {
+        console.log("createPages caught error", e);
         process.exit(1);
     }
 };

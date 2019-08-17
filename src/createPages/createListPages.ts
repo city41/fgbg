@@ -92,9 +92,14 @@ export const createListPages: GatsbyCreateListPages = async ({
 
     const allLevels = allLevelResult.data.levels.edges.map((e: any) => e.node);
 
-    const seoImageRoot = fileRoot(allLevels[0].imageFileName);
-
     distinctResult.data[field].distinct.forEach((fieldValue: string) => {
+        console.log("field", field, "fieldValue", fieldValue);
+        const firstMatchingLevel = allLevelResult.data.levels.edges.find((e: any) => {
+            return e.node[field].toString() === fieldValue;
+        });
+
+        const seoImageRoot = fileRoot(firstMatchingLevel.node.imageFileName);
+
         const webPath = getWebPath(field, fieldValue);
 
         const filterValue = fieldTransform ? fieldTransform(fieldValue) : fieldValue;

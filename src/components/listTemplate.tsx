@@ -85,7 +85,7 @@ const ListTemplate: React.FunctionComponent<ListTemplateProps> = ({
     return (
         <>
             <SEO
-                title={`${listTypeValue} - FGBG`}
+                title={`${listTypeValue} backgrounds - FGBG`}
                 description="fighting game backgrounds website"
                 imageUrl={twitterImageUrl}
             />
@@ -129,7 +129,7 @@ export const query = graphql`
             edges {
                 node {
                     childImageSharp {
-                        fixed(height: 200) {
+                        fixed(height: 300, width: 300) {
                             src
                         }
                     }

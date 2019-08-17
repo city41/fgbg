@@ -44,7 +44,7 @@ const BackgroundTemplate: React.FunctionComponent<BackgroundTemplateProps> = ({
 
     const imgUrl = data.mainImg && data.mainImg.publicURL;
     const bgImageUrl = data.bgImg && data.bgImg.childImageSharp.resize.src;
-    const twitterImageUrl = data.twitterImg.childImageSharp.resize.src;
+    const twitterImageUrl = data.twitterImg.childImageSharp.fixed.src;
 
     const levelDescription = `${levelData.levelName} from ${levelData.gameNameUsa}`;
 
@@ -170,7 +170,7 @@ export const query = graphql`
         }
         twitterImg: file(relativePath: { eq: $bgImageRelativePath }) {
             childImageSharp {
-                resize(height: 300) {
+                fixed(height: 300, width: 300) {
                     src
                 }
             }

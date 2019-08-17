@@ -34,6 +34,60 @@ const SEO: React.FunctionComponent<SEOProps> = ({ description = "", lang = "en",
 
     const metaDescription = description || site.siteMetadata.description;
 
+    const fullMeta = [
+        {
+            name: `description`,
+            content: metaDescription,
+        },
+        {
+            property: `og:title`,
+            content: title,
+        },
+        {
+            property: `og:description`,
+            content: metaDescription,
+        },
+        {
+            property: `og:type`,
+            content: `website`,
+        },
+        {
+            name: `twitter:card`,
+            content: imageUrl ? "summary_large_image" : "summary",
+        },
+        {
+            name: `twitter:creator`,
+            content: site.siteMetadata.author,
+        },
+        {
+            name: `twitter:title`,
+            content: title,
+        },
+        {
+            name: `twitter:description`,
+            content: metaDescription,
+        },
+        {
+            name: `twitter:site`,
+            content: "@mattegreer",
+        },
+    ].concat(meta);
+
+    if (imageUrl) {
+        const fullImageUrl = `https://www.fgbg.art${imageUrl}`;
+
+        fullMeta.push(
+            {
+                name: `twitter:image`,
+                content: fullImageUrl,
+            },
+            {
+                property: "og:image",
+                content: fullImageUrl,
+            }
+        );
+    }
+
     return (
         <Helmet
             htmlAttributes={{
@@ -41,50 +95,7 @@ const SEO: React.FunctionComponent<SEOProps> = ({ description = "", lang = "en",
             }}
             title={title}
             titleTemplate={`%s | ${site.siteMetadata.title}`}
-            meta={[
-                {
-                    name: `description`,
-                    content: metaDescription,
-                },
-                {
-                    property: `og:title`,
-                    content: title,
-                },
-                {
-                    property: `og:description`,
-                    content: metaDescription,
-                },
-                {
-                    property: `og:type`,
-                    content: `website`,
-                },
-                {
-                    name: `twitter:card`,
-                    content: imageUrl ? "summary_large_image" : "summary",
-                },
-                {
-                    name: `twitter:creator`,
-                    content: site.siteMetadata.author,
-                },
-                {
-                    name: `twitter:title`,
-                    content: title,
-                },
-                {
-                    name: `twitter:description`,
-                    content: metaDescription,
-                },
-                {
-                    name: `twitter:site`,
-                    content: "@mattegreer",
-                },
-                imageUrl
-                    ? {
-                          name: `twitter:image`,
-                          content: `https://www.fgbg.art${imageUrl}`,
-                      }
-                    : {},
-            ].concat(meta)}
+            meta={fullMeta}
         />
     );
 };
