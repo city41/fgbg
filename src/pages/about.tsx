@@ -39,13 +39,23 @@ const AboutPage: React.FunctionComponent<AboutPageProps> = ({ data }) => {
                         decided to create a more permanent home for this awesome artwork, and FGBG was born.
                     </p>
                     <p className={styles.signOff}>
-                        Thanks for stopping by - <a href="https://twitter.com/mattegreer">Matt</a>
+                        Thanks for stopping by -{" "}
+                        <a href="https://twitter.com/mattegreer" alt="mattegreer on twitter">
+                            Matt
+                        </a>
                     </p>
                     <h2>rip credits</h2>
                     <p>
                         Currently every background on this site I found on the internet. I have no idea who ripped
                         pretty much any of these. If you want credit for ripping a background, you can let me know by
                         clicking the "submit a correction" link on the background in question.
+                    </p>
+                    <p>
+                        Did you rip a whole bunch of these? Feel free to{" "}
+                        <a href="mailto:matt.e.greer@gmail.com" alt="site owner email address">
+                            email me
+                        </a>{" "}
+                        and let me know, I'll get your credit up, or take the backgrounds down if you prefer that.
                     </p>
                 </div>
             </div>
