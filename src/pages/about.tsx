@@ -4,6 +4,7 @@ import { IndexHeader } from "../components/indexHeader";
 import { IndexMenu } from "../components/indexMenu";
 import SEO from "../components/seo";
 import { AboutPageQuery } from "../graphqlTypes";
+import { gamePath, backgroundPath } from "../util";
 
 import styles from "./about.module.css";
 
@@ -46,8 +47,8 @@ const AboutPage: React.FunctionComponent<AboutPageProps> = ({ data }) => {
                     </p>
                     <h2>rip credits</h2>
                     <p>
-                        Currently every background on this site I found on the internet. I have no idea who ripped
-                        pretty much any of these. If you want credit for ripping a background, you can let me know by
+                        Most backgrounds on this site I found by searching the internet. I have no idea who ripped the
+                        backgrounds I found. If you want credit for ripping a background, you can let me know by
                         clicking the "submit a correction" link on the background in question.
                     </p>
                     <p>
@@ -56,6 +57,27 @@ const AboutPage: React.FunctionComponent<AboutPageProps> = ({ data }) => {
                             email me
                         </a>{" "}
                         and let me know, I'll get your credit up, or take the backgrounds down if you prefer that.
+                    </p>
+                    <h2>NGBG: Neo Geo rip tool</h2>
+                    <p>
+                        I am excited to say I am building a tool that makes ripping backgrounds from Neo Geo games
+                        really easy! So far it has been used to rip three backgrounds, one from{" "}
+                        <Link to={gamePath("World Heroes Perfect")}>World Heroes Perfect</Link> and two from{" "}
+                        <Link
+                            to={backgroundPath({
+                                gameNameUsa: "Kizuna Encounter",
+                                levelName: "Skyscraper Construction",
+                            })}
+                        >
+                            Kizuna Encounter
+                        </Link>
+                        . You can see a demo of the tool{" "}
+                        <a href="https://www.youtube.com/watch?v=xgQp2mm5K20" title="youtube demo of rip tool">
+                            here
+                        </a>
+                        . There is still a lot of work to be done one it, but once it's finished, it should be easy to
+                        get every Neo Geo background ever. From there I will look into expanding the tool for other
+                        systems such as CPS2.
                     </p>
                 </div>
             </div>
