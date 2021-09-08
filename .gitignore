@@ -15,6 +15,11 @@
 # production
 /build
 
+# ghidra
+decomp/tools/SMA4GhidraLoader/.gradle
+decomp/tools/SMA4GhidraLoader/build
+decomp/tools/SMA4GhidraLoader/dist
+
 # misc
 .DS_Store
 *.pem
@@ -25,10 +30,21 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
 
 # vercel
 .vercel
+
+.idea
+
+# copyrighted files
+**/*.gba
+/src/levelData/sma4savtool_classic1_2.sav
+/src/levelData/smaghetti_classic1_2.sav
+/src/levelData/star_02.level
+/brute/results*
+/brute/*.sav
+/brute/*.json
+/pngsForResources
+
+
