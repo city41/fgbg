@@ -1,4 +1,5 @@
 module.exports = {
+    pathPrefix: '/fgbg',
     siteMetadata: {
         title: "FGBG",
         description: "Fighting game backgrounds",

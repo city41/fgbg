@@ -62,7 +62,7 @@
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf .cache && rm -rf public",
-    "build": "yarn clean && yarn gen-images && gatsby build && cp ./CNAME public/",
+    "build": "yarn clean && yarn gen-images && gatsby build --prefix-paths",
     "develop": "yarn clean && yarn gen-images && gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
